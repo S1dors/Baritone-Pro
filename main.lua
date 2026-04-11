@@ -1,1 +1,1449 @@
-local v0=game:GetService("Players");local v1=game:GetService("PathfindingService");local v2=game:GetService("CoreGui");local v3=game:GetService("RunService");local v4=game:GetService("TweenService");local v5=game:GetService("Workspace");local v6=game:GetService("VirtualUser");local v7=game:GetService("VirtualInputManager");local v8=game:GetService("UserInputService");local v9=v0.LocalPlayer;local v10={Current=nil,IsTouch=v8.TouchEnabled,IsKeyboard=v8.KeyboardEnabled};v10.showSelector=function(v70) local v71=Instance.new("ScreenGui");v71.Name="PlatformSelector";v71.ResetOnSpawn=false;v71.ZIndexBehavior=Enum.ZIndexBehavior.Sibling;v71.Parent=v2;local v77=Instance.new("Frame");v77.Size=UDim2.new(1,0,1,0);v77.BackgroundColor3=Color3.fromRGB(5,6,10);v77.BackgroundTransparency=0;v77.Name="Frame";v77.Parent=v71;for v280=1,18 do local v281=Instance.new("Frame");v281.Size=UDim2.new(0,math.random(1,3),0,math.random(1,3));v281.Position=UDim2.new(math.random(0,100)/100 ,0,math.random(0,100)/100 ,0);v281.BackgroundColor3=((math.random(1,2)==1) and Color3.fromRGB(255,208,0)) or Color3.fromRGB(0,229,255) ;v281.BackgroundTransparency=math.random(4,8)/10 ;v281.BorderSizePixel=0;v281.Parent=v77;local v288=Instance.new("UICorner");v288.CornerRadius=UDim.new(1,0);v288.Parent=v281;task.spawn(function() while v281.Parent do local v608=(math.sin((tick() * math.random(1,3) * 0.5) + v280 ) + 1)/2 ;v281.BackgroundTransparency=0.3 + (v608 * 0.6) ;task.wait(0.05);end end);end local v83=Instance.new("Frame");v83.Size=UDim2.new(0,420,0,320);v83.Position=UDim2.new(0.5, -210,0.4, -160);v83.BackgroundColor3=Color3.fromRGB(11,14,18);v83.BackgroundTransparency=1;v83.BorderSizePixel=0;v83.Parent=v71;local v90=Instance.new("UIStroke");v90.Color=Color3.fromRGB(255,208,0);v90.Thickness=1.5;v90.Parent=v83;local function v94(v291,v292,v293) local v294=Instance.new("Frame");v294.Size=v291;v294.Position=v292;v294.BackgroundColor3=v293;v294.BorderSizePixel=0;v294.Parent=v83;end v94(UDim2.new(0,14,0,2),UDim2.new(0,0,0,0),Color3.fromRGB(255,208,0));v94(UDim2.new(0,2,0,14),UDim2.new(0,0,0,0),Color3.fromRGB(255,208,0));v94(UDim2.new(0,14,0,2),UDim2.new(1, -14,0,0),Color3.fromRGB(255,208,0));v94(UDim2.new(0,2,0,14),UDim2.new(1, -2,0,0),Color3.fromRGB(255,208,0));v94(UDim2.new(0,14,0,2),UDim2.new(0,0,1, -2),Color3.fromRGB(0,229,255));v94(UDim2.new(0,2,0,14),UDim2.new(0,0,1, -14),Color3.fromRGB(0,229,255));v94(UDim2.new(0,14,0,2),UDim2.new(1, -14,1, -2),Color3.fromRGB(0,229,255));v94(UDim2.new(0,2,0,14),UDim2.new(1, -2,1, -14),Color3.fromRGB(0,229,255));local v95=Instance.new("Frame");v95.Size=UDim2.new(1,0,0,3);v95.BackgroundColor3=Color3.fromRGB(255,208,0);v95.BorderSizePixel=0;v95.Parent=v83;local v100=Instance.new("Frame");v100.Size=UDim2.new(0.4,0,0,2);v100.Position=UDim2.new(0,0,1, -2);v100.BackgroundColor3=Color3.fromRGB(0,229,255);v100.BorderSizePixel=0;v100.Parent=v83;local function v106(v300,v301,v302) local v303=Instance.new(v300);for v472,v473 in pairs(v301 or {} ) do v303[v472]=v473;end if v302 then v303.Parent=v302;end return v303;end local v107=v106("Frame",{Size=UDim2.new(1,0,0,48),Position=UDim2.new(0,0,0,12),BackgroundTransparency=1},v83);local v108=v106("TextLabel",{Size=UDim2.new(1,0,1,0),BackgroundTransparency=1,Text="",TextColor3=Color3.fromRGB(255,208,0),Font=Enum.Font.Arcade,TextSize=28},v107);task.spawn(function() local v304="BARITONE PRO";for v475=1, #v304 do v108.Text=v304:sub(1,v475);if (v475< #v304) then v108.Text=v108.Text   .. "|" ;task.wait(0.07);v108.Text=v304:sub(1,v475);end task.wait(0.07);end local v305=true;task.spawn(function() while v108.Parent do v108.Text=v304   .. ((v305 and "|") or "") ;v305= not v305;task.wait(0.5);end end);end);task.spawn(function() local v306=0;while v108.Parent do v306=v306 + 0.04 ;local v477=(math.sin(v306 * 1.5 ) + 1)/2 ;v108.TextColor3=Color3.fromRGB(255,208,0):Lerp(Color3.fromRGB(255,228,100),v477);task.wait(0.05);end end);v106("TextLabel",{Size=UDim2.new(1, -20,0,16),Position=UDim2.new(0,10,0,62),BackgroundTransparency=1,Text=":: ADVANCED AUTOMATION & PATHFINDING LAYER",TextColor3=Color3.fromRGB(80,90,100),Font=Enum.Font.Code,TextSize=10},v83);v106("TextLabel",{Size=UDim2.new(1, -20,0,16),Position=UDim2.new(0,10,0,80),BackgroundTransparency=1,Text="SELECT YOUR PLATFORM TO CONTINUE",TextColor3=Color3.fromRGB(150,160,150),Font=Enum.Font.Code,TextSize=12},v83);v106("Frame",{Size=UDim2.new(0.85,0,0,1),Position=UDim2.new(0.075,0,0,104),BackgroundColor3=Color3.fromRGB(40,46,58),BorderSizePixel=0},v83);local function v109(v307,v308,v309,v310,v311,v312,v313) local v314=v106("TextButton",{Size=UDim2.new(0,178,0,140),Position=v311,BackgroundColor3=Color3.fromRGB(14,18,24),BorderSizePixel=0,Text=""},v83);local v315=Instance.new("UIStroke");v315.Color=v312;v315.Thickness=1.5;v315.Parent=v314;local function v319(v479,v480,v481) local v482=Instance.new("Frame");v482.Size=v479;v482.Position=v480;v482.BackgroundColor3=v481;v482.BorderSizePixel=0;v482.Parent=v314;end v319(UDim2.new(0,8,0,2),UDim2.new(0,0,0,0),v312);v319(UDim2.new(0,2,0,8),UDim2.new(0,0,0,0),v312);v319(UDim2.new(0,8,0,2),UDim2.new(1, -8,0,0),v312);v319(UDim2.new(0,2,0,8),UDim2.new(1, -2,0,0),v312);v319(UDim2.new(0,8,0,2),UDim2.new(0,0,1, -2),v312);v319(UDim2.new(0,2,0,8),UDim2.new(0,0,1, -8),v312);v319(UDim2.new(0,8,0,2),UDim2.new(1, -8,1, -2),v312);v319(UDim2.new(0,2,0,8),UDim2.new(1, -2,1, -8),v312);local v320=Instance.new("Frame");v320.Size=UDim2.new(1,0,0,2);v320.BackgroundColor3=v312;v320.BorderSizePixel=0;v320.Parent=v314;local v325=v106("Frame",{Size=UDim2.new(1,0,1,0),BackgroundColor3=v312,BackgroundTransparency=0.95,BorderSizePixel=0},v314);v106("TextLabel",{Size=UDim2.new(1,0,0,56),Position=UDim2.new(0,0,0,6),BackgroundTransparency=1,Text=v308,Font=Enum.Font.GothamBold,TextSize=42},v314);v106("TextLabel",{Size=UDim2.new(1, -8,0,22),Position=UDim2.new(0,4,0,66),BackgroundTransparency=1,Text=v307,TextColor3=Color3.fromRGB(245,245,235),Font=Enum.Font.Code,TextSize=15},v314);v106("TextLabel",{Size=UDim2.new(1, -8,0,14),Position=UDim2.new(0,4,0,90),BackgroundTransparency=1,Text=v309,TextColor3=v312,Font=Enum.Font.Code,TextSize=10},v314);v106("TextLabel",{Size=UDim2.new(1, -8,0,13),Position=UDim2.new(0,4,0,104),BackgroundTransparency=1,Text=v310,TextColor3=Color3.fromRGB(80,90,100),Font=Enum.Font.Code,TextSize=9},v314);v314.MouseEnter:Connect(function() v4:Create(v314,TweenInfo.new(0.15),{BackgroundColor3=Color3.fromRGB(20,26,34)}):Play();v4:Create(v315,TweenInfo.new(0.15),{Thickness=2.5}):Play();v4:Create(v325,TweenInfo.new(0.15),{BackgroundTransparency=0.88}):Play();end);v314.MouseLeave:Connect(function() v4:Create(v314,TweenInfo.new(0.15),{BackgroundColor3=Color3.fromRGB(14,18,24)}):Play();v4:Create(v315,TweenInfo.new(0.15),{Thickness=1.5}):Play();v4:Create(v325,TweenInfo.new(0.15),{BackgroundTransparency=0.95}):Play();end);v314.MouseButton1Click:Connect(function() v10.Current=v313;v4:Create(v314,TweenInfo.new(0.1),{BackgroundColor3=v312}):Play();task.wait(0.12);v4:Create(v83,TweenInfo.new(0.25,Enum.EasingStyle.Back,Enum.EasingDirection.In),{Position=UDim2.new(0.5, -210,0.6, -160),BackgroundTransparency=1}):Play();v4:Create(v77,TweenInfo.new(0.3),{BackgroundTransparency=1}):Play();task.wait(0.32);v71:Destroy();v70(v313);end);end v109("PC / DESKTOP","🖥️","Full UI  •  All effects  •  ESP","Keyboard + Mouse recommended",UDim2.new(0,14,0,114),Color3.fromRGB(0,229,255),"PC");v109("MOBILE","📱","Compact UI  •  Touch optimized","Works on Android & iOS",UDim2.new(0,208,0,114),Color3.fromRGB(255,70,160),"MOBILE");v106("TextLabel",{Size=UDim2.new(1,0,0,14),Position=UDim2.new(0,0,1, -16),BackgroundTransparency=1,Text="v80.0 (UNIVERSAL PREVIEW)  •  Sol's RNG Egg Farm",TextColor3=Color3.fromRGB(45,50,62),Font=Enum.Font.Code,TextSize=9},v83);v4:Create(v83,TweenInfo.new(0.4,Enum.EasingStyle.Back,Enum.EasingDirection.Out),{Position=UDim2.new(0.5, -210,0.5, -160),BackgroundTransparency=0}):Play();end;local v12={bg=Color3.fromRGB(8,10,14),bg2=Color3.fromRGB(11,14,18),panel=Color3.fromRGB(14,17,22),panel2=Color3.fromRGB(18,22,28),panel3=Color3.fromRGB(22,26,34),yellow=Color3.fromRGB(255,208,0),yellowSoft=Color3.fromRGB(255,228,100),cyan=Color3.fromRGB(0,229,255),cyanSoft=Color3.fromRGB(90,255,255),red=Color3.fromRGB(255,82,82),magenta=Color3.fromRGB(255,70,160),orange=Color3.fromRGB(255,110,0),green=Color3.fromRGB(0,255,128),text=Color3.fromRGB(245,245,235),dim=Color3.fromRGB(150,160,150),muted=Color3.fromRGB(92,98,108),line=Color3.fromRGB(64,70,82)};local v13={Enabled=false,Version="80.0 (UNIVERSAL)",WorkspaceFolder="Baritone_Universal_Temp",SpeedModes={{name="LEGIT",speed=16,color=v12.cyan},{name="BRISK",speed=18,color=v12.yellow},{name="MAX SAFE",speed=20,color=v12.red}},CurrentSpeedIndex=1,AgentSettings={AgentHeight=5,AgentRadius=2.5,AgentCanJump=true,WaypointSpacing=4},Visuals={ShowPath=true,ShowESP=true,ShowZones=true,HUDGlow=true},AntiAFK={Enabled=true,Interval=60},AutoReset={Enabled=true,ResetAfterCollect=true,ResetOnStuck=true,ResetDelay=0.5},DisplayZones={{name="BigIsland",pos=Vector3.new( -36.9,95.3, -110.2),radius=100,enabled=true},{name="SmallIsland",pos=Vector3.new(42.5,101.3, -425.4),radius=65,enabled=true},{name="ParkourZone",pos=Vector3.new(216.2,98.5, -617.6),radius=50,enabled=true}},BlacklistZones={{name="BigIsland",pos=Vector3.new( -36.9,95.3, -110.2),radius=100,enabled=true},{name="SmallIsland",pos=Vector3.new(42.5,101.3, -425.4),radius=50,enabled=true},{name="ParkourZone",pos=Vector3.new(216.2,98.5, -617.6),radius=50,enabled=true},{name="BenchBooth",pos=Vector3.new(240.2,95.2, -248.8),radius=12.5,enabled=true,hidden=true},{name="JumpTrap",pos=Vector3.new(456.5,107, -409.3),radius=15,enabled=true,hidden=true},{name="MountineTrap",pos=Vector3.new(540.4,95, -112.4),radius=50,enabled=true,hidden=true}},UI={}};v13.applyPlatformSettings=function(v110) if (v110=="MOBILE") then v13.UI={WindowSize=UDim2.new(0,340,0,560),FontSize={title=14,normal=11,small=10},ToggleHeight=32,ZoneToggleHeight=28,Padding=7,ShowScanlines=false,ShowRightRail=false,BoxHeight=44};v13.Visuals.HUDGlow=false;v13.Visuals.ShowZones=false;else v13.UI={WindowSize=UDim2.new(0,465,0,680),FontSize={title=18,normal=13,small=11},ToggleHeight=36,ZoneToggleHeight=32,Padding=10,ShowScanlines=true,ShowRightRail=true,BoxHeight=52};end end;local v15={NORMAL={color=Color3.fromRGB(200,200,200),priority=10,name="Normal"},WOOD={color=Color3.fromRGB(139,90,43),priority=9,name="Wood"},STONE={color=Color3.fromRGB(150,150,150),priority=9,name="Stone"},IRON={color=Color3.fromRGB(200,200,210),priority=8,name="Iron"},GREEN={color=Color3.fromRGB(50,255,50),priority=8,name="Green"},BLUE={color=Color3.fromRGB(50,170,255),priority=8,name="Blue"},ORANGE={color=Color3.fromRGB(255,170,50),priority=7,name="Orange"},GOLD={color=Color3.fromRGB(255,215,0),priority=6,name="Golden"},GOLDEN={color=Color3.fromRGB(255,215,0),priority=6,name="Golden"},DIAMOND={color=Color3.fromRGB(0,255,255),priority=5,name="Diamond"},EMERALD={color=Color3.fromRGB(80,200,120),priority=5,name="Emerald"},RUBY={color=Color3.fromRGB(224,17,95),priority=5,name="Ruby"},RED={color=Color3.fromRGB(255,50,50),priority=5,name="Red"},SAPPHIRE={color=Color3.fromRGB(15,82,186),priority=5,name="Sapphire"},PURPLE={color=Color3.fromRGB(170,50,255),priority=4,name="Purple"},AMETHYST={color=Color3.fromRGB(153,102,204),priority=4,name="Amethyst"},OBSIDIAN={color=Color3.fromRGB(60,48,90),priority=3,name="Obsidian"},VOID={color=Color3.fromRGB(30,0,50),priority=2,name="Void"},RAINBOW={color=Color3.fromRGB(255,105,180),priority=2,name="Rainbow"},GALAXY={color=Color3.fromRGB(138,43,226),priority=1,name="Galaxy"},GLITCHED={color=Color3.fromRGB(0,255,100),priority=1,name="Glitched"}};local v16={Status="IDLE",Collected=0,FarmStartTime=0,EggsCache={},Blacklist={},LogHistory={},UIConnections={},ZoneVisuals={},IsResetting=false};local v17={};local v18={};v18.getChar=function() return v9.Character;end;v18.getRoot=function() return v18.getChar() and v18.getChar():FindFirstChild("HumanoidRootPart") ;end;v18.getHum=function() return v18.getChar() and v18.getChar():FindFirstChildOfClass("Humanoid") ;end;v18.isAlive=function(v111) return v111 and (typeof(v111)=="Instance") and v111:IsDescendantOf(game) ;end;v18.clearFolder=function(v112) local v113=v5:FindFirstChild(v112);if v113 then v113:ClearAllChildren();else v113=Instance.new("Folder",v5);v113.Name=v112;end return v113;end;v18.getAttachPart=function(v114) if (v114:IsA("Model") and v114.PrimaryPart) then return v114.PrimaryPart;end if v114:IsA("BasePart") then return v114;end return v114:FindFirstChildWhichIsA("BasePart",true) or v114 ;end;v18.getLivePosition=function(v115) local v116=v18.getAttachPart(v115);if (v116 and v116:IsA("BasePart")) then return v116.Position;end return v115:GetPivot().Position;end;v18.formatTime=function(v117) local v118=math.floor(v117/3600 );local v119=math.floor((v117%3600)/60 );local v120=math.floor(v117%60 );return ((v118>0) and string.format("%dh %02dm",v118,v119)) or string.format("%dm %02ds",v119,v120) ;end;local v27={};v27.log=function(v121,v122) local v123=string.format("[%s] %s",os.date("%H:%M:%S"),v122);table.insert(v16.LogHistory,{type=v121,msg=v123});if ( #v16.LogHistory>50) then table.remove(v16.LogHistory,1);end if v17.Log then v17.Log(v123);end end;v27.setState=function(v124,v125) if ((v16.Status~=v124) or (v125 and (v125~=v16.CurrentTargetName))) then v16.Status=v124;v16.CurrentTargetName=v125 or "NONE" ;if v17.SetState then v17.SetState(v124);end if v17.SetTarget then v17.SetTarget(v16.CurrentTargetName);end end end;local v30={};v30.doReset=function(v126) if v16.IsResetting then return;end if  not v13.AutoReset.Enabled then return;end v16.IsResetting=true;v27.log("RESET",v126 or "AUTO RESET" );v27.setState("RESETTING","...");task.wait(v13.AutoReset.ResetDelay);local v128=v18.getHum();if v128 then v128.Health=0;end local v129=tick();while  not v18.getRoot() and ((tick() -v129)<10)  do task.wait(0.1);end task.wait(1);v16.IsResetting=false;v27.log("SYS","RESPAWNED");v27.setState("IDLE","NONE");end;v30.resetAfterCollect=function() if v13.AutoReset.ResetAfterCollect then v30.doReset("COLLECTED → RESET");end end;v30.resetOnStuck=function() if v13.AutoReset.ResetOnStuck then v30.doReset("STUCK → RESET");end end;local v34={};local v35=nil;v34.init=function() v35=v18.clearFolder(v13.WorkspaceFolder   .. "_Zones" );end;v34.syncZones=function() for v326,v327 in ipairs(v13.DisplayZones) do for v497,v498 in ipairs(v13.BlacklistZones) do if (v327.name==v498.name) then v498.enabled=v327.enabled;end end end end;v34.isInBlacklistZone=function(v130) for v328,v329 in ipairs(v13.BlacklistZones) do if (v329.enabled and ((v130-v329.pos).Magnitude<=v329.radius)) then return true,v329.name;end end return false,nil;end;v34.isPathSafe=function(v131) for v330,v331 in ipairs(v131) do local v332,v333=v34.isInBlacklistZone(v331.Position);if v332 then return false,v333,v330;end end return true,nil,nil;end;v34.createZoneVisuals=function() if  not v35 then return;end v35:ClearAllChildren();if  not v13.Visuals.ShowZones then return;end for v334,v335 in ipairs(v13.BlacklistZones) do if (v335.enabled and  not v335.hidden) then local v612=Instance.new("Part");v612.Shape=Enum.PartType.Ball;v612.Size=Vector3.new(v335.radius * 2 ,v335.radius * 2 ,v335.radius * 2 );v612.Position=v335.pos;v612.Anchored=true;v612.CanCollide=false;v612.Material=Enum.Material.ForceField;v612.Color=v12.orange;v612.Transparency=0.92;v612.Parent=v35;local v626=Instance.new("BillboardGui");v626.Size=UDim2.new(0,160,0,40);v626.Adornee=v612;v626.AlwaysOnTop=true;v626.StudsOffset=Vector3.new(0,v335.radius + 5 ,0);v626.MaxDistance=500;v626.Parent=v35;local v633=Instance.new("Frame");v633.Size=UDim2.new(1,0,1,0);v633.BackgroundColor3=v12.bg2;v633.BorderSizePixel=0;v633.Parent=v626;local v639=Instance.new("UIStroke");v639.Color=v12.orange;v639.Thickness=1;v639.Parent=v633;local v643=Instance.new("Frame");v643.Size=UDim2.new(0,3,1,0);v643.BackgroundColor3=v12.orange;v643.BorderSizePixel=0;v643.Parent=v633;local v648=Instance.new("TextLabel");v648.Size=UDim2.new(1, -12,0,18);v648.Position=UDim2.new(0,8,0,3);v648.BackgroundTransparency=1;v648.Text="⛔ "   .. string.upper(v335.name) ;v648.TextColor3=v12.orange;v648.Font=Enum.Font.Code;v648.TextSize=12;v648.TextXAlignment=Enum.TextXAlignment.Left;v648.Parent=v633;local v660=Instance.new("TextLabel");v660.Size=UDim2.new(1, -12,0,14);v660.Position=UDim2.new(0,8,0,22);v660.BackgroundTransparency=1;v660.Text=string.format("RADIUS: %gm",v335.radius);v660.TextColor3=v12.dim;v660.Font=Enum.Font.Code;v660.TextSize=10;v660.TextXAlignment=Enum.TextXAlignment.Left;v660.Parent=v633;end end end;v34.updateZoneVisuals=function() v34.syncZones();v34.createZoneVisuals();end;local v42={};local v43=nil;v42.init=function() v43=v18.clearFolder(v13.WorkspaceFolder   .. "_ESP" );end;v42.getEggType=function(v132) local v133=v132:lower();for v336,v337 in pairs(v15) do if string.find(v133,v336:lower()) then return v337;end end return v15.NORMAL;end;v42.blacklist=function(v134,v135) v16.Blacklist[v134]={reason=v135,time=tick()};v27.log("BL",v135);end;v42.isBlacklisted=function(v137) local v138=v16.Blacklist[v137];if  not v138 then return false;end if (v138.reason and string.find(v138.reason,"ZONE:")) then return true;end if (v138.reason and (v138.reason=="ZONE_TEMP")) then if ((tick() -v138.time)>30) then v16.Blacklist[v137]=nil;return false;end return true;end if ((tick() -v138.time)>180) then v16.Blacklist[v137]=nil;return false;end return true;end;v42.clearBlacklist=function() local v139,v140=0,0;for v338,v339 in pairs(v16.Blacklist) do if (v339.reason and string.find(v339.reason,"ZONE:")) then v139=v139 + 1 ;else v16.Blacklist[v338]=nil;v140=v140 + 1 ;end end v27.log("SYS",string.format("BL: %d cleared, %d zone locks kept",v140,v139));end;v42.addESP=function(v141,v142) if ( not v13.Visuals.ShowESP or  not v43) then return;end if v142.espFolder then return;end local v143=v142.type.color;local v144=Instance.new("Folder");v144.Name="ESP_"   .. v141.Name ;v144.Parent=v43;v142.espFolder=v144;local v148=Instance.new("Highlight");v148.Adornee=v141;v148.FillColor=v143;v148.FillTransparency=0.85;v148.OutlineColor=v143;v148.OutlineTransparency=0.1;v148.DepthMode=Enum.HighlightDepthMode.AlwaysOnTop;v148.Parent=v144;v142.espHighlight=v148;local v158=v18.getAttachPart(v141);if (v10.Current=="MOBILE") then local v500=Instance.new("BillboardGui");v500.Size=UDim2.new(0,80,0,24);v500.Adornee=v158;v500.AlwaysOnTop=true;v500.StudsOffset=Vector3.new(0,2,0);v500.MaxDistance=150;v500.Parent=v144;local v507=Instance.new("TextLabel");v507.Size=UDim2.new(1,0,1,0);v507.BackgroundColor3=v12.bg2;v507.BackgroundTransparency=0.3;v507.Text=v142.type.name;v507.TextColor3=v143;v507.Font=Enum.Font.Code;v507.TextSize=10;v507.Parent=v500;v142.espLabel=v507;else local v520=Instance.new("BillboardGui");v520.Size=UDim2.new(0,190,0,58);v520.Adornee=v158;v520.AlwaysOnTop=true;v520.StudsOffset=Vector3.new(0,2.5,0);v520.MaxDistance=math.huge;v520.Parent=v144;local v528=Instance.new("Frame");v528.Size=UDim2.new(1,0,1,0);v528.BackgroundColor3=v12.bg2;v528.BorderSizePixel=0;v528.Parent=v520;local v534=Instance.new("UIStroke");v534.Color=v143;v534.Thickness=1;v534.Parent=v528;v142.espStroke=v534;local v539=Instance.new("Frame");v539.Size=UDim2.new(0,3,1,0);v539.BackgroundColor3=v143;v539.BorderSizePixel=0;v539.Parent=v528;v142.espBar=v539;local v545=Instance.new("TextLabel");v545.Size=UDim2.new(1, -12,0,18);v545.Position=UDim2.new(0,8,0,5);v545.BackgroundTransparency=1;v545.Text=string.upper(v142.type.name);v545.TextColor3=v12.text;v545.Font=Enum.Font.Code;v545.TextSize=13;v545.TextXAlignment=Enum.TextXAlignment.Left;v545.Parent=v528;v142.espTitle=v545;local v559=Instance.new("TextLabel");v559.Size=UDim2.new(1, -12,0,14);v559.Position=UDim2.new(0,8,0,28);v559.BackgroundTransparency=1;v559.Text="DIST: 0m";v559.TextColor3=v12.dim;v559.Font=Enum.Font.Code;v559.TextSize=11;v559.TextXAlignment=Enum.TextXAlignment.Left;v559.Parent=v528;v142.espDist=v559;end end;v42.registerEgg=function(v159) if v16.EggsCache[v159] then return;end local v160=v159:FindFirstChildWhichIsA("ProximityPrompt",true);if  not v160 then return;end local v161=v159.Name:lower();if  not (string.find(v161,"egg") or string.find(v161,"easter")) then return;end local v162={instance=v159,prompt=v160,type=v42.getEggType(v159.Name),failures=0,inZone=false};local v163,v164=v34.isInBlacklistZone(v18.getLivePosition(v159));if v163 then v162.inZone=true;v162.zoneName=v164;end v16.EggsCache[v159]=v162;v42.addESP(v159,v162);end;v42.removeEgg=function(v166) local v167=v16.EggsCache[v166];if v167 then if v167.espFolder then v167.espFolder:Destroy();end v16.EggsCache[v166]=nil;v16.Blacklist[v166]=nil;end end;v42.updateESP=function() local v168=v18.getRoot();if  not v168 then return;end for v340,v341 in pairs(v16.EggsCache) do if ( not v18.isAlive(v340) or  not v18.isAlive(v341.prompt)) then v42.removeEgg(v340);continue;end local v342=v16.Blacklist[v340];local v343=v342~=nil ;local v344=v18.getLivePosition(v340);local v345,v346=v34.isInBlacklistZone(v344);v341.inZone=v345;v341.zoneName=v346;local v349=v12.red;if ( not v343 and  not v345) then v349=v341.type.color;elseif v345 then v349=v12.orange;end if v341.espHighlight then v341.espHighlight.FillColor=v349;v341.espHighlight.OutlineColor=v349;v341.espHighlight.FillTransparency=((v343 or v345) and 0.95) or 0.85 ;end local v350=math.floor((v168.Position-v344).Magnitude);if v341.espLabel then v341.espLabel.Text=(v343 and ("[BL] "   .. v350   .. "m")) or (v345 and ("["   .. v346   .. "] "   .. v350   .. "m")) or (v341.type.name   .. " "   .. v350   .. "m") ;v341.espLabel.TextColor3=v349;end if v341.espDist then v341.espDist.Text=(v343 and string.format("[%s] %dm",v342.reason or "BL" ,v350)) or (v345 and string.format("[%s] %dm",v346,v350)) or string.format("DIST: %dm",v350) ;v341.espDist.TextColor3=(v343 and v12.red) or (v345 and v12.orange) or v12.dim ;end if v341.espTitle then v341.espTitle.TextColor3=((v343 or v345) and v349) or v12.text ;end if v341.espStroke then v341.espStroke.Color=v349;end if v341.espBar then v341.espBar.BackgroundColor3=v349;end end end;v42.getBestTarget=function() local v169=v18.getRoot();if  not v169 then return nil;end local v170,v171,v172=nil,999,math.huge;for v351,v352 in pairs(v16.EggsCache) do if (v18.isAlive(v351) and v18.isAlive(v352.prompt)) then if v42.isBlacklisted(v351) then continue;end if v352.inZone then continue;end local v683=(v169.Position-v18.getLivePosition(v351)).Magnitude;if ((v352.type.priority<v171) or ((v352.type.priority==v171) and (v683<v172))) then v171=v352.type.priority;v172=v683;v170=v352;end else v42.removeEgg(v351);end end return v170;end;local v54={};local v55=nil;v54.init=function() v55=v18.clearFolder(v13.WorkspaceFolder   .. "_Path" );end;v54.drawPath=function(v173,v174,v175) if  not v55 then return;end v55:ClearAllChildren();if ( not v13.Visuals.ShowPath or ( #v173<2)) then return;end local v176=v174 or v12.yellow ;local v177=nil;local v178=v10.Current=="MOBILE" ;local v179=(v178 and 2) or 1 ;for v353=1, #v173,v179 do local v354=v173[v353];local v355=v354.Position + Vector3.new(0,0.4,0) ;if v177 then local v684=(v177-v355).Magnitude;local v685=Instance.new("Part");v685.Name="Line_"   .. v353 ;v685.Size=Vector3.new((v178 and 0.15) or 0.22 ,(v178 and 0.15) or 0.22 ,v684);v685.CFrame=CFrame.lookAt(v177,v355) * CFrame.new(0,0, -v684/2 ) ;v685.Anchored=true;v685.CanCollide=false;v685.Material=Enum.Material.Neon;v685.Color=(v175 and v12.red) or v176 ;v685.Transparency=(v175 and 0.2) or 0.1 ;v685.Parent=v55;if ( not v178 and ((v353%3)==0)) then local v752=Instance.new("PointLight");v752.Color=(v175 and v12.red) or v176 ;v752.Range=(v175 and 8) or 6 ;v752.Brightness=(v175 and 0.6) or 0.35 ;v752.Parent=v685;end if ( not v178 and ((v353%4)==0)) then local v757=Instance.new("Part");v757.Name="Node_"   .. v353 ;v757.Size=Vector3.new(0.5,0.5,0.5);v757.Position=v355;v757.Anchored=true;v757.CanCollide=false;v757.Material=Enum.Material.Neon;v757.Color=(v175 and v12.red) or v176 ;v757.Transparency=0.2;v757.Shape=Enum.PartType.Ball;v757.Parent=v55;end end v177=v355;end if  not v178 then task.spawn(function() local v696=0;while v55 and ( #v55:GetChildren()>0)  do v696=v696 + 0.08 ;local v719=(math.sin(v696 * 3 ) + 1)/2 ;for v770,v771 in ipairs(v55:GetChildren()) do if v771:IsA("BasePart") then local v783=v771:FindFirstChildOfClass("PointLight");if v783 then v783.Brightness=(v175 and (0.4 + (v719 * 0.4))) or (0.2 + (v719 * 0.3)) ;end if v771.Name:find("Line") then v771.Transparency=(v175 and (0.1 + (v719 * 0.2))) or (0.05 + (v719 * 0.15)) ;end end end task.wait(0.05);end end);end end;v54.stepBack=function() local v180=v18.getRoot();local v181=v18.getHum();if ( not v180 or  not v181) then return;end v27.log("SYS","STUCK → DODGE");local v182=((math.random(1,2)==1) and 1) or  -1 ;local v183=(v180.Position-(v180.CFrame.LookVector * 15)) + (v180.CFrame.RightVector * 15 * v182) ;v181.Jump=true;v181:MoveTo(v183);local v185=tick();while ((tick() -v185)<1.5) and v13.Enabled and ((v180.Position-v183).Magnitude>=4)  do task.wait();end v181:MoveTo(v180.Position);task.wait(0.2);end;v54.findAlternativePath=function(v186,v187) local v188={Vector3.new(50,0,0),Vector3.new( -50,0,0),Vector3.new(0,0,50),Vector3.new(0,0, -50),Vector3.new(70,0,70),Vector3.new( -70,0,70),Vector3.new(70,0, -70),Vector3.new( -70,0, -70),Vector3.new(100,0,0),Vector3.new( -100,0,0),Vector3.new(0,0,100),Vector3.new(0,0, -100),Vector3.new(120,0,0),Vector3.new( -120,0,0),Vector3.new(0,0,120),Vector3.new(0,0, -120)};for v356,v357 in ipairs(v188) do local v358=v186 + v357 ;if  not v34.isInBlacklistZone(v358) then local v697=v1:CreatePath(v13.AgentSettings);local v698=pcall(function() v697:ComputeAsync(v186,v358);end);if (v698 and (v697.Status==Enum.PathStatus.Success)) then local v772,v773=v34.isPathSafe(v697:GetWaypoints());if v772 then local v784=v1:CreatePath(v13.AgentSettings);local v785=pcall(function() v784:ComputeAsync(v358,v187);end);if (v785 and (v784.Status==Enum.PathStatus.Success)) then local v792,v793=v34.isPathSafe(v784:GetWaypoints());if v792 then v27.log("PATH","✓ ALT ROUTE: "   .. tostring(math.floor(v357.X))   .. "/"   .. tostring(math.floor(v357.Z)) );return v358;end end end end end end return nil;end;v54.walkWaypoints=function(v189) local v190=v18.getHum();local v191=v18.getRoot();if ( not v190 or  not v191) then return false;end v190.WalkSpeed=v13.SpeedModes[v13.CurrentSpeedIndex].speed;for v359,v360 in ipairs(v189) do if ( not v13.Enabled or v16.IsResetting) then return false;end v190:MoveTo(v360.Position);if (v360.Action==Enum.PathWaypointAction.Jump) then v190:ChangeState(Enum.HumanoidStateType.Jumping);v190.Jump=true;end local v361=false;local v362=v190.MoveToFinished:Connect(function() v361=true;end);local v363=tick() + 4 ;local v364=v191.Position;local v365=tick();local v366=tick();while  not v361 and (tick()<v363) and v13.Enabled  do local v575=v191.Position;local v576=v191.AssemblyLinearVelocity;local v577=math.sqrt((v576.X * v576.X) + (v576.Z * v576.Z) );local v578,v579=v575.X-v360.Position.X ,v575.Z-v360.Position.Z ;local v580=math.sqrt((v578 * v578) + (v579 * v579) );if ((v360.Position.Y>(v575.Y + 1.2)) and (v580<3) and ((tick() -v366)>0.4)) then v190:ChangeState(Enum.HumanoidStateType.Jumping);v190.Jump=true;v366=tick();end if ((v577<1) and (v580>1) and ((tick() -v366)>0.4)) then v190:ChangeState(Enum.HumanoidStateType.Jumping);v190.Jump=true;v190:MoveTo(v360.Position);v366=tick();end if ((tick() -v365)>0.5) then local v722,v723=v575.X-v364.X ,v575.Z-v364.Z ;if (math.sqrt((v722 * v722) + (v723 * v723) )<0.5) then v190:ChangeState(Enum.HumanoidStateType.Jumping);v190.Jump=true;v190:MoveTo(v360.Position);end v364=v575;v365=tick();end task.wait(0.02);end v362:Disconnect();if  not v361 then return false;end end return true;end;v54.followPath=function(v194) local v195=v18.getRoot();local v196=v18.getHum();if ( not v195 or  not v196) then return false,"NO_CHAR";end local v197=v18.getLivePosition(v194);local v198=v16.EggsCache[v194];local v199,v200=v34.isInBlacklistZone(v197);if v199 then v27.log("ZONE","TARGET IN: "   .. v200 );if v198 then v198.inZone=true;v198.zoneName=v200;end return false,"IN_ZONE";end local v201=v1:CreatePath(v13.AgentSettings);local v202=pcall(function() v201:ComputeAsync(v195.Position,v197);end);if ( not v202 or (v201.Status~=Enum.PathStatus.Success)) then if v198 then v198.failures=v198.failures + 1 ;if (v198.failures>=3) then v42.blacklist(v194,"NO_PATH");else v54.stepBack();end end return false,"NO_PATH";end local v203=v201:GetWaypoints();local v204,v205=v34.isPathSafe(v203);if  not v204 then v27.log("ZONE","PATH CROSSES: "   .. v205   .. " — SEARCHING ALT ROUTE..." );v54.drawPath(v203,v12.red,true);local v581=v54.findAlternativePath(v195.Position,v197);if v581 then v27.log("PATH","REROUTING VIA ALT POINT...");local v727=v1:CreatePath(v13.AgentSettings);local v728=pcall(function() v727:ComputeAsync(v195.Position,v581);end);if (v728 and (v727.Status==Enum.PathStatus.Success)) then local v779=v727:GetWaypoints();v54.drawPath(v779,v12.cyan,false);local v780=v54.walkWaypoints(v779);if v780 then task.wait(0.2);return v54.followPath(v194);end end end v27.log("ZONE","NO ALT FOUND — TEMP SKIP 30s");v16.Blacklist[v194]={reason="ZONE_TEMP",time=tick()};return false,"ZONE_BLOCKED";end v54.drawPath(v203,v12.yellow,false);v196.WalkSpeed=v13.SpeedModes[v13.CurrentSpeedIndex].speed;for v367,v368 in ipairs(v203) do if ( not v13.Enabled or  not v18.isAlive(v194) or v16.IsResetting) then v196:MoveTo(v195.Position);return false,"CANCELLED";end local v369=v368.Position;local v370,v371=v34.isInBlacklistZone(v369);if v370 then v27.log("ZONE","WP IN ZONE DURING WALK: "   .. v371 );v196:MoveTo(v195.Position);return false,"WP_IN_ZONE";end v196:MoveTo(v369);if ((v368.Action==Enum.PathWaypointAction.Jump) and (v369.Y>(v195.Position.Y + 0.5))) then v196:ChangeState(Enum.HumanoidStateType.Jumping);v196.Jump=true;end local v372=false;local v373=v196.MoveToFinished:Connect(function() v372=true;end);local v374=tick() + 3 ;local v375=tick();local v376=v195.Position;local v377=tick();local v378=tick();while  not v372 and (tick()<v374) and v13.Enabled and  not v16.IsResetting  do local v583=v195.Position;local v584,v585=v583.X-v369.X ,v583.Z-v369.Z ;local v586=math.sqrt((v584 * v584) + (v585 * v585) );local v587=v195.AssemblyLinearVelocity;local v588=math.sqrt((v587.X * v587.X) + (v587.Z * v587.Z) );if ((v369.Y>(v583.Y + 1.2)) and (v586<3) and (v586>0.5) and ((tick() -v377)>0.4)) then v196:ChangeState(Enum.HumanoidStateType.Jumping);v196.Jump=true;v377=tick();end if (((tick() -v378)>0.2) and (v588<1) and (v586>1) and ((tick() -v377)>0.4)) then v196:ChangeState(Enum.HumanoidStateType.Jumping);v196.Jump=true;v196:MoveTo(v369);v377=tick();end if ((tick() -v375)>0.5) then local v731,v732=v583.X-v376.X ,v583.Z-v376.Z ;if (math.sqrt((v731 * v731) + (v732 * v732) )<0.5) then v196:ChangeState(Enum.HumanoidStateType.Jumping);v196.Jump=true;v196:MoveTo(v369);end v376=v583;v375=tick();end task.wait(0.02);end v373:Disconnect();if  not v372 then if v198 then v198.failures=v198.failures + 1 ;if (v198.failures>=3) then v42.blacklist(v194,"STUCK");v30.resetOnStuck();else v54.stepBack();end end return false,"STUCK";end local v379=v55 and v55:FindFirstChild("Line_"   .. v367 ) ;local v380=v55 and v55:FindFirstChild("Node_"   .. v367 ) ;if v379 then v379:Destroy();end if v380 then v380:Destroy();end end return true,"OK";end;v54.collectTarget=function(v208) local v209=v18.getRoot();local v210=v18.getHum();if ( not v209 or  not v210) then return false;end v27.setState("GO",v208.type.name);local v211,v212=v54.followPath(v208.instance);if  not v211 then return false;end if (v18.isAlive(v208.instance) and v18.isAlive(v208.prompt)) then v210:MoveTo(v209.Position);v208.prompt.RequiresLineOfSight=false;task.wait(0.1);local v590=pcall(function() fireproximityprompt(v208.prompt);end);if v590 then v27.log("OK","✓ "   .. v208.type.name );v16.Collected=v16.Collected + 1 ;if v17.SetCount then v17.SetCount(v16.Collected);end v42.removeEgg(v208.instance);task.wait(0.3);v30.resetAfterCollect();return true;else v27.log("ERR","✗ COLLECT FAIL");v30.doReset("COLLECT FAILED");return false;end end return false;end;local v63={};v63.init=function() v9.Idled:Connect(function() if v13.AntiAFK.Enabled then if (v10.Current=="PC") then pcall(function() v6:CaptureController();v6:ClickButton2(Vector2.new());end);pcall(function() v7:SendKeyEvent(true,Enum.KeyCode.Unknown,false,game);task.wait(0.1);v7:SendKeyEvent(false,Enum.KeyCode.Unknown,false,game);end);else local v775=v18.getHum();if v775 then v775.Jump=true;end end v27.log("AFK","BYPASS");end end);task.spawn(function() while true do task.wait(v13.AntiAFK.Interval);if (v13.AntiAFK.Enabled and  not v13.Enabled) then pcall(function() local v776=v5.CurrentCamera;if v776 then v776.CFrame=v776.CFrame * CFrame.Angles(0,math.rad(0.01),0) ;task.wait(0.05);v776.CFrame=v776.CFrame * CFrame.Angles(0,math.rad( -0.01),0) ;end end);end end end);end;local v65={};v65.build=function() local v213=v2:FindFirstChild("BaritoneUniversalUI");if v213 then v213:Destroy();end for v381,v382 in ipairs(v16.UIConnections) do pcall(function() v382:Disconnect();end);end v16.UIConnections={};local v215=Instance.new("ScreenGui");v215.Name="BaritoneUniversalUI";v215.ResetOnSpawn=false;v215.ZIndexBehavior=Enum.ZIndexBehavior.Sibling;v215.Parent=v2;local v221=v13.UI;local v222=v10.Current=="MOBILE" ;local function v223(v383,v384,v385) local v386=Instance.new(v383);for v591,v592 in pairs(v384 or {} ) do v386[v591]=v592;end if v385 then v386.Parent=v385;end return v386;end local function v224(v387,v388,v389,v390) return v223("UIStroke",{Color=v388,Thickness=v389 or 1 ,Transparency=v390 or 0 },v387);end local function v225(v391,v392) if v222 then return;end local function v393(v594,v595) v223("Frame",{Size=v594,Position=v595,BackgroundColor3=v392,BorderSizePixel=0},v391);end v393(UDim2.new(0,12,0,2),UDim2.new(0,0,0,0));v393(UDim2.new(0,2,0,12),UDim2.new(0,0,0,0));v393(UDim2.new(0,12,0,2),UDim2.new(1, -12,0,0));v393(UDim2.new(0,2,0,12),UDim2.new(1, -2,0,0));v393(UDim2.new(0,12,0,2),UDim2.new(0,0,1, -2));v393(UDim2.new(0,2,0,12),UDim2.new(0,0,1, -12));v393(UDim2.new(0,12,0,2),UDim2.new(1, -12,1, -2));v393(UDim2.new(0,2,0,12),UDim2.new(1, -2,1, -12));end local v226=v223("Frame",{Name="Root",Size=v221.WindowSize,Position=UDim2.new(0,15,0,15),BackgroundColor3=v12.bg,BorderSizePixel=0,Active=true,Draggable=true},v215);v224(v226,v12.yellow,(v222 and 1) or 1.3 ,0.05);v225(v226,v12.yellow);local v227=v223("Frame",{Size=UDim2.new(1,0,0,2),BackgroundColor3=v12.yellow,BorderSizePixel=0},v226);local v228=v223("Frame",{Size=UDim2.new(0.28,0,0,2),Position=UDim2.new(0.04,0,1, -2),BackgroundColor3=v12.cyan,BorderSizePixel=0},v226);if v221.ShowRightRail then local v596=v223("Frame",{Size=UDim2.new(0,22,1, -86),Position=UDim2.new(1, -30,0,74),BackgroundColor3=v12.panel,BorderSizePixel=0},v226);v224(v596,v12.line,1,0.25);v225(v596,v12.cyan);for v702=0,12 do local v703=v223("Frame",{Size=UDim2.new(0,10,0,14),Position=UDim2.new(0.5, -5,0,10 + (v702 * 42) ),BackgroundColor3=(((v702%2)==0) and v12.yellow) or v12.cyan ,BorderSizePixel=0},v596);v703.BackgroundTransparency=0.2;end end local v229=(v222 and 48) or 68 ;local v230=v223("Frame",{Size=UDim2.new(1,0,0,v229),BackgroundColor3=v12.panel,BorderSizePixel=0},v226);v224(v230,v12.line,1,0.2);local v231=v223("Frame",{Size=UDim2.new(1,0,0,3),BackgroundColor3=v12.yellow,BorderSizePixel=0},v230);local v232=v223("Frame",{Size=UDim2.new(0.36,0,0,2),Position=UDim2.new(0.02,0,1, -2),BackgroundColor3=v12.cyan,BorderSizePixel=0},v230);local v233=v223("TextLabel",{Size=UDim2.new(1, -120,0,(v222 and 22) or 26 ),Position=UDim2.new(0,14,0,(v222 and 10) or 12 ),BackgroundTransparency=1,Text="",TextColor3=v12.yellow,Font=Enum.Font.Arcade,TextSize=v221.FontSize.title,TextXAlignment=Enum.TextXAlignment.Left},v230);task.spawn(function() task.wait(0.3);local v394="BARITONE PRO";for v597=1, #v394 do v233.Text=v394:sub(1,v597);task.wait(0.05);end end);if  not v222 then v223("TextLabel",{Size=UDim2.new(1, -130,0,14),Position=UDim2.new(0,14,0,38),BackgroundTransparency=1,Text="ADVANCED AUTOMATION & PATHFINDING LAYER",TextColor3=v12.dim,Font=Enum.Font.Code,TextSize=10,TextXAlignment=Enum.TextXAlignment.Left},v230);end local v234=(v222 and v12.magenta) or v12.green ;local v235=v223("Frame",{Size=UDim2.new(0,(v222 and 70) or 100 ,0,(v222 and 20) or 24 ),Position=UDim2.new(1,(v222 and  -84) or  -114 ,0,(v222 and 14) or 22 ),BackgroundColor3=v12.panel3,BorderSizePixel=0},v230);v224(v235,v234,1,0.15);v225(v235,v234);v223("TextLabel",{Size=UDim2.new(1,0,1,0),BackgroundTransparency=1,Text="PREVIEW",TextColor3=v234,Font=Enum.Font.Code,TextSize=(v222 and 10) or 12 },v235);local v236=false;local v237;if v222 then local v599=v223("TextButton",{Size=UDim2.new(0,26,0,18),Position=UDim2.new(1, -32,0.5, -9),BackgroundColor3=v12.panel2,Text="—",TextColor3=v12.cyan,Font=Enum.Font.Code,TextSize=12},v230);v224(v599,v12.cyan);v599.MouseButton1Click:Connect(function() v236= not v236;if v237 then v237.Visible= not v236;end v226.Size=(v236 and UDim2.new(0,340,0,48)) or v221.WindowSize ;v599.Text=(v236 and "+") or "—" ;end);end local v238=(v221.ShowRightRail and  -44) or  -16 ;v237=v223("ScrollingFrame",{Size=UDim2.new(1,v238,1, -(v229 + 8)),Position=UDim2.new(0,8,0,v229 + 4 ),BackgroundTransparency=1,ScrollBarThickness=4,ScrollBarImageColor3=v12.yellow,CanvasSize=UDim2.new(0,0,0,0),AutomaticCanvasSize=Enum.AutomaticSize.Y},v226);v223("UIListLayout",{Padding=UDim.new(0,v221.Padding),SortOrder=Enum.SortOrder.LayoutOrder},v237);v223("UIPadding",{PaddingBottom=UDim.new(0,12)},v237);local function v239(v395,v396,v397) local v398=v223("Frame",{Size=UDim2.new(1,0,0,v396),BackgroundColor3=v12.panel,BorderSizePixel=0},v237);v224(v398,v397 or v12.line ,1,0.18);v225(v398,v397 or v12.line );v223("Frame",{Size=UDim2.new(0,3,1,0),BackgroundColor3=v397 or v12.yellow ,BorderSizePixel=0},v398);local v399=v223("Frame",{Size=UDim2.new(0.22,0,0,2),Position=UDim2.new(0.02,0,0,0),BackgroundColor3=v397 or v12.yellow ,BorderSizePixel=0},v398);v223("TextLabel",{Size=UDim2.new(1, -16,0,18),Position=UDim2.new(0,12,0,5),BackgroundTransparency=1,Text=v395,TextColor3=v397 or v12.yellow ,Font=Enum.Font.Code,TextSize=v221.FontSize.small,TextXAlignment=Enum.TextXAlignment.Left},v398);return v398,v399;end local function v240(v400,v401,v402,v403,v404,v405) local v406=v223("Frame",{Size=v402,Position=v401,BackgroundColor3=v12.panel3,BorderSizePixel=0},v400);v224(v406,v405,1,0.28);v225(v406,v405);v223("TextLabel",{Size=UDim2.new(1, -10,0,12),Position=UDim2.new(0,5,0,4),BackgroundTransparency=1,Text=v403,TextColor3=v12.dim,Font=Enum.Font.Code,TextSize=v221.FontSize.small-2 ,TextXAlignment=Enum.TextXAlignment.Left},v406);return v223("TextLabel",{Size=UDim2.new(1, -10,0,20),Position=UDim2.new(0,5,0,17),BackgroundTransparency=1,Text=v404,TextColor3=v12.text,Font=Enum.Font.Arcade,TextSize=(v222 and 12) or 15 ,TextXAlignment=Enum.TextXAlignment.Left},v406);end local function v241(v407,v408,v409,v410,v411,v412) local v413=v221.ToggleHeight;local v414=v223("Frame",{Size=UDim2.new(1, -24,0,v413),Position=UDim2.new(0,12,0,v408),BackgroundColor3=v12.panel2,BorderSizePixel=0},v407);v224(v414,v411,1,0.35);v225(v414,v411);v223("Frame",{Size=UDim2.new(0,2,1,0),BackgroundColor3=v411,BorderSizePixel=0},v414);local v415=(v222 and 32) or 44 ;local v416=(v222 and 14) or 20 ;local v417=30;local v418=8 + v415 + 6 + v417 ;v223("TextLabel",{Size=UDim2.new(1, -(v418 + 14),1,0),Position=UDim2.new(0,14,0,0),BackgroundTransparency=1,Text=v409,TextColor3=v12.text,Font=Enum.Font.Code,TextSize=v221.FontSize.normal,TextXAlignment=Enum.TextXAlignment.Left,TextTruncate=Enum.TextTruncate.AtEnd},v414);local v419=v223("TextLabel",{Size=UDim2.new(0,v417,1,0),Position=UDim2.new(1, -(v417 + 8 + v415 + 4),0,0),BackgroundTransparency=1,Text=(v410 and "ON") or "OFF" ,TextColor3=(v410 and v411) or v12.dim ,Font=Enum.Font.Code,TextSize=v221.FontSize.small,TextXAlignment=Enum.TextXAlignment.Right},v414);local v420=v223("Frame",{Size=UDim2.new(0,v415,0,v416),Position=UDim2.new(1, -(v415 + 8),0.5, -v416/2 ),BackgroundColor3=Color3.fromRGB(14,18,22),BorderSizePixel=0},v414);v224(v420,v411,1,0.15);v225(v420,v411);local v421=v223("Frame",{Size=(v410 and UDim2.new(1, -4,1, -4)) or UDim2.new(0,0,1, -4) ,Position=UDim2.new(0,2,0,2),BackgroundColor3=v411,BorderSizePixel=0},v420);local v422=v223("TextButton",{Size=UDim2.new(1,0,1,0),BackgroundTransparency=1,Text=""},v414);local v423=v410;v422.MouseButton1Click:Connect(function() v423= not v423;v4:Create(v421,TweenInfo.new(0.18),{Size=(v423 and UDim2.new(1, -4,1, -4)) or UDim2.new(0,0,1, -4) }):Play();v419.Text=(v423 and "ON") or "OFF" ;v419.TextColor3=(v423 and v411) or v12.dim ;if v412 then v412(v423);end end);end local function v242(v424,v425,v426) local v427=v221.ZoneToggleHeight;local v428=v223("Frame",{Size=UDim2.new(1, -24,0,v427),Position=UDim2.new(0,12,0,v425),BackgroundColor3=v12.panel2,BorderSizePixel=0},v424);v224(v428,v12.orange,1,0.35);v223("Frame",{Size=UDim2.new(0,2,1,0),BackgroundColor3=v12.orange,BorderSizePixel=0},v428);local v429=(v222 and 28) or 40 ;local v430=(v222 and 12) or 18 ;local v431=30;local v432=8 + v429 + 6 + v431 ;v223("TextLabel",{Size=UDim2.new(1, -(v432 + 14),1,0),Position=UDim2.new(0,14,0,0),BackgroundTransparency=1,Text="⛔ "   .. v426.name   .. " ("   .. v426.radius   .. "m)" ,TextColor3=v12.text,Font=Enum.Font.Code,TextSize=v221.FontSize.small,TextXAlignment=Enum.TextXAlignment.Left,TextTruncate=Enum.TextTruncate.AtEnd},v428);local v433=v223("TextLabel",{Size=UDim2.new(0,v431,1,0),Position=UDim2.new(1, -(v431 + 8 + v429 + 4),0,0),BackgroundTransparency=1,Text=(v426.enabled and "ON") or "OFF" ,TextColor3=(v426.enabled and v12.orange) or v12.dim ,Font=Enum.Font.Code,TextSize=v221.FontSize.small,TextXAlignment=Enum.TextXAlignment.Right},v428);local v434=v223("Frame",{Size=UDim2.new(0,v429,0,v430),Position=UDim2.new(1, -(v429 + 8),0.5, -v430/2 ),BackgroundColor3=Color3.fromRGB(14,18,22),BorderSizePixel=0},v428);v224(v434,v12.orange,1,0.15);local v435=v223("Frame",{Size=(v426.enabled and UDim2.new(1, -4,1, -4)) or UDim2.new(0,0,1, -4) ,Position=UDim2.new(0,2,0,2),BackgroundColor3=v12.orange,BorderSizePixel=0},v434);local v436=v223("TextButton",{Size=UDim2.new(1,0,1,0),BackgroundTransparency=1,Text=""},v428);v436.MouseButton1Click:Connect(function() v426.enabled= not v426.enabled;v4:Create(v435,TweenInfo.new(0.15),{Size=(v426.enabled and UDim2.new(1, -4,1, -4)) or UDim2.new(0,0,1, -4) }):Play();v433.Text=(v426.enabled and "ON") or "OFF" ;v433.TextColor3=(v426.enabled and v12.orange) or v12.dim ;v34.updateZoneVisuals();v27.log("ZONE",v426.name   .. ": "   .. ((v426.enabled and "ON") or "OFF") );end);end local v243=v221.ToggleHeight;local v244=v221.ZoneToggleHeight;local v245=4;local v246=v221.BoxHeight;local v247,v248=v239(":: STATUS FEED",v246 + 30 ,v12.yellow);local v249=v240(v247,UDim2.new(0,12,0,22),UDim2.new(0.5, -6,0,v246),"STATE","IDLE",v12.yellow);local v250=v240(v247,UDim2.new(0.5,4,0,22),UDim2.new(0.5, -16,0,v246),"TARGET","NONE",v12.cyan);local v251,v252=v239(":: CORE SYSTEM",22 + (v243 * 3) + (v245 * 2) + 10 ,v12.magenta);local v253=22;v241(v251,v253,"AUTOFARM PROTOCOL",v13.Enabled,v12.magenta,function(v437) v13.Enabled=v437;if v437 then v16.FarmStartTime=tick();v27.log("SYS","PROTOCOL: ONLINE");else v27.setState("IDLE","NONE");v27.log("SYS","PROTOCOL: OFFLINE");local v708,v709=v18.getHum(),v18.getRoot();if (v708 and v709) then v708:MoveTo(v709.Position);end if v55 then v55:ClearAllChildren();end end end);v253=v253 + v243 + v245 ;v241(v251,v253,"ANTI-AFK BYPASS",v13.AntiAFK.Enabled,v12.cyan,function(v439) v13.AntiAFK.Enabled=v439;v27.log("AFK",(v439 and "ON") or "OFF" );end);v253=v253 + v243 + v245 ;v241(v251,v253,"AUTO RESET",v13.AutoReset.Enabled,v12.green,function(v441) v13.AutoReset.Enabled=v441;v27.log("RESET",(v441 and "ON") or "OFF" );end);local v254,v255=v239(":: SPEED CONTROL",v243 + 28 ,v12.yellow);local v256=v223("Frame",{Size=UDim2.new(1, -24,0,v243),Position=UDim2.new(0,12,0,22),BackgroundColor3=v12.panel2,BorderSizePixel=0},v254);v224(v256,v12.yellow,1,0.35);v225(v256,v12.yellow);v223("Frame",{Size=UDim2.new(0,2,1,0),BackgroundColor3=v12.yellow,BorderSizePixel=0},v256);v223("TextLabel",{Size=UDim2.new(0.52,0,1,0),Position=UDim2.new(0,10,0,0),BackgroundTransparency=1,Text="MOVEMENT OVERRIDE",TextColor3=v12.text,Font=Enum.Font.Code,TextSize=v221.FontSize.normal,TextXAlignment=Enum.TextXAlignment.Left,TextTruncate=Enum.TextTruncate.AtEnd},v256);local v257=v223("TextLabel",{Size=UDim2.new(0.42,0,1,0),Position=UDim2.new(0.56,0,0,0),BackgroundTransparency=1,Text=v13.SpeedModes[v13.CurrentSpeedIndex].name,TextColor3=v13.SpeedModes[v13.CurrentSpeedIndex].color,Font=Enum.Font.Code,TextSize=v221.FontSize.small,TextXAlignment=Enum.TextXAlignment.Right},v256);v223("TextButton",{Size=UDim2.new(1,0,1,0),BackgroundTransparency=1,Text=""},v256).MouseButton1Click:Connect(function() v13.CurrentSpeedIndex=(v13.CurrentSpeedIndex% #v13.SpeedModes) + 1 ;local v444=v13.SpeedModes[v13.CurrentSpeedIndex];v257.Text=v444.name;v257.TextColor3=v444.color;v27.log("SYS","SPEED: "   .. v444.name );end);local v258=22 + v243 + v245 + ( #v13.DisplayZones * (v244 + v245)) + 8 ;local v259,v260=v239(":: ZONE BLACKLIST",v258,v12.orange);v241(v259,22,"SHOW ZONE VISUALS",v13.Visuals.ShowZones,v12.orange,function(v449) v13.Visuals.ShowZones=v449;v34.updateZoneVisuals();end);local v261=22 + v243 + v245 ;for v451,v452 in ipairs(v13.DisplayZones) do v242(v259,v261,v452);v261=v261 + v244 + v245 ;end local v262,v263=v239(":: VISUAL SYSTEM",22 + (v243 * 2) + v245 + 6 ,v12.cyan);v241(v262,22,"ENHANCED ESP",v13.Visuals.ShowESP,v12.yellow,function(v453) v13.Visuals.ShowESP=v453;if  not v453 then for v734,v735 in pairs(v16.EggsCache) do if v735.espFolder then v735.espFolder:Destroy();v735.espFolder=nil;end end else for v736,v737 in pairs(v16.EggsCache) do v42.addESP(v736,v737);end end end);v241(v262,22 + v243 + v245 ,"PATH RENDER",v13.Visuals.ShowPath,v12.cyan,function(v455) v13.Visuals.ShowPath=v455;if ( not v455 and v55) then v55:ClearAllChildren();end end);local v264,v265=v239(":: TELEMETRY",v246 + 28 ,v12.red);local v266=v240(v264,UDim2.new(0,12,0,22),UDim2.new(0.5, -6,0,v246),"EGGS COLLECTED","0",v12.yellow);local v267=v240(v264,UDim2.new(0.5,4,0,22),UDim2.new(0.5, -16,0,v246),"FARM TIME","0m 00s",v12.green);local v268=(v222 and 80) or 110 ;local v269,v270=v239(":: ACTIVITY LOG",v268,v12.dim);local v271=v223("ScrollingFrame",{Size=UDim2.new(1, -24,1, -30),Position=UDim2.new(0,12,0,24),BackgroundColor3=v12.bg2,BorderSizePixel=0,ScrollBarThickness=3,CanvasSize=UDim2.new(0,0,0,0)},v269);v224(v271,v12.line,1,0.35);v225(v271,v12.line);local v272=v223("TextLabel",{Size=UDim2.new(1, -10,0,0),Position=UDim2.new(0,5,0,4),AutomaticSize=Enum.AutomaticSize.Y,BackgroundTransparency=1,Text="[SYS] BARITONE v80 ("   .. v10.Current   .. ")\n[SYS] READY" ,TextColor3=v12.dim,Font=Enum.Font.Code,TextSize=(v222 and 9) or 11 ,TextWrapped=true,TextXAlignment=Enum.TextXAlignment.Left,TextYAlignment=Enum.TextYAlignment.Top},v271);if v221.ShowScanlines then local v605=v223("Frame",{Size=UDim2.new(1,0,1,0),BackgroundTransparency=1,ZIndex=20},v226);for v710=0,55 do v223("Frame",{Size=UDim2.new(1,0,0,1),Position=UDim2.new(0,0,0,v710 * 13 ),BackgroundColor3=Color3.new(1,1,1),BackgroundTransparency=0.975,ZIndex=20},v605);end end v17.SetState=function(v457) v249.Text=string.upper(tostring(v457)):sub(1,12);end;v17.SetTarget=function(v459) v250.Text=string.upper(tostring(v459)):sub(1,12);end;v17.SetCount=function(v461) v266.Text=tostring(v461);end;v17.SetTime=function(v463) v267.Text=v463;end;v17.Log=function(v465) v272.Text=v272.Text   .. "\n"   .. v465 ;v271.CanvasSize=UDim2.new(0,0,0,v272.TextBounds.Y + 10 );v271.CanvasPosition=Vector2.new(0,math.max(0,v272.TextBounds.Y));end;task.spawn(function() while v215.Parent do if (v13.Enabled and (v16.FarmStartTime>0)) then v17.SetTime(v18.formatTime(tick() -v16.FarmStartTime ));end task.wait(1);end end);table.insert(v16.UIConnections,v3.RenderStepped:Connect(function() if  not v222 then v227.BackgroundTransparency=(v13.Visuals.HUDGlow and 0) or 1 ;v228.BackgroundTransparency=(v13.Visuals.HUDGlow and 0) or 1 ;end end));task.spawn(function() local v469=(v222 and 0.5) or 0.25 ;while v215.Parent do if v13.Visuals.ShowESP then v42.updateESP();end task.wait(v469);end end);if  not v222 then task.spawn(function() local v713=0;while v215.Parent do v713=v713 + 0.03 ;local v738=(math.sin(v713) + 1)/2 ;v231.BackgroundColor3=v12.yellow:Lerp(v12.yellowSoft,v738);v232.BackgroundColor3=v12.cyan:Lerp(v12.cyanSoft,v738);v232.Size=UDim2.new(0.24 + (v738 * 0.2) ,0,0,2);v248.Size=UDim2.new(0.18 + (v738 * 0.12) ,0,0,2);v252.Size=UDim2.new(0.2 + (v738 * 0.15) ,0,0,2);v255.Size=UDim2.new(0.14 + (v738 * 0.12) ,0,0,2);v260.Size=UDim2.new(0.12 + (v738 * 0.16) ,0,0,2);v263.Size=UDim2.new(0.16 + (v738 * 0.14) ,0,0,2);v265.Size=UDim2.new(0.2 + (v738 * 0.14) ,0,0,2);v270.Size=UDim2.new(0.14 + (v738 * 0.18) ,0,0,2);v228.Size=UDim2.new(0.22 + (v738 * 0.22) ,0,0,2);task.wait(0.06);end end);end end;local function v67() while true do while v16.IsResetting do task.wait(0.1);end if v13.Enabled then local v714=v42.getBestTarget();if v714 then v54.collectTarget(v714);if v55 then v55:ClearAllChildren();end task.wait(0.2);else if (v16.Status~="WAIT") then v27.setState("WAIT","EGGS");local v788,v789=v18.getHum(),v18.getRoot();if (v788 and v789) then v788:MoveTo(v789.Position);end if v55 then v55:ClearAllChildren();end end task.wait(1);end else task.wait(0.5);end end end local function v68() local v278=((v10.Current=="MOBILE") and 15) or 10 ;while true do for v606,v607 in ipairs(v5:GetDescendants()) do v42.registerEgg(v607);end task.wait(v278);end end local function v69(v279) v13.applyPlatformSettings(v279);v34.init();v42.init();v54.init();v63.init();v34.createZoneVisuals();v65.build();v5.DescendantAdded:Connect(function(v470) task.wait(0.1);v42.registerEgg(v470);end);v5.DescendantRemoving:Connect(function(v471) v42.removeEgg(v471);end);v9.CharacterAdded:Connect(function() task.wait(1);if v13.AutoReset.Enabled then v42.clearBlacklist();end end);task.spawn(v67);task.spawn(v68);v27.log("SYS","BARITONE v80 READY | "   .. v279 );end v10.showSelector(v69);
+local obf_stringchar = string.char;
+local obf_stringbyte = string.byte;
+local obf_stringsub = string.sub;
+local obf_bitlib = bit32 or bit;
+local obf_XOR = obf_bitlib.bxor;
+local obf_tableconcat = table.concat;
+local obf_tableinsert = table.insert;
+local function LUAOBFUSACTOR_DECRYPT_STR_0(LUAOBFUSACTOR_STR, LUAOBFUSACTOR_KEY)
+	local result = {};
+	for i = 1, #LUAOBFUSACTOR_STR do
+		obf_tableinsert(result, obf_stringchar(obf_XOR(obf_stringbyte(obf_stringsub(LUAOBFUSACTOR_STR, i, i + 1)), obf_stringbyte(obf_stringsub(LUAOBFUSACTOR_KEY, 1 + (i % #LUAOBFUSACTOR_KEY), 1 + (i % #LUAOBFUSACTOR_KEY) + 1))) % 256));
+	end
+	return obf_tableconcat(result);
+end
+local Players = game:GetService(LUAOBFUSACTOR_DECRYPT_STR_0("\225\207\218\60\227\169\212", "\126\177\163\187\69\134\219\167"));
+local PathfindingService = game:GetService(LUAOBFUSACTOR_DECRYPT_STR_0("\19\204\62\205\250\42\195\46\204\242\36\254\47\215\234\42\206\47", "\156\67\173\74\165"));
+local CoreGui = game:GetService(LUAOBFUSACTOR_DECRYPT_STR_0("\23\184\91\19\155\51\79", "\38\84\215\41\118\220\70"));
+local RunService = game:GetService(LUAOBFUSACTOR_DECRYPT_STR_0("\98\3\44\33\251\66\0\43\17\251", "\158\48\118\66\114"));
+local TweenService = game:GetService(LUAOBFUSACTOR_DECRYPT_STR_0("\159\51\21\51\125\150\254\185\50\25\53\118", "\155\203\68\112\86\19\197"));
+local Workspace = game:GetService(LUAOBFUSACTOR_DECRYPT_STR_0("\113\210\36\247\83\104\228\251\67", "\152\38\189\86\156\32\24\133"));
+local VirtualUser = game:GetService(LUAOBFUSACTOR_DECRYPT_STR_0("\202\94\181\82\233\86\171\115\239\82\181", "\38\156\55\199"));
+local VirtualInputManager = game:GetService(LUAOBFUSACTOR_DECRYPT_STR_0("\158\116\110\60\6\117\246\106\166\109\105\60\62\117\244\66\175\120\110", "\35\200\29\28\72\115\20\154"));
+local UserInputService = game:GetService(LUAOBFUSACTOR_DECRYPT_STR_0("\44\172\212\205\164\34\36\12\171\226\218\159\58\61\26\186", "\84\121\223\177\191\237\76"));
+local player = Players.LocalPlayer;
+local Platform = {[LUAOBFUSACTOR_DECRYPT_STR_0("\152\67\219\178\63\94\36", "\161\219\54\169\192\90\48\80")]=nil,[LUAOBFUSACTOR_DECRYPT_STR_0("\96\81\52\42\92\65\8", "\69\41\34\96")]=UserInputService.TouchEnabled,[LUAOBFUSACTOR_DECRYPT_STR_0("\149\208\252\15\27\41\179\194\197\14", "\75\220\163\183\106\98")]=UserInputService.KeyboardEnabled};
+Platform.showSelector = function(callback)
+	local selectorGui = Instance.new(LUAOBFUSACTOR_DECRYPT_STR_0("\49\185\153\50\220\12\157\158\62", "\185\98\218\235\87"));
+	selectorGui.Name = LUAOBFUSACTOR_DECRYPT_STR_0("\251\48\38\242\216\165\217\49\20\227\210\175\200\40\40\244", "\202\171\92\71\134\190");
+	selectorGui.ResetOnSpawn = false;
+	selectorGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling;
+	selectorGui.Parent = CoreGui;
+	local bg = Instance.new(LUAOBFUSACTOR_DECRYPT_STR_0("\15\211\45\133\44", "\232\73\161\76"));
+	bg.Size = UDim2.new(1, 0, 1, 0);
+	bg.BackgroundColor3 = Color3.fromRGB(5, 6, 10);
+	bg.BackgroundTransparency = 0;
+	bg.Name = LUAOBFUSACTOR_DECRYPT_STR_0("\157\203\67\80\27", "\126\219\185\34\61");
+	bg.Parent = selectorGui;
+	for i = 1, 18 do
+		local dot = Instance.new(LUAOBFUSACTOR_DECRYPT_STR_0("\42\220\95\127\123", "\135\108\174\62\18\30\23\147"));
+		dot.Size = UDim2.new(0, math.random(1, 3), 0, math.random(1, 3));
+		dot.Position = UDim2.new(math.random(0, 100) / 100, 0, math.random(0, 100) / 100, 0);
+		dot.BackgroundColor3 = ((math.random(1, 2) == 1) and Color3.fromRGB(255, 208, 0)) or Color3.fromRGB(0, 229, 255);
+		dot.BackgroundTransparency = math.random(4, 8) / 10;
+		dot.BorderSizePixel = 0;
+		dot.Parent = bg;
+		local corner = Instance.new(LUAOBFUSACTOR_DECRYPT_STR_0("\131\192\9\196\10\160\54\213", "\167\214\137\74\171\120\206\83"));
+		corner.CornerRadius = UDim.new(1, 0);
+		corner.Parent = dot;
+		task.spawn(function()
+			while dot.Parent do
+				local a = (math.sin((tick() * math.random(1, 3) * 0.5) + i) + 1) / 2;
+				dot.BackgroundTransparency = 0.3 + (a * 0.6);
+				task.wait(0.05);
+			end
+		end);
+	end
+	local container = Instance.new(LUAOBFUSACTOR_DECRYPT_STR_0("\173\226\51\80\253", "\199\235\144\82\61\152"));
+	container.Size = UDim2.new(0, 420, 0, 320);
+	container.Position = UDim2.new(0.5, -210, 0.4, -160);
+	container.BackgroundColor3 = Color3.fromRGB(11, 14, 18);
+	container.BackgroundTransparency = 1;
+	container.BorderSizePixel = 0;
+	container.Parent = selectorGui;
+	local cs = Instance.new(LUAOBFUSACTOR_DECRYPT_STR_0("\50\63\138\63\21\25\178\46", "\75\103\118\217"));
+	cs.Color = Color3.fromRGB(255, 208, 0);
+	cs.Thickness = 1.5;
+	cs.Parent = container;
+	local function makeCorner(size, pos, color)
+		local f = Instance.new(LUAOBFUSACTOR_DECRYPT_STR_0("\225\70\113\25\188", "\126\167\52\16\116\217"));
+		f.Size = size;
+		f.Position = pos;
+		f.BackgroundColor3 = color;
+		f.BorderSizePixel = 0;
+		f.Parent = container;
+	end
+	makeCorner(UDim2.new(0, 14, 0, 2), UDim2.new(0, 0, 0, 0), Color3.fromRGB(255, 208, 0));
+	makeCorner(UDim2.new(0, 2, 0, 14), UDim2.new(0, 0, 0, 0), Color3.fromRGB(255, 208, 0));
+	makeCorner(UDim2.new(0, 14, 0, 2), UDim2.new(1, -14, 0, 0), Color3.fromRGB(255, 208, 0));
+	makeCorner(UDim2.new(0, 2, 0, 14), UDim2.new(1, -2, 0, 0), Color3.fromRGB(255, 208, 0));
+	makeCorner(UDim2.new(0, 14, 0, 2), UDim2.new(0, 0, 1, -2), Color3.fromRGB(0, 229, 255));
+	makeCorner(UDim2.new(0, 2, 0, 14), UDim2.new(0, 0, 1, -14), Color3.fromRGB(0, 229, 255));
+	makeCorner(UDim2.new(0, 14, 0, 2), UDim2.new(1, -14, 1, -2), Color3.fromRGB(0, 229, 255));
+	makeCorner(UDim2.new(0, 2, 0, 14), UDim2.new(1, -2, 1, -14), Color3.fromRGB(0, 229, 255));
+	local topBar = Instance.new(LUAOBFUSACTOR_DECRYPT_STR_0("\238\60\33\141\177", "\156\168\78\64\224\212\121"));
+	topBar.Size = UDim2.new(1, 0, 0, 3);
+	topBar.BackgroundColor3 = Color3.fromRGB(255, 208, 0);
+	topBar.BorderSizePixel = 0;
+	topBar.Parent = container;
+	local topBar2 = Instance.new(LUAOBFUSACTOR_DECRYPT_STR_0("\33\252\164\195\2", "\174\103\142\197"));
+	topBar2.Size = UDim2.new(0.4, 0, 0, 2);
+	topBar2.Position = UDim2.new(0, 0, 1, -2);
+	topBar2.BackgroundColor3 = Color3.fromRGB(0, 229, 255);
+	topBar2.BorderSizePixel = 0;
+	topBar2.Parent = container;
+	local function make(class, props, parent)
+		local o = Instance.new(class);
+		for k, v in pairs(props or {}) do
+			o[k] = v;
+		end
+		if parent then
+			o.Parent = parent;
+		end
+		return o;
+	end
+	local titleFrame = make(LUAOBFUSACTOR_DECRYPT_STR_0("\112\58\94\53\32", "\152\54\72\63\88\69\62"), {[LUAOBFUSACTOR_DECRYPT_STR_0("\231\205\244\89", "\60\180\164\142")]=UDim2.new(1, 0, 0, 48),[LUAOBFUSACTOR_DECRYPT_STR_0("\104\81\22\32\51\228\29\86", "\114\56\62\101\73\71\141")]=UDim2.new(0, 0, 0, 12),[LUAOBFUSACTOR_DECRYPT_STR_0("\154\232\216\207\191\251\212\209\182\237\239\214\185\231\200\212\185\251\222\202\187\240", "\164\216\137\187")]=1}, container);
+	local titleLabel = make(LUAOBFUSACTOR_DECRYPT_STR_0("\230\227\41\166\138\255\9\215\234", "\107\178\134\81\210\198\158"), {[LUAOBFUSACTOR_DECRYPT_STR_0("\11\7\152\195", "\202\88\110\226\166")]=UDim2.new(1, 0, 1, 0),[LUAOBFUSACTOR_DECRYPT_STR_0("\225\14\129\252\205\209\0\151\249\206\247\29\131\249\217\211\14\144\242\196\192\22", "\170\163\111\226\151")]=1,[LUAOBFUSACTOR_DECRYPT_STR_0("\37\53\170\44", "\73\113\80\210\88\46\87")]="",[LUAOBFUSACTOR_DECRYPT_STR_0("\181\41\213\6\196\142\32\194\0\180", "\135\225\76\173\114")]=Color3.fromRGB(255, 208, 0),[LUAOBFUSACTOR_DECRYPT_STR_0("\60\226\182\164", "\199\122\141\216\208\204\221")]=Enum.Font.Arcade,[LUAOBFUSACTOR_DECRYPT_STR_0("\153\216\8\228\75\255\183\216", "\150\205\189\112\144\24")]=28}, titleFrame);
+	task.spawn(function()
+		local full = LUAOBFUSACTOR_DECRYPT_STR_0("\7\165\141\101\48\167\63\53\101\180\141\99", "\112\69\228\223\44\100\232\113");
+		for i = 1, #full do
+			titleLabel.Text = full:sub(1, i);
+			if (i < #full) then
+				titleLabel.Text = titleLabel.Text .. "|";
+				task.wait(0.07);
+				titleLabel.Text = full:sub(1, i);
+			end
+			task.wait(0.07);
+		end
+		local showCursor = true;
+		task.spawn(function()
+			while titleLabel.Parent do
+				titleLabel.Text = full .. ((showCursor and "|") or "");
+				showCursor = not showCursor;
+				task.wait(0.5);
+			end
+		end);
+	end);
+	task.spawn(function()
+		local t = 0;
+		while titleLabel.Parent do
+			t = t + 0.04;
+			local a = (math.sin(t * 1.5) + 1) / 2;
+			titleLabel.TextColor3 = Color3.fromRGB(255, 208, 0):Lerp(Color3.fromRGB(255, 228, 100), a);
+			task.wait(0.05);
+		end
+	end);
+	make(LUAOBFUSACTOR_DECRYPT_STR_0("\224\26\31\199\154\125\132\209\19", "\230\180\127\103\179\214\28"), {[LUAOBFUSACTOR_DECRYPT_STR_0("\191\12\69\67", "\128\236\101\63\38\132\33")]=UDim2.new(1, -20, 0, 16),[LUAOBFUSACTOR_DECRYPT_STR_0("\156\166\2\77\162\226\192\162", "\175\204\201\113\36\214\139")]=UDim2.new(0, 10, 0, 62),[LUAOBFUSACTOR_DECRYPT_STR_0("\101\205\54\215\3\85\195\32\210\0\115\222\52\210\23\87\205\39\217\10\68\213", "\100\39\172\85\188")]=1,[LUAOBFUSACTOR_DECRYPT_STR_0("\153\125\161\148", "\83\205\24\217\224")]=LUAOBFUSACTOR_DECRYPT_STR_0("\188\159\141\28\194\243\236\19\197\224\233\125\199\240\249\18\203\228\249\20\201\235\141\123\166\245\236\9\206\227\228\19\194\236\227\26\166\233\236\4\195\247", "\93\134\165\173"),[LUAOBFUSACTOR_DECRYPT_STR_0("\138\247\217\214\25\193\190\113\172\161", "\30\222\146\161\162\90\174\210")]=Color3.fromRGB(80, 90, 100),[LUAOBFUSACTOR_DECRYPT_STR_0("\195\65\126\30", "\106\133\46\16")]=Enum.Font.Code,[LUAOBFUSACTOR_DECRYPT_STR_0("\108\37\107\232\105\73\66\37", "\32\56\64\19\156\58")]=10}, container);
+	make(LUAOBFUSACTOR_DECRYPT_STR_0("\110\205\253\66\118\243\130\95\196", "\224\58\168\133\54\58\146"), {[LUAOBFUSACTOR_DECRYPT_STR_0("\106\95\81\248", "\107\57\54\43\157\21\230\231")]=UDim2.new(1, -20, 0, 16),[LUAOBFUSACTOR_DECRYPT_STR_0("\235\132\2\252\173\213\192\213", "\175\187\235\113\149\217\188")]=UDim2.new(0, 10, 0, 80),[LUAOBFUSACTOR_DECRYPT_STR_0("\30\174\130\71\228\107\119\41\161\133\120\241\120\118\47\191\128\94\230\119\123\37", "\24\92\207\225\44\131\25")]=1,[LUAOBFUSACTOR_DECRYPT_STR_0("\127\214\160\88", "\29\43\179\216\44\123")]=LUAOBFUSACTOR_DECRYPT_STR_0("\142\252\12\105\158\237\96\117\146\236\18\12\141\245\1\120\155\246\18\97\253\237\15\12\158\246\14\120\148\247\21\105", "\44\221\185\64"),[LUAOBFUSACTOR_DECRYPT_STR_0("\53\226\80\75\80\14\235\71\77\32", "\19\97\135\40\63")]=Color3.fromRGB(150, 160, 150),[LUAOBFUSACTOR_DECRYPT_STR_0("\136\83\61\47", "\81\206\60\83\91\79")]=Enum.Font.Code,[LUAOBFUSACTOR_DECRYPT_STR_0("\122\174\200\102\28\202\87\161", "\196\46\203\176\18\79\163\45")]=12}, container);
+	make(LUAOBFUSACTOR_DECRYPT_STR_0("\158\48\127\19\33", "\143\216\66\30\126\68\155"), {[LUAOBFUSACTOR_DECRYPT_STR_0("\153\193\23\206", "\129\202\168\109\171\165\195\183")]=UDim2.new(0.85, 0, 0, 1),[LUAOBFUSACTOR_DECRYPT_STR_0("\18\87\36\209\202\29\233\44", "\134\66\56\87\184\190\116")]=UDim2.new(0.075, 0, 0, 104),[LUAOBFUSACTOR_DECRYPT_STR_0("\30\48\10\176\30\249\46\32\50\53\42\180\21\228\51\102", "\85\92\81\105\219\121\139\65")]=Color3.fromRGB(40, 46, 58),[LUAOBFUSACTOR_DECRYPT_STR_0("\223\188\66\65\121\205\206\186\74\64\76\214\229\182\92", "\191\157\211\48\37\28")]=0}, container);
+	local function createBtn(text, icon, desc1, desc2, pos, color, platform)
+		local btn = make(LUAOBFUSACTOR_DECRYPT_STR_0("\235\26\236\8\24\202\11\224\19\52", "\90\191\127\148\124"), {[LUAOBFUSACTOR_DECRYPT_STR_0("\75\142\52\18", "\119\24\231\78")]=UDim2.new(0, 178, 0, 140),[LUAOBFUSACTOR_DECRYPT_STR_0("\178\34\182\67\200\73\30\140", "\113\226\77\197\42\188\32")]=pos,[LUAOBFUSACTOR_DECRYPT_STR_0("\24\23\247\190\61\4\251\160\52\18\215\186\54\25\230\230", "\213\90\118\148")]=Color3.fromRGB(14, 18, 24),[LUAOBFUSACTOR_DECRYPT_STR_0("\121\33\166\82\72\73\29\189\76\72\107\39\172\83\65", "\45\59\78\212\54")]=0,[LUAOBFUSACTOR_DECRYPT_STR_0("\36\83\155\159", "\144\112\54\227\235\230\78\205")]=""}, container);
+		local btnStroke = Instance.new(LUAOBFUSACTOR_DECRYPT_STR_0("\134\1\60\232\194\84\184\45", "\59\211\72\111\156\176"));
+		btnStroke.Color = color;
+		btnStroke.Thickness = 1.5;
+		btnStroke.Parent = btn;
+		local function bc(size, bpos, c)
+			local f = Instance.new(LUAOBFUSACTOR_DECRYPT_STR_0("\104\149\226\32\75", "\77\46\231\131"));
+			f.Size = size;
+			f.Position = bpos;
+			f.BackgroundColor3 = c;
+			f.BorderSizePixel = 0;
+			f.Parent = btn;
+		end
+		bc(UDim2.new(0, 8, 0, 2), UDim2.new(0, 0, 0, 0), color);
+		bc(UDim2.new(0, 2, 0, 8), UDim2.new(0, 0, 0, 0), color);
+		bc(UDim2.new(0, 8, 0, 2), UDim2.new(1, -8, 0, 0), color);
+		bc(UDim2.new(0, 2, 0, 8), UDim2.new(1, -2, 0, 0), color);
+		bc(UDim2.new(0, 8, 0, 2), UDim2.new(0, 0, 1, -2), color);
+		bc(UDim2.new(0, 2, 0, 8), UDim2.new(0, 0, 1, -8), color);
+		bc(UDim2.new(0, 8, 0, 2), UDim2.new(1, -8, 1, -2), color);
+		bc(UDim2.new(0, 2, 0, 8), UDim2.new(1, -2, 1, -8), color);
+		local btnTopBar = Instance.new(LUAOBFUSACTOR_DECRYPT_STR_0("\156\70\183\77\191", "\32\218\52\214"));
+		btnTopBar.Size = UDim2.new(1, 0, 0, 2);
+		btnTopBar.BackgroundColor3 = color;
+		btnTopBar.BorderSizePixel = 0;
+		btnTopBar.Parent = btn;
+		local glowFrame = make(LUAOBFUSACTOR_DECRYPT_STR_0("\104\5\48\165\244", "\58\46\119\81\200\145\208\37"), {[LUAOBFUSACTOR_DECRYPT_STR_0("\24\133\42\169", "\86\75\236\80\204\201\221")]=UDim2.new(1, 0, 1, 0),[LUAOBFUSACTOR_DECRYPT_STR_0("\80\64\116\142\249\153\125\84\121\129\221\132\126\78\101\214", "\235\18\33\23\229\158")]=color,[LUAOBFUSACTOR_DECRYPT_STR_0("\114\187\194\176\87\168\206\174\94\190\245\169\81\180\210\171\81\168\196\181\83\163", "\219\48\218\161")]=0.95,[LUAOBFUSACTOR_DECRYPT_STR_0("\198\126\110\77\222\93\211\237\107\121\121\210\87\229\232", "\128\132\17\28\41\187\47")]=0}, btn);
+		make(LUAOBFUSACTOR_DECRYPT_STR_0("\53\55\30\46\113\0\48\3\54", "\61\97\82\102\90"), {[LUAOBFUSACTOR_DECRYPT_STR_0("\159\39\177\78", "\105\204\78\203\43\167\55\126")]=UDim2.new(1, 0, 0, 56),[LUAOBFUSACTOR_DECRYPT_STR_0("\149\165\48\23\7\13\200\95", "\49\197\202\67\126\115\100\167")]=UDim2.new(0, 0, 0, 6),[LUAOBFUSACTOR_DECRYPT_STR_0("\21\90\220\34\135\68\81\34\85\219\29\146\87\80\36\75\222\59\133\88\93\46", "\62\87\59\191\73\224\54")]=1,[LUAOBFUSACTOR_DECRYPT_STR_0("\211\7\226\221", "\169\135\98\154")]=icon,[LUAOBFUSACTOR_DECRYPT_STR_0("\237\120\42\64", "\168\171\23\68\52\157\83")]=Enum.Font.GothamBold,[LUAOBFUSACTOR_DECRYPT_STR_0("\192\116\237\185\22\36\157\241", "\231\148\17\149\205\69\77")]=42}, btn);
+		make(LUAOBFUSACTOR_DECRYPT_STR_0("\180\162\223\239\123\254\130\162\203", "\159\224\199\167\155\55"), {[LUAOBFUSACTOR_DECRYPT_STR_0("\196\250\38\215", "\178\151\147\92")]=UDim2.new(1, -8, 0, 22),[LUAOBFUSACTOR_DECRYPT_STR_0("\188\242\95\59\6\69\117\130", "\26\236\157\44\82\114\44")]=UDim2.new(0, 4, 0, 66),[LUAOBFUSACTOR_DECRYPT_STR_0("\8\47\214\80\45\60\218\78\36\42\225\73\43\32\198\75\43\60\208\85\41\55", "\59\74\78\181")]=1,[LUAOBFUSACTOR_DECRYPT_STR_0("\17\212\66\78", "\211\69\177\58\58")]=text,[LUAOBFUSACTOR_DECRYPT_STR_0("\131\224\97\225\202\196\187\234\107\166", "\171\215\133\25\149\137")]=Color3.fromRGB(245, 245, 235),[LUAOBFUSACTOR_DECRYPT_STR_0("\199\199\60\238", "\34\129\168\82\154\143\80\156")]=Enum.Font.Code,[LUAOBFUSACTOR_DECRYPT_STR_0("\177\183\43\31\123\71\147\128", "\233\229\210\83\107\40\46")]=15}, btn);
+		make(LUAOBFUSACTOR_DECRYPT_STR_0("\245\71\42\194\41\192\64\55\218", "\101\161\34\82\182"), {[LUAOBFUSACTOR_DECRYPT_STR_0("\219\4\67\251", "\78\136\109\57\158\187\130\226")]=UDim2.new(1, -8, 0, 14),[LUAOBFUSACTOR_DECRYPT_STR_0("\14\48\234\248\42\54\246\255", "\145\94\95\153")]=UDim2.new(0, 4, 0, 90),[LUAOBFUSACTOR_DECRYPT_STR_0("\223\204\23\222\73\165\242\216\26\209\122\165\252\195\7\197\79\165\248\195\23\204", "\215\157\173\116\181\46")]=1,[LUAOBFUSACTOR_DECRYPT_STR_0("\1\177\147\230", "\186\85\212\235\146")]=desc1,[LUAOBFUSACTOR_DECRYPT_STR_0("\246\132\14\234\26\225\84\205\147\69", "\56\162\225\118\158\89\142")]=color,[LUAOBFUSACTOR_DECRYPT_STR_0("\122\10\206\187", "\184\60\101\160\207\66")]=Enum.Font.Code,[LUAOBFUSACTOR_DECRYPT_STR_0("\5\135\100\168\2\139\102\185", "\220\81\226\28")]=10}, btn);
+		make(LUAOBFUSACTOR_DECRYPT_STR_0("\39\208\154\239\198\198\17\208\142", "\167\115\181\226\155\138"), {[LUAOBFUSACTOR_DECRYPT_STR_0("\209\43\253\89", "\166\130\66\135\60\27\17")]=UDim2.new(1, -8, 0, 13),[LUAOBFUSACTOR_DECRYPT_STR_0("\116\69\221\124\36\77\69\192", "\80\36\42\174\21")]=UDim2.new(0, 4, 0, 104),[LUAOBFUSACTOR_DECRYPT_STR_0("\108\17\52\113\73\2\56\111\64\20\3\104\79\30\36\106\79\2\50\116\77\9", "\26\46\112\87")]=1,[LUAOBFUSACTOR_DECRYPT_STR_0("\141\38\179\96", "\212\217\67\203\20\223\223\37")]=desc2,[LUAOBFUSACTOR_DECRYPT_STR_0("\142\136\176\198\153\130\164\221\168\222", "\178\218\237\200")]=Color3.fromRGB(80, 90, 100),[LUAOBFUSACTOR_DECRYPT_STR_0("\144\186\232\196", "\176\214\213\134")]=Enum.Font.Code,[LUAOBFUSACTOR_DECRYPT_STR_0("\192\168\174\192\155\95\67\241", "\57\148\205\214\180\200\54")]=9}, btn);
+		btn.MouseEnter:Connect(function()
+			TweenService:Create(btn, TweenInfo.new(0.15), {[LUAOBFUSACTOR_DECRYPT_STR_0("\48\252\54\63\113\0\242\32\58\114\49\242\57\59\100\65", "\22\114\157\85\84")]=Color3.fromRGB(20, 26, 34)}):Play();
+			TweenService:Create(btnStroke, TweenInfo.new(0.15), {[LUAOBFUSACTOR_DECRYPT_STR_0("\240\195\26\199\86\248\173\215\216", "\200\164\171\115\164\61\150")]=2.5}):Play();
+			TweenService:Create(glowFrame, TweenInfo.new(0.15), {[LUAOBFUSACTOR_DECRYPT_STR_0("\156\245\0\78\132\172\251\22\75\135\138\230\2\75\144\174\245\17\64\141\189\237", "\227\222\148\99\37")]=0.88}):Play();
+		end);
+		btn.MouseLeave:Connect(function()
+			TweenService:Create(btn, TweenInfo.new(0.15), {[LUAOBFUSACTOR_DECRYPT_STR_0("\17\83\81\253\254\33\93\71\248\253\16\93\94\249\235\96", "\153\83\50\50\150")]=Color3.fromRGB(14, 18, 24)}):Play();
+			TweenService:Create(btnStroke, TweenInfo.new(0.15), {[LUAOBFUSACTOR_DECRYPT_STR_0("\105\126\122\31\120\165\72\78\101", "\45\61\22\19\124\19\203")]=1.5}):Play();
+			TweenService:Create(glowFrame, TweenInfo.new(0.15), {[LUAOBFUSACTOR_DECRYPT_STR_0("\227\19\14\254\5\98\182\212\28\9\193\16\113\183\210\2\12\231\7\126\186\216", "\217\161\114\109\149\98\16")]=0.95}):Play();
+		end);
+		btn.MouseButton1Click:Connect(function()
+			Platform.Current = platform;
+			TweenService:Create(btn, TweenInfo.new(0.1), {[LUAOBFUSACTOR_DECRYPT_STR_0("\48\33\59\119\187\102\29\53\54\120\159\123\30\47\42\47", "\20\114\64\88\28\220")]=color}):Play();
+			task.wait(0.12);
+			TweenService:Create(container, TweenInfo.new(0.25, Enum.EasingStyle.Back, Enum.EasingDirection.In), {[LUAOBFUSACTOR_DECRYPT_STR_0("\1\14\193\189\236\217\178\63", "\221\81\97\178\212\152\176")]=UDim2.new(0.5, -210, 0.6, -160),[LUAOBFUSACTOR_DECRYPT_STR_0("\239\230\30\240\29\223\232\8\245\30\249\245\28\245\9\221\230\15\254\20\206\254", "\122\173\135\125\155")]=1}):Play();
+			TweenService:Create(bg, TweenInfo.new(0.3), {[LUAOBFUSACTOR_DECRYPT_STR_0("\166\192\3\178\56\35\199\145\207\4\141\45\48\198\151\209\1\171\58\63\203\157", "\168\228\161\96\217\95\81")]=1}):Play();
+			task.wait(0.32);
+			selectorGui:Destroy();
+			callback(platform);
+		end);
+	end
+	createBtn(LUAOBFUSACTOR_DECRYPT_STR_0("\235\242\110\19\111\115\254\226\5\104\0\103", "\55\187\177\78\60\79"), "🖥️", "Full UI  •  All effects  •  ESP", LUAOBFUSACTOR_DECRYPT_STR_0("\6\203\70\233\73\206\146\41\142\20\171\107\192\149\62\203\31\249\67\204\143\32\195\90\229\66\202\132", "\224\77\174\63\139\38\175"), UDim2.new(0, 14, 0, 114), Color3.fromRGB(0, 229, 255), LUAOBFUSACTOR_DECRYPT_STR_0("\180\98", "\78\228\33\56"));
+	createBtn(LUAOBFUSACTOR_DECRYPT_STR_0("\227\81\144\42\169\235", "\229\174\30\210\99"), "📱", "Compact UI  •  Touch optimized", LUAOBFUSACTOR_DECRYPT_STR_0("\44\226\148\90\254\125\54\21\173\167\95\233\47\54\18\233\198\23\173\52\22\40", "\89\123\141\230\49\141\93"), UDim2.new(0, 208, 0, 114), Color3.fromRGB(255, 70, 160), LUAOBFUSACTOR_DECRYPT_STR_0("\222\94\212\37\60\111", "\42\147\17\150\108\112"));
+	make(LUAOBFUSACTOR_DECRYPT_STR_0("\59\163\53\107\203\233\13\163\33", "\136\111\198\77\31\135"), {[LUAOBFUSACTOR_DECRYPT_STR_0("\49\0\189\83", "\201\98\105\199\54\221\132\119")]=UDim2.new(1, 0, 0, 14),[LUAOBFUSACTOR_DECRYPT_STR_0("\137\3\144\40\22\60\163\183", "\204\217\108\227\65\98\85")]=UDim2.new(0, 0, 1, -16),[LUAOBFUSACTOR_DECRYPT_STR_0("\124\194\246\238\43\210\81\214\251\225\24\210\95\205\230\245\45\210\91\205\246\252", "\160\62\163\149\133\76")]=1,[LUAOBFUSACTOR_DECRYPT_STR_0("\226\165\21\59", "\163\182\192\109\79")]="v80.0 (UNIVERSAL PREVIEW)  •  Sol's RNG Egg Farm",[LUAOBFUSACTOR_DECRYPT_STR_0("\0\35\24\212\214\59\42\15\210\166", "\149\84\70\96\160")]=Color3.fromRGB(45, 50, 62),[LUAOBFUSACTOR_DECRYPT_STR_0("\30\9\3\249", "\141\88\102\109")]=Enum.Font.Code,[LUAOBFUSACTOR_DECRYPT_STR_0("\135\86\210\100\41\52\79\196", "\161\211\51\170\16\122\93\53")]=9}, container);
+	TweenService:Create(container, TweenInfo.new(0.4, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {[LUAOBFUSACTOR_DECRYPT_STR_0("\203\161\161\33\239\167\189\38", "\72\155\206\210")]=UDim2.new(0.5, -210, 0.5, -160),[LUAOBFUSACTOR_DECRYPT_STR_0("\100\123\87\5\52\84\117\65\0\55\114\104\85\0\32\86\123\70\11\61\69\99", "\83\38\26\52\110")]=0}):Play();
+end;
+local THEME = {[LUAOBFUSACTOR_DECRYPT_STR_0("\90\16", "\38\56\119\71")]=Color3.fromRGB(8, 10, 14),[LUAOBFUSACTOR_DECRYPT_STR_0("\241\232\10", "\54\147\143\56\182\69")]=Color3.fromRGB(11, 14, 18),[LUAOBFUSACTOR_DECRYPT_STR_0("\198\128\241\76\211", "\191\182\225\159\41")]=Color3.fromRGB(14, 17, 22),[LUAOBFUSACTOR_DECRYPT_STR_0("\59\19\38\80\135\213", "\162\75\114\72\53\235\231")]=Color3.fromRGB(18, 22, 28),[LUAOBFUSACTOR_DECRYPT_STR_0("\156\61\74\231\95\81", "\98\236\92\36\130\51")]=Color3.fromRGB(22, 26, 34),[LUAOBFUSACTOR_DECRYPT_STR_0("\189\28\0\182\74\191", "\80\196\121\108\218\37\200\213")]=Color3.fromRGB(255, 208, 0),[LUAOBFUSACTOR_DECRYPT_STR_0("\25\118\14\115\68\25\185\15\117\22", "\234\96\19\98\31\43\110")]=Color3.fromRGB(255, 228, 100),[LUAOBFUSACTOR_DECRYPT_STR_0("\5\6\83\201", "\235\102\127\50\167\204\18")]=Color3.fromRGB(0, 229, 255),[LUAOBFUSACTOR_DECRYPT_STR_0("\83\184\244\45\119\33\86\181", "\78\48\193\149\67\36")]=Color3.fromRGB(90, 255, 255),[LUAOBFUSACTOR_DECRYPT_STR_0("\34\27\132", "\33\80\126\224\120")]=Color3.fromRGB(255, 82, 82),[LUAOBFUSACTOR_DECRYPT_STR_0("\225\169\4\193\82\248\169", "\60\140\200\99\164")]=Color3.fromRGB(255, 70, 160),[LUAOBFUSACTOR_DECRYPT_STR_0("\136\230\5\40\165\130", "\194\231\148\100\70")]=Color3.fromRGB(255, 110, 0),[LUAOBFUSACTOR_DECRYPT_STR_0("\65\94\196\166\248", "\168\38\44\161\195\150")]=Color3.fromRGB(0, 255, 128),[LUAOBFUSACTOR_DECRYPT_STR_0("\148\249\154\98", "\118\224\156\226\22\80\136\214")]=Color3.fromRGB(245, 245, 235),[LUAOBFUSACTOR_DECRYPT_STR_0("\70\231\84", "\224\34\142\57")]=Color3.fromRGB(150, 160, 150),[LUAOBFUSACTOR_DECRYPT_STR_0("\211\178\209\216\119", "\110\190\199\165\189\19\145\61")]=Color3.fromRGB(92, 98, 108),[LUAOBFUSACTOR_DECRYPT_STR_0("\214\226\121\237", "\167\186\139\23\136\235")]=Color3.fromRGB(64, 70, 82)};
+local CONFIG = {[LUAOBFUSACTOR_DECRYPT_STR_0("\63\187\137\15\22\176\140", "\109\122\213\232")]=false,[LUAOBFUSACTOR_DECRYPT_STR_0("\216\242\176\35\231\248\172", "\80\142\151\194")]=LUAOBFUSACTOR_DECRYPT_STR_0("\91\150\57\28\67\142\66\98\42\240\82\126\48\231\91\5", "\44\99\166\23"),[LUAOBFUSACTOR_DECRYPT_STR_0("\75\248\59\61\32\180\125\244\44\16\60\168\120\242\59", "\196\28\151\73\86\83")]=LUAOBFUSACTOR_DECRYPT_STR_0("\209\2\59\25\150\87\22\115\204\54\39\25\148\93\10\101\242\15\22\36\135\85\8", "\22\147\99\73\112\226\56\120"),[LUAOBFUSACTOR_DECRYPT_STR_0("\139\101\231\240\137\149\122\230\240\158", "\237\216\21\130\149")]={{[LUAOBFUSACTOR_DECRYPT_STR_0("\140\79\82\90", "\62\226\46\63\63\208\169")]=LUAOBFUSACTOR_DECRYPT_STR_0("\201\60\114\170\43", "\62\133\121\53\227\127\109\79"),[LUAOBFUSACTOR_DECRYPT_STR_0("\3\4\55\240\210", "\194\112\116\82\149\182\206")]=16,[LUAOBFUSACTOR_DECRYPT_STR_0("\58\167\64\23\210", "\110\89\200\44\120\160\130")]=THEME.cyan},{[LUAOBFUSACTOR_DECRYPT_STR_0("\165\194\70\67", "\45\203\163\43\38\35\42\91")]=LUAOBFUSACTOR_DECRYPT_STR_0("\240\183\245\16\172", "\52\178\229\188\67\231\201"),[LUAOBFUSACTOR_DECRYPT_STR_0("\50\81\85\1\243", "\67\65\33\48\100\151\60")]=18,[LUAOBFUSACTOR_DECRYPT_STR_0("\220\232\162\215\225", "\147\191\135\206\184")]=THEME.yellow},{[LUAOBFUSACTOR_DECRYPT_STR_0("\138\41\171\196", "\210\228\72\198\161\184\51")]=LUAOBFUSACTOR_DECRYPT_STR_0("\27\104\203\80\64\239\16\108", "\174\86\41\147\112\19"),[LUAOBFUSACTOR_DECRYPT_STR_0("\72\16\136\14\33", "\203\59\96\237\107\69\111\113")]=20,[LUAOBFUSACTOR_DECRYPT_STR_0("\39\25\160\238\35", "\183\68\118\204\129\81\144")]=THEME.red}},[LUAOBFUSACTOR_DECRYPT_STR_0("\45\184\98\246\14\140\26\158\96\225\14\134\39\163\116\225\19", "\226\110\205\16\132\107")]=1,[LUAOBFUSACTOR_DECRYPT_STR_0("\202\196\229\215\85\216\198\244\205\72\229\196\243", "\33\139\163\128\185")]={[LUAOBFUSACTOR_DECRYPT_STR_0("\118\95\1\208\67\112\1\215\80\80\16", "\190\55\56\100")]=5,[LUAOBFUSACTOR_DECRYPT_STR_0("\119\168\57\16\7\209\242\82\166\41\13", "\147\54\207\92\126\115\131")]=2.5,[LUAOBFUSACTOR_DECRYPT_STR_0("\44\54\48\115\25\93\12\63\31\104\0\110", "\30\109\81\85\29\109")]=true,[LUAOBFUSACTOR_DECRYPT_STR_0("\200\112\77\166\57\215\242\235\66\68\183\53\215\242\248", "\156\159\17\52\214\86\190")]=4},[LUAOBFUSACTOR_DECRYPT_STR_0("\152\230\174\169\175\227\174", "\220\206\143\221")]={[LUAOBFUSACTOR_DECRYPT_STR_0("\181\117\34\0\232\205\198\142", "\178\230\29\77\119\184\172")]=true,[LUAOBFUSACTOR_DECRYPT_STR_0("\198\182\5\12\82\203\197", "\152\149\222\106\123\23")]=true,[LUAOBFUSACTOR_DECRYPT_STR_0("\238\46\249\84\143\210\40\243\80", "\213\189\70\150\35")]=true,[LUAOBFUSACTOR_DECRYPT_STR_0("\103\96\80\47\67\90\99", "\104\47\53\20")]=true},[LUAOBFUSACTOR_DECRYPT_STR_0("\130\66\149\21\157\41\136", "\111\195\44\225\124\220")]={[LUAOBFUSACTOR_DECRYPT_STR_0("\253\72\1\113\167\174\220", "\203\184\38\96\19\203")]=true,[LUAOBFUSACTOR_DECRYPT_STR_0("\16\125\109\68\220\47\114\117", "\174\89\19\25\33")]=60},[LUAOBFUSACTOR_DECRYPT_STR_0("\14\7\70\65\197\130\24\42\6", "\107\79\114\50\46\151\231")]={[LUAOBFUSACTOR_DECRYPT_STR_0("\28\168\180\43\134\60\179", "\160\89\198\213\73\234\89\215")]=true,[LUAOBFUSACTOR_DECRYPT_STR_0("\122\116\167\251\209\105\119\160\251\215\107\126\184\242\192\75\101", "\165\40\17\212\158")]=true,[LUAOBFUSACTOR_DECRYPT_STR_0("\215\220\27\54\50\202\215\59\39\51\230\210", "\70\133\185\104\83")]=true,[LUAOBFUSACTOR_DECRYPT_STR_0("\54\64\87\47\221\32\64\72\43\208", "\169\100\37\36\74")]=0.5},[LUAOBFUSACTOR_DECRYPT_STR_0("\36\142\177\64\12\134\187\106\15\137\167\67", "\48\96\231\194")]={{[LUAOBFUSACTOR_DECRYPT_STR_0("\198\91\3\40", "\227\168\58\110\77\121\184\207")]=LUAOBFUSACTOR_DECRYPT_STR_0("\89\53\184\105\162\215\112\171\127", "\197\27\92\223\32\209\187\17"),[LUAOBFUSACTOR_DECRYPT_STR_0("\19\80\208", "\155\99\63\163")]=Vector3.new(-36.9, 95.3, -110.2),[LUAOBFUSACTOR_DECRYPT_STR_0("\144\208\165\132\172\151", "\228\226\177\193\237\217")]=100,[LUAOBFUSACTOR_DECRYPT_STR_0("\49\190\34\228\56\181\39", "\134\84\208\67")]=true},{[LUAOBFUSACTOR_DECRYPT_STR_0("\29\173\139\89", "\60\115\204\230")]=LUAOBFUSACTOR_DECRYPT_STR_0("\212\55\234\124\235\19\248\124\230\52\239", "\16\135\90\139"),[LUAOBFUSACTOR_DECRYPT_STR_0("\68\123\21", "\24\52\20\102\83\46\52")]=Vector3.new(42.5, 101.3, -425.4),[LUAOBFUSACTOR_DECRYPT_STR_0("\214\46\37\45\26\215", "\111\164\79\65\68")]=65,[LUAOBFUSACTOR_DECRYPT_STR_0("\195\215\130\220\34\239\194", "\138\166\185\227\190\78")]=true},{[LUAOBFUSACTOR_DECRYPT_STR_0("\197\117\200\50", "\121\171\20\165\87\50\67")]=LUAOBFUSACTOR_DECRYPT_STR_0("\246\57\171\61\182\23\212\2\182\56\188", "\98\166\88\217\86\217"),[LUAOBFUSACTOR_DECRYPT_STR_0("\230\249\106", "\188\150\150\25\97\230")]=Vector3.new(216.2, 98.5, -617.6),[LUAOBFUSACTOR_DECRYPT_STR_0("\200\136\91\11\25\254", "\141\186\233\63\98\108")]=50,[LUAOBFUSACTOR_DECRYPT_STR_0("\244\228\45\180\41\244\238", "\69\145\138\76\214")]=true}},[LUAOBFUSACTOR_DECRYPT_STR_0("\82\195\136\138\180\26\121\220\157\179\176\24\117\220", "\118\16\175\233\233\223")]={{[LUAOBFUSACTOR_DECRYPT_STR_0("\133\133\56\190", "\29\235\228\85\219\142\235")]=LUAOBFUSACTOR_DECRYPT_STR_0("\31\221\189\244\100\66\38\92\57", "\50\93\180\218\189\23\46\71"),[LUAOBFUSACTOR_DECRYPT_STR_0("\206\171\72", "\40\190\196\59\44\36\188")]=Vector3.new(-36.9, 95.3, -110.2),[LUAOBFUSACTOR_DECRYPT_STR_0("\46\68\216\189\239\110", "\109\92\37\188\212\154\29")]=100,[LUAOBFUSACTOR_DECRYPT_STR_0("\1\225\165\193\61\95\0", "\58\100\143\196\163\81")]=true},{[LUAOBFUSACTOR_DECRYPT_STR_0("\20\67\46\166", "\110\122\34\67\195\95\41\133")]=LUAOBFUSACTOR_DECRYPT_STR_0("\70\188\90\70\218\92\162\87\75\216\113", "\182\21\209\59\42"),[LUAOBFUSACTOR_DECRYPT_STR_0("\167\88\214", "\222\215\55\165\125\65")]=Vector3.new(42.5, 101.3, -425.4),[LUAOBFUSACTOR_DECRYPT_STR_0("\62\208\194\19\231\210", "\42\76\177\166\122\146\161\141")]=50,[LUAOBFUSACTOR_DECRYPT_STR_0("\160\132\4\204\117\115\161", "\22\197\234\101\174\25")]=true},{[LUAOBFUSACTOR_DECRYPT_STR_0("\35\53\168\217", "\230\77\84\197\188\22\207\183")]=LUAOBFUSACTOR_DECRYPT_STR_0("\201\21\212\247\131\180\226\15\246\26\195", "\85\153\116\166\156\236\193\144"),[LUAOBFUSACTOR_DECRYPT_STR_0("\180\239\94", "\96\196\128\45\211\132")]=Vector3.new(216.2, 98.5, -617.6),[LUAOBFUSACTOR_DECRYPT_STR_0("\39\140\127\86\199\188", "\184\85\237\27\63\178\207\212")]=50,[LUAOBFUSACTOR_DECRYPT_STR_0("\13\87\8\93\4\92\13", "\63\104\57\105")]=true},{[LUAOBFUSACTOR_DECRYPT_STR_0("\5\134\169\65", "\36\107\231\196")]=LUAOBFUSACTOR_DECRYPT_STR_0("\127\176\172\132\85\151\173\136\73\189", "\231\61\213\194"),[LUAOBFUSACTOR_DECRYPT_STR_0("\25\162\46", "\19\105\205\93")]=Vector3.new(240.2, 95.2, -248.8),[LUAOBFUSACTOR_DECRYPT_STR_0("\187\9\218\136\42\186", "\95\201\104\190\225")]=12.5,[LUAOBFUSACTOR_DECRYPT_STR_0("\170\197\192\204\163\206\197", "\174\207\171\161")]=true,[LUAOBFUSACTOR_DECRYPT_STR_0("\229\247\9\247\253\217", "\183\141\158\109\147\152")]=true},{[LUAOBFUSACTOR_DECRYPT_STR_0("\34\8\235\9", "\108\76\105\134")]=LUAOBFUSACTOR_DECRYPT_STR_0("\193\208\188\241\250\249\196\161", "\174\139\165\209\129"),[LUAOBFUSACTOR_DECRYPT_STR_0("\179\188\241", "\24\195\211\130\161\166\99\16")]=Vector3.new(456.5, 107, -409.3),[LUAOBFUSACTOR_DECRYPT_STR_0("\84\2\237\37\70\5", "\118\38\99\137\76\51")]=15,[LUAOBFUSACTOR_DECRYPT_STR_0("\248\40\4\16\5\37\249", "\64\157\70\101\114\105")]=true,[LUAOBFUSACTOR_DECRYPT_STR_0("\72\161\163\231\21\78", "\112\32\200\199\131")]=true},{[LUAOBFUSACTOR_DECRYPT_STR_0("\34\81\81\189", "\66\76\48\60\216\163\203")]=LUAOBFUSACTOR_DECRYPT_STR_0("\151\137\108\253\75\199\42\191\178\107\242\79", "\68\218\230\25\147\63\174"),[LUAOBFUSACTOR_DECRYPT_STR_0("\189\37\64", "\214\205\74\51\44")]=Vector3.new(540.4, 95, -112.4),[LUAOBFUSACTOR_DECRYPT_STR_0("\232\77\230\245\98\233", "\23\154\44\130\156")]=50,[LUAOBFUSACTOR_DECRYPT_STR_0("\20\168\172\172\58\22\21", "\115\113\198\205\206\86")]=true,[LUAOBFUSACTOR_DECRYPT_STR_0("\140\94\250\94\129\89", "\58\228\55\158")]=true}},[LUAOBFUSACTOR_DECRYPT_STR_0("\129\160", "\85\212\233\176\78\92\205")]={}};
+CONFIG.applyPlatformSettings = function(platform)
+	if (platform == LUAOBFUSACTOR_DECRYPT_STR_0("\103\119\170\203\102\125", "\130\42\56\232")) then
+		CONFIG.UI = {[LUAOBFUSACTOR_DECRYPT_STR_0("\221\188\42\231\79\40\217\188\62\230", "\95\138\213\68\131\32")]=UDim2.new(0, 340, 0, 560),[LUAOBFUSACTOR_DECRYPT_STR_0("\12\39\175\87\69\35\50\164", "\22\74\72\193\35")]={[LUAOBFUSACTOR_DECRYPT_STR_0("\56\112\240\84\41", "\56\76\25\132")]=14,[LUAOBFUSACTOR_DECRYPT_STR_0("\80\206\185\43\206\82", "\175\62\161\203\70")]=11,[LUAOBFUSACTOR_DECRYPT_STR_0("\47\208\194\31\57", "\85\92\189\163\115")]=10},[LUAOBFUSACTOR_DECRYPT_STR_0("\29\163\55\63\37\169\24\61\32\171\56\44", "\88\73\204\80")]=32,[LUAOBFUSACTOR_DECRYPT_STR_0("\20\140\30\67\29\213\41\132\28\67\1\223\39\132\24\82", "\186\78\227\112\38\73")]=28,[LUAOBFUSACTOR_DECRYPT_STR_0("\204\86\249\81\90\116\251", "\26\156\55\157\53\51")]=7,[LUAOBFUSACTOR_DECRYPT_STR_0("\191\208\25\206\139\83\141\214\26\208\182\85\159", "\48\236\184\118\185\216")]=false,[LUAOBFUSACTOR_DECRYPT_STR_0("\214\181\88\39\253\61\226\181\67\2\206\61\233", "\84\133\221\55\80\175")]=false,[LUAOBFUSACTOR_DECRYPT_STR_0("\159\232\60\142\194\85\186\239\48", "\60\221\135\68\198\167")]=44};
+		CONFIG.Visuals.HUDGlow = false;
+		CONFIG.Visuals.ShowZones = false;
+	else
+		CONFIG.UI = {[LUAOBFUSACTOR_DECRYPT_STR_0("\217\180\246\135\77\206\221\180\226\134", "\185\142\221\152\227\34")]=UDim2.new(0, 465, 0, 680),[LUAOBFUSACTOR_DECRYPT_STR_0("\126\202\89\238\112\58\237\93", "\151\56\165\55\154\35\83")]={[LUAOBFUSACTOR_DECRYPT_STR_0("\180\74\17\226\165", "\142\192\35\101")]=18,[LUAOBFUSACTOR_DECRYPT_STR_0("\216\122\59\174\230\128", "\118\182\21\73\195\135\236\204")]=13,[LUAOBFUSACTOR_DECRYPT_STR_0("\27\49\27\76\8", "\157\104\92\122\32\100\109")]=11},[LUAOBFUSACTOR_DECRYPT_STR_0("\151\169\200\205\49\34\165\174\170\161\199\222", "\203\195\198\175\170\93\71\237")]=36,[LUAOBFUSACTOR_DECRYPT_STR_0("\20\68\48\208\101\30\251\41\71\59\253\84\24\251\38\95", "\156\78\43\94\181\49\113")]=32,[LUAOBFUSACTOR_DECRYPT_STR_0("\66\233\192\167\2\77\126", "\25\18\136\164\195\107\35")]=10,[LUAOBFUSACTOR_DECRYPT_STR_0("\219\37\166\88\65\191\192\182\228\36\167\74\97", "\216\136\77\201\47\18\220\161")]=true,[LUAOBFUSACTOR_DECRYPT_STR_0("\30\228\36\205\58\213\133\37\248\25\219\1\208", "\226\77\140\75\186\104\188")]=true,[LUAOBFUSACTOR_DECRYPT_STR_0("\155\193\200\23\74\176\201\216\43", "\47\217\174\176\95")]=52};
+	end
+end;
+local EGG_TYPES = {[LUAOBFUSACTOR_DECRYPT_STR_0("\150\242\68\47\147\120", "\70\216\189\22\98\210\52\24")]={[LUAOBFUSACTOR_DECRYPT_STR_0("\217\208\175\136\193", "\179\186\191\195\231")]=Color3.fromRGB(200, 200, 200),[LUAOBFUSACTOR_DECRYPT_STR_0("\233\45\17\235\235\54\12\253", "\132\153\95\120")]=10,[LUAOBFUSACTOR_DECRYPT_STR_0("\191\179\3\40", "\192\209\210\110\77\151\186")]=LUAOBFUSACTOR_DECRYPT_STR_0("\206\12\48\228\254\200", "\164\128\99\66\137\159")},[LUAOBFUSACTOR_DECRYPT_STR_0("\55\166\198\154", "\222\96\233\137")]={[LUAOBFUSACTOR_DECRYPT_STR_0("\186\188\171\16\154", "\144\217\211\199\127\232\147")]=Color3.fromRGB(139, 90, 43),[LUAOBFUSACTOR_DECRYPT_STR_0("\232\61\55\39\199\76\22\93", "\36\152\79\94\72\181\37\98")]=9,[LUAOBFUSACTOR_DECRYPT_STR_0("\217\217\74\58", "\95\183\184\39")]=LUAOBFUSACTOR_DECRYPT_STR_0("\130\48\232\34", "\98\213\95\135\70\52\224")},[LUAOBFUSACTOR_DECRYPT_STR_0("\205\151\230\89\113", "\52\158\195\169\23")]={[LUAOBFUSACTOR_DECRYPT_STR_0("\121\179\62\123\148", "\235\26\220\82\20\230\85\27")]=Color3.fromRGB(150, 150, 150),[LUAOBFUSACTOR_DECRYPT_STR_0("\152\179\224\205\102\129\181\240", "\20\232\193\137\162")]=9,[LUAOBFUSACTOR_DECRYPT_STR_0("\44\222\200\163", "\17\66\191\165\198\135\236\119")]=LUAOBFUSACTOR_DECRYPT_STR_0("\60\187\161\29\250", "\177\111\207\206\115\159\136\140")},[LUAOBFUSACTOR_DECRYPT_STR_0("\44\187\63\58", "\63\101\233\112\116\180\47")]={[LUAOBFUSACTOR_DECRYPT_STR_0("\192\52\225\29\234", "\86\163\91\141\114\152")]=Color3.fromRGB(200, 200, 210),[LUAOBFUSACTOR_DECRYPT_STR_0("\67\25\125\124\40\90\31\109", "\90\51\107\20\19")]=8,[LUAOBFUSACTOR_DECRYPT_STR_0("\131\241\136\234", "\93\237\144\229\143")]=LUAOBFUSACTOR_DECRYPT_STR_0("\60\228\255\23", "\38\117\150\144\121\107")},[LUAOBFUSACTOR_DECRYPT_STR_0("\10\137\203\31\3", "\90\77\219\142")]={[LUAOBFUSACTOR_DECRYPT_STR_0("\229\11\45\54\94", "\26\134\100\65\89\44\103")]=Color3.fromRGB(50, 255, 50),[LUAOBFUSACTOR_DECRYPT_STR_0("\225\241\57\44\182\248\247\41", "\196\145\131\80\67")]=8,[LUAOBFUSACTOR_DECRYPT_STR_0("\16\177\11\13", "\136\126\208\102\104\120")]=LUAOBFUSACTOR_DECRYPT_STR_0("\95\152\203\70\161", "\49\24\234\174\35\207\50\93")},[LUAOBFUSACTOR_DECRYPT_STR_0("\46\222\200\173", "\17\108\146\157\232")]={[LUAOBFUSACTOR_DECRYPT_STR_0("\72\204\24\226\61", "\200\43\163\116\141\79")]=Color3.fromRGB(50, 170, 255),[LUAOBFUSACTOR_DECRYPT_STR_0("\175\36\52\140\162\253\247\166", "\131\223\86\93\227\208\148")]=8,[LUAOBFUSACTOR_DECRYPT_STR_0("\237\68\187\179", "\213\131\37\214\214\125")]=LUAOBFUSACTOR_DECRYPT_STR_0("\4\39\48\186", "\129\70\75\69\223")},[LUAOBFUSACTOR_DECRYPT_STR_0("\105\249\210\199\91\202", "\143\38\171\147\137\28")]={[LUAOBFUSACTOR_DECRYPT_STR_0("\211\141\181\252\17", "\180\176\226\217\147\99\131")]=Color3.fromRGB(255, 170, 50),[LUAOBFUSACTOR_DECRYPT_STR_0("\195\171\38\8\193\176\59\30", "\103\179\217\79")]=7,[LUAOBFUSACTOR_DECRYPT_STR_0("\68\182\17\208", "\195\42\215\124\181\33\236")]=LUAOBFUSACTOR_DECRYPT_STR_0("\34\75\54\48\34\253", "\152\109\57\87\94\69")},[LUAOBFUSACTOR_DECRYPT_STR_0("\222\248\38\135", "\200\153\183\106\195\222\178\52")]={[LUAOBFUSACTOR_DECRYPT_STR_0("\49\236\132\50\91", "\58\82\131\232\93\41")]=Color3.fromRGB(255, 215, 0),[LUAOBFUSACTOR_DECRYPT_STR_0("\147\69\217\26\79\54\151\78", "\95\227\55\176\117\61")]=6,[LUAOBFUSACTOR_DECRYPT_STR_0("\22\127\46\78", "\203\120\30\67\43")]=LUAOBFUSACTOR_DECRYPT_STR_0("\214\42\65\235\220\255", "\185\145\69\45\143")},[LUAOBFUSACTOR_DECRYPT_STR_0("\173\48\53\130\249\164", "\188\234\127\121\198")]={[LUAOBFUSACTOR_DECRYPT_STR_0("\59\61\31\140\42", "\227\88\82\115")]=Color3.fromRGB(255, 215, 0),[LUAOBFUSACTOR_DECRYPT_STR_0("\83\13\179\168\16\122\87\6", "\19\35\127\218\199\98")]=6,[LUAOBFUSACTOR_DECRYPT_STR_0("\18\250\7\231", "\130\124\155\106")]=LUAOBFUSACTOR_DECRYPT_STR_0("\242\196\250\171\166\248", "\223\181\171\150\207\195\150\28")},[LUAOBFUSACTOR_DECRYPT_STR_0("\104\19\194\131\38\98\30", "\105\44\90\131\206")]={[LUAOBFUSACTOR_DECRYPT_STR_0("\252\239\190\182\26", "\94\159\128\210\217\104")]=Color3.fromRGB(0, 255, 255),[LUAOBFUSACTOR_DECRYPT_STR_0("\64\235\15\176\77\118\237\99", "\26\48\153\102\223\63\31\153")]=5,[LUAOBFUSACTOR_DECRYPT_STR_0("\12\65\224\246", "\147\98\32\141")]=LUAOBFUSACTOR_DECRYPT_STR_0("\60\74\226\199\9\88\79", "\43\120\35\131\170\102\54")},[LUAOBFUSACTOR_DECRYPT_STR_0("\113\43\162\132\132\156\160", "\228\52\102\231\214\197\208")]={[LUAOBFUSACTOR_DECRYPT_STR_0("\29\239\121\197\248", "\182\126\128\21\170\138\235\121")]=Color3.fromRGB(80, 200, 120),[LUAOBFUSACTOR_DECRYPT_STR_0("\155\200\60\233\148\26\36\31", "\102\235\186\85\134\230\115\80")]=5,[LUAOBFUSACTOR_DECRYPT_STR_0("\89\13\51\90", "\66\55\108\94\63\18\180")]=LUAOBFUSACTOR_DECRYPT_STR_0("\49\128\128\37\38\85\16", "\57\116\237\229\87\71")},[LUAOBFUSACTOR_DECRYPT_STR_0("\152\132\207\222", "\39\202\209\141\135\23\142")]={[LUAOBFUSACTOR_DECRYPT_STR_0("\252\60\5\5\32", "\152\159\83\105\106\82")]=Color3.fromRGB(224, 17, 95),[LUAOBFUSACTOR_DECRYPT_STR_0("\145\212\88\253\219\85\149\223", "\60\225\166\49\146\169")]=5,[LUAOBFUSACTOR_DECRYPT_STR_0("\33\31\34\47", "\103\79\126\79\74\97")]=LUAOBFUSACTOR_DECRYPT_STR_0("\136\106\209\106", "\122\218\31\179\19\62")},[LUAOBFUSACTOR_DECRYPT_STR_0("\129\243\233", "\37\211\182\173\161\169\193")]={[LUAOBFUSACTOR_DECRYPT_STR_0("\244\53\65\214\58", "\217\151\90\45\185\72\27")]=Color3.fromRGB(255, 50, 50),[LUAOBFUSACTOR_DECRYPT_STR_0("\211\110\238\29\68\202\104\254", "\54\163\28\135\114")]=5,[LUAOBFUSACTOR_DECRYPT_STR_0("\38\218\80\135", "\31\72\187\61\226\46")]=LUAOBFUSACTOR_DECRYPT_STR_0("\241\3\71", "\68\163\102\35\178\39\30")},[LUAOBFUSACTOR_DECRYPT_STR_0("\141\81\234\247\43\156\177\52", "\113\222\16\186\167\99\213\227")]={[LUAOBFUSACTOR_DECRYPT_STR_0("\45\1\247\249\60", "\150\78\110\155")]=Color3.fromRGB(15, 82, 186),[LUAOBFUSACTOR_DECRYPT_STR_0("\149\215\46\238\182\23\171\89", "\32\229\165\71\129\196\126\223")]=5,[LUAOBFUSACTOR_DECRYPT_STR_0("\205\136\201\132", "\181\163\233\164\225\225")]=LUAOBFUSACTOR_DECRYPT_STR_0("\99\138\46\103\88\130\44\114", "\23\48\235\94")},[LUAOBFUSACTOR_DECRYPT_STR_0("\76\239\234\109\123\22", "\178\28\186\184\61\55\83")]={[LUAOBFUSACTOR_DECRYPT_STR_0("\199\194\75\51\224", "\149\164\173\39\92\146\110")]=Color3.fromRGB(170, 50, 255),[LUAOBFUSACTOR_DECRYPT_STR_0("\227\53\25\16\8\18\231\62", "\123\147\71\112\127\122")]=4,[LUAOBFUSACTOR_DECRYPT_STR_0("\194\204\143\116", "\38\172\173\226\17")]=LUAOBFUSACTOR_DECRYPT_STR_0("\125\4\62\255\65\20", "\143\45\113\76")},[LUAOBFUSACTOR_DECRYPT_STR_0("\153\149\57\8\144\129\47\8", "\92\216\216\124")]={[LUAOBFUSACTOR_DECRYPT_STR_0("\88\61\160\79\239", "\157\59\82\204\32")]=Color3.fromRGB(153, 102, 204),[LUAOBFUSACTOR_DECRYPT_STR_0("\40\44\234\245\251\227\199\168", "\209\88\94\131\154\137\138\179")]=4,[LUAOBFUSACTOR_DECRYPT_STR_0("\38\160\201\121", "\66\72\193\164\28\126\67\81")]=LUAOBFUSACTOR_DECRYPT_STR_0("\198\33\173\76\46\111\244\56", "\22\135\76\200\56\70")},[LUAOBFUSACTOR_DECRYPT_STR_0("\162\18\203\13\121\200\172\30", "\129\237\80\152\68\61")]={[LUAOBFUSACTOR_DECRYPT_STR_0("\82\167\8\252\14", "\56\49\200\100\147\124\119")]=Color3.fromRGB(60, 48, 90),[LUAOBFUSACTOR_DECRYPT_STR_0("\220\44\182\255\222\55\171\233", "\144\172\94\223")]=3,[LUAOBFUSACTOR_DECRYPT_STR_0("\42\14\175\66", "\39\68\111\194")]=LUAOBFUSACTOR_DECRYPT_STR_0("\249\164\244\206\125\190\215\168", "\215\182\198\135\167\25")},[LUAOBFUSACTOR_DECRYPT_STR_0("\187\102\195\108", "\40\237\41\138")]={[LUAOBFUSACTOR_DECRYPT_STR_0("\196\123\246\247\88", "\42\167\20\154\152")]=Color3.fromRGB(30, 0, 50),[LUAOBFUSACTOR_DECRYPT_STR_0("\90\236\171\77\99\40\94\231", "\65\42\158\194\34\17")]=2,[LUAOBFUSACTOR_DECRYPT_STR_0("\20\38\95\9", "\142\122\71\50\108\77\141\123")]=LUAOBFUSACTOR_DECRYPT_STR_0("\35\173\246\28", "\91\117\194\159\120")},[LUAOBFUSACTOR_DECRYPT_STR_0("\40\60\23\54\23\222\19", "\68\122\125\94\120\85\145")]={[LUAOBFUSACTOR_DECRYPT_STR_0("\20\19\195\81\218", "\218\119\124\175\62\168\185")]=Color3.fromRGB(255, 105, 180),[LUAOBFUSACTOR_DECRYPT_STR_0("\181\226\65\203\183\249\92\221", "\164\197\144\40")]=2,[LUAOBFUSACTOR_DECRYPT_STR_0("\141\241\167\142", "\214\227\144\202\235\189")]=LUAOBFUSACTOR_DECRYPT_STR_0("\223\164\142\117\18\188\68", "\92\141\197\231\27\112\211\51")},[LUAOBFUSACTOR_DECRYPT_STR_0("\193\222\166\130\233\223", "\177\134\159\234\195")]={[LUAOBFUSACTOR_DECRYPT_STR_0("\190\228\51\175\219", "\169\221\139\95\192")]=Color3.fromRGB(138, 43, 226),[LUAOBFUSACTOR_DECRYPT_STR_0("\206\153\118\48\48\47\202\146", "\70\190\235\31\95\66")]=1,[LUAOBFUSACTOR_DECRYPT_STR_0("\180\227\23\227", "\133\218\130\122\134")]=LUAOBFUSACTOR_DECRYPT_STR_0("\27\254\239\197\196\186", "\88\92\159\131\164\188\195")},[LUAOBFUSACTOR_DECRYPT_STR_0("\167\2\150\127\244\195\248\164", "\189\224\78\223\43\183\139")]={[LUAOBFUSACTOR_DECRYPT_STR_0("\45\243\134\25\211", "\161\78\156\234\118")]=Color3.fromRGB(0, 255, 100),[LUAOBFUSACTOR_DECRYPT_STR_0("\183\165\192\211\181\190\221\197", "\188\199\215\169")]=1,[LUAOBFUSACTOR_DECRYPT_STR_0("\242\8\82\126", "\136\156\105\63\27")]=LUAOBFUSACTOR_DECRYPT_STR_0("\60\128\112\32\24\132\124\48", "\84\123\236\25")}};
+local State = {[LUAOBFUSACTOR_DECRYPT_STR_0("\195\159\171\3\185\166", "\213\144\235\202\119\204")]=LUAOBFUSACTOR_DECRYPT_STR_0("\10\60\242\15", "\45\67\120\190\74\72\67"),[LUAOBFUSACTOR_DECRYPT_STR_0("\3\45\225\169\252\139\250\236\36", "\137\64\66\141\197\153\232\142")]=0,[LUAOBFUSACTOR_DECRYPT_STR_0("\37\209\48\171\187\23\209\48\178\188\10\221\39", "\232\99\176\66\198")]=0,[LUAOBFUSACTOR_DECRYPT_STR_0("\201\38\47\21\88\140\250\36\233", "\76\140\65\72\102\27\237\153")]={},[LUAOBFUSACTOR_DECRYPT_STR_0("\104\214\23\209\220\13\183\89\206", "\222\42\186\118\178\183\97")]={},[LUAOBFUSACTOR_DECRYPT_STR_0("\113\227\67\162\84\255\80\133\79\245", "\234\61\140\36")]={},[LUAOBFUSACTOR_DECRYPT_STR_0("\20\244\153\125\1\47\216\185\102\6\46\211\169", "\111\65\189\218\18")]={},[LUAOBFUSACTOR_DECRYPT_STR_0("\121\68\21\48\61\85\188\86\74\23\38", "\207\35\43\123\85\107\60")]={},[LUAOBFUSACTOR_DECRYPT_STR_0("\89\185\146\239\106\117\190\180\227\119\119", "\25\16\202\192\138")]=false};
+local CyberUI = {};
+local Utils = {};
+Utils.getChar = function()
+	return player.Character;
+end;
+Utils.getRoot = function()
+	return Utils.getChar() and Utils.getChar():FindFirstChild(LUAOBFUSACTOR_DECRYPT_STR_0("\213\222\160\227\167\251\244\207\159\237\166\224\205\202\191\246", "\148\157\171\205\130\201"));
+end;
+Utils.getHum = function()
+	return Utils.getChar() and Utils.getChar():FindFirstChildOfClass(LUAOBFUSACTOR_DECRYPT_STR_0("\11\193\121\40\223\249\42\208", "\150\67\180\20\73\177"));
+end;
+Utils.isAlive = function(obj)
+	return obj and (typeof(obj) == LUAOBFUSACTOR_DECRYPT_STR_0("\164\22\9\89\140\22\25\72", "\45\237\120\122")) and obj:IsDescendantOf(game);
+end;
+Utils.clearFolder = function(name)
+	local f = Workspace:FindFirstChild(name);
+	if f then
+		f:ClearAllChildren();
+	else
+		f = Instance.new(LUAOBFUSACTOR_DECRYPT_STR_0("\241\231\174\40\210\250", "\76\183\136\194"), Workspace);
+		f.Name = name;
+	end
+	return f;
+end;
+Utils.getAttachPart = function(obj)
+	if (obj:IsA(LUAOBFUSACTOR_DECRYPT_STR_0("\87\233\225\61\92", "\116\26\134\133\88\48\47")) and obj.PrimaryPart) then
+		return obj.PrimaryPart;
+	end
+	if obj:IsA(LUAOBFUSACTOR_DECRYPT_STR_0("\60\192\179\225\141\115\12\213", "\18\126\161\192\132\221")) then
+		return obj;
+	end
+	return obj:FindFirstChildWhichIsA(LUAOBFUSACTOR_DECRYPT_STR_0("\125\41\189\1\102\94\58\186", "\54\63\72\206\100"), true) or obj;
+end;
+Utils.getLivePosition = function(obj)
+	local p = Utils.getAttachPart(obj);
+	if (p and p:IsA(LUAOBFUSACTOR_DECRYPT_STR_0("\234\88\86\127\213\122\218\77", "\27\168\57\37\26\133"))) then
+		return p.Position;
+	end
+	return obj:GetPivot().Position;
+end;
+Utils.formatTime = function(seconds)
+	local h = math.floor(seconds / 3600);
+	local m = math.floor((seconds % 3600) / 60);
+	local s = math.floor(seconds % 60);
+	return ((h > 0) and string.format(LUAOBFUSACTOR_DECRYPT_STR_0("\104\174\116\232\146\125\248\120\165", "\183\77\202\28\200"), h, m)) or string.format(LUAOBFUSACTOR_DECRYPT_STR_0("\82\55\132\72\82\99\219\12\4", "\104\119\83\233"), m, s);
+end;
+local Logger = {};
+Logger.log = function(typeStr, message)
+	local fmt = string.format(LUAOBFUSACTOR_DECRYPT_STR_0("\206\189\52\31\3\176\235", "\35\149\152\71\66"), os.date(LUAOBFUSACTOR_DECRYPT_STR_0("\92\192\24\245\23\67\173\113", "\90\121\136\34\208")), message);
+	table.insert(State.LogHistory, {[LUAOBFUSACTOR_DECRYPT_STR_0("\211\23\69\27", "\126\167\110\53")]=typeStr,[LUAOBFUSACTOR_DECRYPT_STR_0("\48\3\41", "\95\93\112\78\152\188")]=fmt});
+	if (#State.LogHistory > 50) then
+		table.remove(State.LogHistory, 1);
+	end
+	if CyberUI.Log then
+		CyberUI.Log(fmt);
+	end
+end;
+Logger.setState = function(newState, targetName)
+	if ((State.Status ~= newState) or (targetName and (targetName ~= State.CurrentTargetName))) then
+		State.Status = newState;
+		State.CurrentTargetName = targetName or LUAOBFUSACTOR_DECRYPT_STR_0("\239\218\171\48", "\178\161\149\229\117\132\222");
+		if CyberUI.SetState then
+			CyberUI.SetState(newState);
+		end
+		if CyberUI.SetTarget then
+			CyberUI.SetTarget(State.CurrentTargetName);
+		end
+	end
+end;
+local ResetManager = {};
+ResetManager.doReset = function(reason)
+	if State.IsResetting then
+		return;
+	end
+	if not CONFIG.AutoReset.Enabled then
+		return;
+	end
+	State.IsResetting = true;
+	Logger.log(LUAOBFUSACTOR_DECRYPT_STR_0("\186\254\238\137\149", "\67\232\187\189\204\193\118\198"), reason or LUAOBFUSACTOR_DECRYPT_STR_0("\170\27\129\15\123\48\202\184\11\129", "\143\235\78\213\64\91\98"));
+	Logger.setState(LUAOBFUSACTOR_DECRYPT_STR_0("\191\109\183\204\68\130\164\102\163", "\214\237\40\228\137\16"), LUAOBFUSACTOR_DECRYPT_STR_0("\203\173\161", "\198\229\131\143\185\99"));
+	task.wait(CONFIG.AutoReset.ResetDelay);
+	local hum = Utils.getHum();
+	if hum then
+		hum.Health = 0;
+	end
+	local t0 = tick();
+	while not Utils.getRoot() and ((tick() - t0) < 10) do
+		task.wait(0.1);
+	end
+	task.wait(1);
+	State.IsResetting = false;
+	Logger.log(LUAOBFUSACTOR_DECRYPT_STR_0("\98\181\155", "\19\49\236\200"), LUAOBFUSACTOR_DECRYPT_STR_0("\204\18\197\135\197\141\208\18\210", "\218\158\87\150\215\132"));
+	Logger.setState(LUAOBFUSACTOR_DECRYPT_STR_0("\210\58\245\199", "\173\155\126\185\130\86\66"), LUAOBFUSACTOR_DECRYPT_STR_0("\203\137\148\226", "\140\133\198\218\167\232"));
+end;
+ResetManager.resetAfterCollect = function()
+	if CONFIG.AutoReset.ResetAfterCollect then
+		ResetManager.doReset("COLLECTED → RESET");
+	end
+end;
+ResetManager.resetOnStuck = function()
+	if CONFIG.AutoReset.ResetOnStuck then
+		ResetManager.doReset("STUCK → RESET");
+	end
+end;
+local ZoneManager = {};
+local zoneFolder = nil;
+ZoneManager.init = function()
+	zoneFolder = Utils.clearFolder(CONFIG.WorkspaceFolder .. LUAOBFUSACTOR_DECRYPT_STR_0("\138\20\187\115\129\166", "\228\213\78\212\29"));
+end;
+ZoneManager.syncZones = function()
+	for _, dz in ipairs(CONFIG.DisplayZones) do
+		for _, bz in ipairs(CONFIG.BlacklistZones) do
+			if (dz.name == bz.name) then
+				bz.enabled = dz.enabled;
+			end
+		end
+	end
+end;
+ZoneManager.isInBlacklistZone = function(position)
+	for _, zone in ipairs(CONFIG.BlacklistZones) do
+		if (zone.enabled and ((position - zone.pos).Magnitude <= zone.radius)) then
+			return true, zone.name;
+		end
+	end
+	return false, nil;
+end;
+ZoneManager.isPathSafe = function(waypoints)
+	for i, wp in ipairs(waypoints) do
+		local inZone, zoneName = ZoneManager.isInBlacklistZone(wp.Position);
+		if inZone then
+			return false, zoneName, i;
+		end
+	end
+	return true, nil, nil;
+end;
+ZoneManager.createZoneVisuals = function()
+	if not zoneFolder then
+		return;
+	end
+	zoneFolder:ClearAllChildren();
+	if not CONFIG.Visuals.ShowZones then
+		return;
+	end
+	for _, zone in ipairs(CONFIG.BlacklistZones) do
+		if (zone.enabled and not zone.hidden) then
+			local sphere = Instance.new(LUAOBFUSACTOR_DECRYPT_STR_0("\183\77\164\17", "\139\231\44\214\101"));
+			sphere.Shape = Enum.PartType.Ball;
+			sphere.Size = Vector3.new(zone.radius * 2, zone.radius * 2, zone.radius * 2);
+			sphere.Position = zone.pos;
+			sphere.Anchored = true;
+			sphere.CanCollide = false;
+			sphere.Material = Enum.Material.ForceField;
+			sphere.Color = THEME.orange;
+			sphere.Transparency = 0.92;
+			sphere.Parent = zoneFolder;
+			local bill = Instance.new(LUAOBFUSACTOR_DECRYPT_STR_0("\251\230\10\82\18\190\48\4\221\200\19\87", "\118\185\143\102\62\112\209\81"));
+			bill.Size = UDim2.new(0, 160, 0, 40);
+			bill.Adornee = sphere;
+			bill.AlwaysOnTop = true;
+			bill.StudsOffset = Vector3.new(0, zone.radius + 5, 0);
+			bill.MaxDistance = 500;
+			bill.Parent = zoneFolder;
+			local bg = Instance.new(LUAOBFUSACTOR_DECRYPT_STR_0("\122\98\40\235\160", "\88\60\16\73\134\197\117\124"));
+			bg.Size = UDim2.new(1, 0, 1, 0);
+			bg.BackgroundColor3 = THEME.bg2;
+			bg.BorderSizePixel = 0;
+			bg.Parent = bill;
+			local uiStroke = Instance.new(LUAOBFUSACTOR_DECRYPT_STR_0("\101\195\203\220\83\95\225\253", "\33\48\138\152\168"));
+			uiStroke.Color = THEME.orange;
+			uiStroke.Thickness = 1;
+			uiStroke.Parent = bg;
+			local bar = Instance.new(LUAOBFUSACTOR_DECRYPT_STR_0("\84\4\49\92\196", "\87\18\118\80\49\161"));
+			bar.Size = UDim2.new(0, 3, 1, 0);
+			bar.BackgroundColor3 = THEME.orange;
+			bar.BorderSizePixel = 0;
+			bar.Parent = bg;
+			local lbl = Instance.new(LUAOBFUSACTOR_DECRYPT_STR_0("\120\27\194\180\156\77\28\223\172", "\208\44\126\186\192"));
+			lbl.Size = UDim2.new(1, -12, 0, 18);
+			lbl.Position = UDim2.new(0, 8, 0, 3);
+			lbl.BackgroundTransparency = 1;
+			lbl.Text = "⛔ " .. string.upper(zone.name);
+			lbl.TextColor3 = THEME.orange;
+			lbl.Font = Enum.Font.Code;
+			lbl.TextSize = 12;
+			lbl.TextXAlignment = Enum.TextXAlignment.Left;
+			lbl.Parent = bg;
+			local info = Instance.new(LUAOBFUSACTOR_DECRYPT_STR_0("\195\31\188\210\56\253\203\75\251", "\46\151\122\196\166\116\156\169"));
+			info.Size = UDim2.new(1, -12, 0, 14);
+			info.Position = UDim2.new(0, 8, 0, 22);
+			info.BackgroundTransparency = 1;
+			info.Text = string.format(LUAOBFUSACTOR_DECRYPT_STR_0("\215\204\98\51\206\214\183\6\95\252\232", "\155\133\141\38\122"), zone.radius);
+			info.TextColor3 = THEME.dim;
+			info.Font = Enum.Font.Code;
+			info.TextSize = 10;
+			info.TextXAlignment = Enum.TextXAlignment.Left;
+			info.Parent = bg;
+		end
+	end
+end;
+ZoneManager.updateZoneVisuals = function()
+	ZoneManager.syncZones();
+	ZoneManager.createZoneVisuals();
+end;
+local EggManager = {};
+local espFolder = nil;
+EggManager.init = function()
+	espFolder = Utils.clearFolder(CONFIG.WorkspaceFolder .. LUAOBFUSACTOR_DECRYPT_STR_0("\26\15\159\113", "\197\69\74\204\33\47\31"));
+end;
+EggManager.getEggType = function(name)
+	local lower = name:lower();
+	for key, data in pairs(EGG_TYPES) do
+		if string.find(lower, key:lower()) then
+			return data;
+		end
+	end
+	return EGG_TYPES.NORMAL;
+end;
+EggManager.blacklist = function(obj, reason)
+	State.Blacklist[obj] = {[LUAOBFUSACTOR_DECRYPT_STR_0("\226\74\91\148\255\65", "\231\144\47\58")]=reason,[LUAOBFUSACTOR_DECRYPT_STR_0("\166\209\215\112", "\89\210\184\186\21\120\93\175")]=tick()};
+	Logger.log(LUAOBFUSACTOR_DECRYPT_STR_0("\147\127", "\90\209\51\28\181\25"), reason);
+end;
+EggManager.isBlacklisted = function(obj)
+	local data = State.Blacklist[obj];
+	if not data then
+		return false;
+	end
+	if (data.reason and string.find(data.reason, LUAOBFUSACTOR_DECRYPT_STR_0("\234\84\121\203\229", "\223\176\27\55\142"))) then
+		return true;
+	end
+	if (data.reason and (data.reason == LUAOBFUSACTOR_DECRYPT_STR_0("\30\148\224\144\27\143\235\152\20", "\213\68\219\174"))) then
+		if ((tick() - data.time) > 30) then
+			State.Blacklist[obj] = nil;
+			return false;
+		end
+		return true;
+	end
+	if ((tick() - data.time) > 180) then
+		State.Blacklist[obj] = nil;
+		return false;
+	end
+	return true;
+end;
+EggManager.clearBlacklist = function()
+	local kept, cleared = 0, 0;
+	for obj, data in pairs(State.Blacklist) do
+		if (data.reason and string.find(data.reason, LUAOBFUSACTOR_DECRYPT_STR_0("\49\207\13\194\112", "\31\107\128\67\135\74\165\95"))) then
+			kept = kept + 1;
+		else
+			State.Blacklist[obj] = nil;
+			cleared = cleared + 1;
+		end
+	end
+	Logger.log(LUAOBFUSACTOR_DECRYPT_STR_0("\235\209\207", "\209\184\136\156\45\33"), string.format(LUAOBFUSACTOR_DECRYPT_STR_0("\37\228\47\72\253\3\136\118\4\189\6\218\112\12\244\71\141\113\72\162\8\198\112\72\180\8\203\126\27\248\12\205\101\28", "\216\103\168\21\104"), cleared, kept));
+end;
+EggManager.addESP = function(obj, eggData)
+	if (not CONFIG.Visuals.ShowESP or not espFolder) then
+		return;
+	end
+	if eggData.espFolder then
+		return;
+	end
+	local color = eggData.type.color;
+	local folder = Instance.new(LUAOBFUSACTOR_DECRYPT_STR_0("\94\162\79\160\125\191", "\196\24\205\35"));
+	folder.Name = LUAOBFUSACTOR_DECRYPT_STR_0("\11\184\211\57", "\102\78\235\131") .. obj.Name;
+	folder.Parent = espFolder;
+	eggData.espFolder = folder;
+	local hl = Instance.new(LUAOBFUSACTOR_DECRYPT_STR_0("\210\39\51\76\75\48\176\60\238", "\84\154\78\84\36\39\89\215"));
+	hl.Adornee = obj;
+	hl.FillColor = color;
+	hl.FillTransparency = 0.85;
+	hl.OutlineColor = color;
+	hl.OutlineTransparency = 0.1;
+	hl.DepthMode = Enum.HighlightDepthMode.AlwaysOnTop;
+	hl.Parent = folder;
+	eggData.espHighlight = hl;
+	local attachPart = Utils.getAttachPart(obj);
+	if (Platform.Current == LUAOBFUSACTOR_DECRYPT_STR_0("\208\206\116\113\41\216", "\101\157\129\54\56")) then
+		local bill = Instance.new(LUAOBFUSACTOR_DECRYPT_STR_0("\63\160\134\167\33\118\28\187\142\140\54\112", "\25\125\201\234\203\67"));
+		bill.Size = UDim2.new(0, 80, 0, 24);
+		bill.Adornee = attachPart;
+		bill.AlwaysOnTop = true;
+		bill.StudsOffset = Vector3.new(0, 2, 0);
+		bill.MaxDistance = 150;
+		bill.Parent = folder;
+		local label = Instance.new(LUAOBFUSACTOR_DECRYPT_STR_0("\77\241\0\23\56\38\17\124\248", "\115\25\148\120\99\116\71"));
+		label.Size = UDim2.new(1, 0, 1, 0);
+		label.BackgroundColor3 = THEME.bg2;
+		label.BackgroundTransparency = 0.3;
+		label.Text = eggData.type.name;
+		label.TextColor3 = color;
+		label.Font = Enum.Font.Code;
+		label.TextSize = 10;
+		label.Parent = bill;
+		eggData.espLabel = label;
+	else
+		local bill = Instance.new(LUAOBFUSACTOR_DECRYPT_STR_0("\46\52\181\40\67\3\60\171\32\102\25\52", "\33\108\93\217\68"));
+		bill.Size = UDim2.new(0, 190, 0, 58);
+		bill.Adornee = attachPart;
+		bill.AlwaysOnTop = true;
+		bill.StudsOffset = Vector3.new(0, 2.5, 0);
+		bill.MaxDistance = math.huge;
+		bill.Parent = folder;
+		local bg = Instance.new(LUAOBFUSACTOR_DECRYPT_STR_0("\253\89\160\160\222", "\205\187\43\193"));
+		bg.Size = UDim2.new(1, 0, 1, 0);
+		bg.BackgroundColor3 = THEME.bg2;
+		bg.BorderSizePixel = 0;
+		bg.Parent = bill;
+		local uiStroke = Instance.new(LUAOBFUSACTOR_DECRYPT_STR_0("\203\91\54\203\236\125\14\218", "\191\158\18\101"));
+		uiStroke.Color = color;
+		uiStroke.Thickness = 1;
+		uiStroke.Parent = bg;
+		eggData.espStroke = uiStroke;
+		local bar = Instance.new(LUAOBFUSACTOR_DECRYPT_STR_0("\227\209\134\186\170", "\207\165\163\231\215"));
+		bar.Size = UDim2.new(0, 3, 1, 0);
+		bar.BackgroundColor3 = color;
+		bar.BorderSizePixel = 0;
+		bar.Parent = bg;
+		eggData.espBar = bar;
+		local title = Instance.new(LUAOBFUSACTOR_DECRYPT_STR_0("\242\252\225\66\8\113\196\252\245", "\16\166\153\153\54\68"));
+		title.Size = UDim2.new(1, -12, 0, 18);
+		title.Position = UDim2.new(0, 8, 0, 5);
+		title.BackgroundTransparency = 1;
+		title.Text = string.upper(eggData.type.name);
+		title.TextColor3 = THEME.text;
+		title.Font = Enum.Font.Code;
+		title.TextSize = 13;
+		title.TextXAlignment = Enum.TextXAlignment.Left;
+		title.Parent = bg;
+		eggData.espTitle = title;
+		local distLabel = Instance.new(LUAOBFUSACTOR_DECRYPT_STR_0("\230\182\216\82\24\32\251\215\191", "\153\178\211\160\38\84\65"));
+		distLabel.Size = UDim2.new(1, -12, 0, 14);
+		distLabel.Position = UDim2.new(0, 8, 0, 28);
+		distLabel.BackgroundTransparency = 1;
+		distLabel.Text = LUAOBFUSACTOR_DECRYPT_STR_0("\166\34\105\31\216\75\10\38", "\75\226\107\58");
+		distLabel.TextColor3 = THEME.dim;
+		distLabel.Font = Enum.Font.Code;
+		distLabel.TextSize = 11;
+		distLabel.TextXAlignment = Enum.TextXAlignment.Left;
+		distLabel.Parent = bg;
+		eggData.espDist = distLabel;
+	end
+end;
+EggManager.registerEgg = function(obj)
+	if State.EggsCache[obj] then
+		return;
+	end
+	local prompt = obj:FindFirstChildWhichIsA(LUAOBFUSACTOR_DECRYPT_STR_0("\104\204\30\98\24\207\196\76\199\33\104\30\207\221\76", "\173\56\190\113\26\113\162"), true);
+	if not prompt then
+		return;
+	end
+	local name = obj.Name:lower();
+	if not (string.find(name, LUAOBFUSACTOR_DECRYPT_STR_0("\206\217\42", "\151\171\190\77\101")) or string.find(name, LUAOBFUSACTOR_DECRYPT_STR_0("\192\46\235\189\253\111", "\107\165\79\152\201\152\29"))) then
+		return;
+	end
+	local eggData = {[LUAOBFUSACTOR_DECRYPT_STR_0("\94\64\251\223\85\113\84\75", "\31\55\46\136\171\52")]=obj,[LUAOBFUSACTOR_DECRYPT_STR_0("\193\58\211\249\193\60", "\148\177\72\188")]=prompt,[LUAOBFUSACTOR_DECRYPT_STR_0("\178\175\71\214", "\179\198\214\55")]=EggManager.getEggType(obj.Name),[LUAOBFUSACTOR_DECRYPT_STR_0("\246\13\123\122\80\193\245\31", "\179\144\108\18\22\37")]=0,[LUAOBFUSACTOR_DECRYPT_STR_0("\207\173\33\134\193\195", "\175\166\195\123\233")]=false};
+	local inZone, zoneName = ZoneManager.isInBlacklistZone(Utils.getLivePosition(obj));
+	if inZone then
+		eggData.inZone = true;
+		eggData.zoneName = zoneName;
+	end
+	State.EggsCache[obj] = eggData;
+	EggManager.addESP(obj, eggData);
+end;
+EggManager.removeEgg = function(obj)
+	local data = State.EggsCache[obj];
+	if data then
+		if data.espFolder then
+			data.espFolder:Destroy();
+		end
+		State.EggsCache[obj] = nil;
+		State.Blacklist[obj] = nil;
+	end
+end;
+EggManager.updateESP = function()
+	local root = Utils.getRoot();
+	if not root then
+		return;
+	end
+	for obj, data in pairs(State.EggsCache) do
+		if (not Utils.isAlive(obj) or not Utils.isAlive(data.prompt)) then
+			EggManager.removeEgg(obj);
+			continue;
+		end
+		local blData = State.Blacklist[obj];
+		local isBlacklisted = blData ~= nil;
+		local currentPos = Utils.getLivePosition(obj);
+		local inZone, zoneName = ZoneManager.isInBlacklistZone(currentPos);
+		data.inZone = inZone;
+		data.zoneName = zoneName;
+		local c = THEME.red;
+		if (not isBlacklisted and not inZone) then
+			c = data.type.color;
+		elseif inZone then
+			c = THEME.orange;
+		end
+		if data.espHighlight then
+			data.espHighlight.FillColor = c;
+			data.espHighlight.OutlineColor = c;
+			data.espHighlight.FillTransparency = ((isBlacklisted or inZone) and 0.95) or 0.85;
+		end
+		local dist = math.floor((root.Position - currentPos).Magnitude);
+		if data.espLabel then
+			data.espLabel.Text = (isBlacklisted and (LUAOBFUSACTOR_DECRYPT_STR_0("\212\224\113\116\176", "\144\143\162\61\41") .. dist .. "m")) or (inZone and ("[" .. zoneName .. LUAOBFUSACTOR_DECRYPT_STR_0("\221\147", "\83\128\179\125\48\18\231") .. dist .. "m")) or (data.type.name .. " " .. dist .. "m");
+			data.espLabel.TextColor3 = c;
+		end
+		if data.espDist then
+			data.espDist.Text = (isBlacklisted and string.format(LUAOBFUSACTOR_DECRYPT_STR_0("\102\242\224\224\7\91\89\186", "\126\61\215\147\189\39"), blData.reason or LUAOBFUSACTOR_DECRYPT_STR_0("\90\211", "\37\24\159\125"), dist)) or (inZone and string.format(LUAOBFUSACTOR_DECRYPT_STR_0("\225\227\102\127\154\227\113\79", "\34\186\198\21"), zoneName, dist)) or string.format(LUAOBFUSACTOR_DECRYPT_STR_0("\220\33\246\105\152\184\77\193\80", "\162\152\104\165\61"), dist);
+			data.espDist.TextColor3 = (isBlacklisted and THEME.red) or (inZone and THEME.orange) or THEME.dim;
+		end
+		if data.espTitle then
+			data.espTitle.TextColor3 = ((isBlacklisted or inZone) and c) or THEME.text;
+		end
+		if data.espStroke then
+			data.espStroke.Color = c;
+		end
+		if data.espBar then
+			data.espBar.BackgroundColor3 = c;
+		end
+	end
+end;
+EggManager.getBestTarget = function()
+	local root = Utils.getRoot();
+	if not root then
+		return nil;
+	end
+	local bestEgg, bestPriority, bestDist = nil, 999, math.huge;
+	for obj, data in pairs(State.EggsCache) do
+		if (Utils.isAlive(obj) and Utils.isAlive(data.prompt)) then
+			if EggManager.isBlacklisted(obj) then
+				continue;
+			end
+			if data.inZone then
+				continue;
+			end
+			local dist = (root.Position - Utils.getLivePosition(obj)).Magnitude;
+			if ((data.type.priority < bestPriority) or ((data.type.priority == bestPriority) and (dist < bestDist))) then
+				bestPriority = data.type.priority;
+				bestDist = dist;
+				bestEgg = data;
+			end
+		else
+			EggManager.removeEgg(obj);
+		end
+	end
+	return bestEgg;
+end;
+local Movement = {};
+local pathFolder = nil;
+Movement.init = function()
+	pathFolder = Utils.clearFolder(CONFIG.WorkspaceFolder .. LUAOBFUSACTOR_DECRYPT_STR_0("\242\31\179\105\120", "\133\173\79\210\29\16"));
+end;
+Movement.drawPath = function(waypoints, pathColor, isDanger)
+	if not pathFolder then
+		return;
+	end
+	pathFolder:ClearAllChildren();
+	if (not CONFIG.Visuals.ShowPath or (#waypoints < 2)) then
+		return;
+	end
+	local color = pathColor or THEME.yellow;
+	local prevPos = nil;
+	local isMobile = Platform.Current == LUAOBFUSACTOR_DECRYPT_STR_0("\160\83\207\2\161\89", "\75\237\28\141");
+	local step = (isMobile and 2) or 1;
+	for i = 1, #waypoints, step do
+		local wp = waypoints[i];
+		local currentPos = wp.Position + Vector3.new(0, 0.4, 0);
+		if prevPos then
+			local dist = (prevPos - currentPos).Magnitude;
+			local line = Instance.new(LUAOBFUSACTOR_DECRYPT_STR_0("\236\94\222\165", "\129\188\63\172\209\79\123\135"));
+			line.Name = LUAOBFUSACTOR_DECRYPT_STR_0("\108\237\232\200\127", "\173\32\132\134") .. i;
+			line.Size = Vector3.new((isMobile and 0.15) or 0.22, (isMobile and 0.15) or 0.22, dist);
+			line.CFrame = CFrame.lookAt(prevPos, currentPos) * CFrame.new(0, 0, -dist / 2);
+			line.Anchored = true;
+			line.CanCollide = false;
+			line.Material = Enum.Material.Neon;
+			line.Color = (isDanger and THEME.red) or color;
+			line.Transparency = (isDanger and 0.2) or 0.1;
+			line.Parent = pathFolder;
+			if (not isMobile and ((i % 3) == 0)) then
+				local light = Instance.new(LUAOBFUSACTOR_DECRYPT_STR_0("\126\20\1\225\186\29\196\73\19\28", "\173\46\123\104\143\206\81"));
+				light.Color = (isDanger and THEME.red) or color;
+				light.Range = (isDanger and 8) or 6;
+				light.Brightness = (isDanger and 0.6) or 0.35;
+				light.Parent = line;
+			end
+			if (not isMobile and ((i % 4) == 0)) then
+				local node = Instance.new(LUAOBFUSACTOR_DECRYPT_STR_0("\132\28\48\158", "\97\212\125\66\234\37\227"));
+				node.Name = LUAOBFUSACTOR_DECRYPT_STR_0("\164\236\178\48\33", "\126\234\131\214\85") .. i;
+				node.Size = Vector3.new(0.5, 0.5, 0.5);
+				node.Position = currentPos;
+				node.Anchored = true;
+				node.CanCollide = false;
+				node.Material = Enum.Material.Neon;
+				node.Color = (isDanger and THEME.red) or color;
+				node.Transparency = 0.2;
+				node.Shape = Enum.PartType.Ball;
+				node.Parent = pathFolder;
+			end
+		end
+		prevPos = currentPos;
+	end
+	if not isMobile then
+		task.spawn(function()
+			local t = 0;
+			while pathFolder and (#pathFolder:GetChildren() > 0) do
+				t = t + 0.08;
+				local pulse = (math.sin(t * 3) + 1) / 2;
+				for _, child in ipairs(pathFolder:GetChildren()) do
+					if child:IsA(LUAOBFUSACTOR_DECRYPT_STR_0("\166\212\90\95\127\133\199\93", "\47\228\181\41\58")) then
+						local light = child:FindFirstChildOfClass(LUAOBFUSACTOR_DECRYPT_STR_0("\150\243\208\53\23\28\22\161\244\205", "\127\198\156\185\91\99\80"));
+						if light then
+							light.Brightness = (isDanger and (0.4 + (pulse * 0.4))) or (0.2 + (pulse * 0.3));
+						end
+						if child.Name:find(LUAOBFUSACTOR_DECRYPT_STR_0("\217\19\194\245", "\190\149\122\172\144\199\107\89")) then
+							child.Transparency = (isDanger and (0.1 + (pulse * 0.2))) or (0.05 + (pulse * 0.15));
+						end
+					end
+				end
+				task.wait(0.05);
+			end
+		end);
+	end
+end;
+Movement.stepBack = function()
+	local root = Utils.getRoot();
+	local hum = Utils.getHum();
+	if (not root or not hum) then
+		return;
+	end
+	Logger.log(LUAOBFUSACTOR_DECRYPT_STR_0("\1\60\194", "\158\82\101\145\158"), "STUCK → DODGE");
+	local dir = ((math.random(1, 2) == 1) and 1) or -1;
+	local escPos = (root.Position - (root.CFrame.LookVector * 15)) + (root.CFrame.RightVector * 15 * dir);
+	hum.Jump = true;
+	hum:MoveTo(escPos);
+	local t = tick();
+	while ((tick() - t) < 1.5) and CONFIG.Enabled and ((root.Position - escPos).Magnitude >= 4) do
+		task.wait();
+	end
+	hum:MoveTo(root.Position);
+	task.wait(0.2);
+end;
+Movement.findAlternativePath = function(startPos, targetPos)
+	local offsets = {Vector3.new(50, 0, 0),Vector3.new(-50, 0, 0),Vector3.new(0, 0, 50),Vector3.new(0, 0, -50),Vector3.new(70, 0, 70),Vector3.new(-70, 0, 70),Vector3.new(70, 0, -70),Vector3.new(-70, 0, -70),Vector3.new(100, 0, 0),Vector3.new(-100, 0, 0),Vector3.new(0, 0, 100),Vector3.new(0, 0, -100),Vector3.new(120, 0, 0),Vector3.new(-120, 0, 0),Vector3.new(0, 0, 120),Vector3.new(0, 0, -120)};
+	for _, offset in ipairs(offsets) do
+		local mid = startPos + offset;
+		if not ZoneManager.isInBlacklistZone(mid) then
+			local p1 = PathfindingService:CreatePath(CONFIG.AgentSettings);
+			local ok1 = pcall(function()
+				p1:ComputeAsync(startPos, mid);
+			end);
+			if (ok1 and (p1.Status == Enum.PathStatus.Success)) then
+				local safe1, _ = ZoneManager.isPathSafe(p1:GetWaypoints());
+				if safe1 then
+					local p2 = PathfindingService:CreatePath(CONFIG.AgentSettings);
+					local ok2 = pcall(function()
+						p2:ComputeAsync(mid, targetPos);
+					end);
+					if (ok2 and (p2.Status == Enum.PathStatus.Success)) then
+						local safe2, _ = ZoneManager.isPathSafe(p2:GetWaypoints());
+						if safe2 then
+							Logger.log(LUAOBFUSACTOR_DECRYPT_STR_0("\64\223\54\62", "\36\16\158\98\118"), "✓ ALT ROUTE: " .. tostring(math.floor(offset.X)) .. "/" .. tostring(math.floor(offset.Z)));
+							return mid;
+						end
+					end
+				end
+			end
+		end
+	end
+	return nil;
+end;
+Movement.walkWaypoints = function(waypoints)
+	local hum = Utils.getHum();
+	local root = Utils.getRoot();
+	if (not hum or not root) then
+		return false;
+	end
+	hum.WalkSpeed = CONFIG.SpeedModes[CONFIG.CurrentSpeedIndex].speed;
+	for _, wp in ipairs(waypoints) do
+		if (not CONFIG.Enabled or State.IsResetting) then
+			return false;
+		end
+		hum:MoveTo(wp.Position);
+		if (wp.Action == Enum.PathWaypointAction.Jump) then
+			hum:ChangeState(Enum.HumanoidStateType.Jumping);
+			hum.Jump = true;
+		end
+		local reached = false;
+		local conn = hum.MoveToFinished:Connect(function()
+			reached = true;
+		end);
+		local timeout = tick() + 4;
+		local stuckPos = root.Position;
+		local stuckTimer = tick();
+		local jumpCD = tick();
+		while not reached and (tick() < timeout) and CONFIG.Enabled do
+			local livePos = root.Position;
+			local vel = root.AssemblyLinearVelocity;
+			local speed = math.sqrt((vel.X * vel.X) + (vel.Z * vel.Z));
+			local dx, dz = livePos.X - wp.Position.X, livePos.Z - wp.Position.Z;
+			local hDist = math.sqrt((dx * dx) + (dz * dz));
+			if ((wp.Position.Y > (livePos.Y + 1.2)) and (hDist < 3) and ((tick() - jumpCD) > 0.4)) then
+				hum:ChangeState(Enum.HumanoidStateType.Jumping);
+				hum.Jump = true;
+				jumpCD = tick();
+			end
+			if ((speed < 1) and (hDist > 1) and ((tick() - jumpCD) > 0.4)) then
+				hum:ChangeState(Enum.HumanoidStateType.Jumping);
+				hum.Jump = true;
+				hum:MoveTo(wp.Position);
+				jumpCD = tick();
+			end
+			if ((tick() - stuckTimer) > 0.5) then
+				local sdx, sdz = livePos.X - stuckPos.X, livePos.Z - stuckPos.Z;
+				if (math.sqrt((sdx * sdx) + (sdz * sdz)) < 0.5) then
+					hum:ChangeState(Enum.HumanoidStateType.Jumping);
+					hum.Jump = true;
+					hum:MoveTo(wp.Position);
+				end
+				stuckPos = livePos;
+				stuckTimer = tick();
+			end
+			task.wait(0.02);
+		end
+		conn:Disconnect();
+		if not reached then
+			return false;
+		end
+	end
+	return true;
+end;
+Movement.followPath = function(targetInstance)
+	local root = Utils.getRoot();
+	local hum = Utils.getHum();
+	if (not root or not hum) then
+		return false, LUAOBFUSACTOR_DECRYPT_STR_0("\238\57\252\216\112\201\21", "\133\160\118\163\155\56\136\71");
+	end
+	local targetPos = Utils.getLivePosition(targetInstance);
+	local eggData = State.EggsCache[targetInstance];
+	local targetInZone, targetZoneName = ZoneManager.isInBlacklistZone(targetPos);
+	if targetInZone then
+		Logger.log(LUAOBFUSACTOR_DECRYPT_STR_0("\204\141\95\215", "\213\150\194\17\146\214\127"), LUAOBFUSACTOR_DECRYPT_STR_0("\47\136\150\243\99\144\226\31\53\243\228", "\86\123\201\196\180\38\196\194") .. targetZoneName);
+		if eggData then
+			eggData.inZone = true;
+			eggData.zoneName = targetZoneName;
+		end
+		return false, LUAOBFUSACTOR_DECRYPT_STR_0("\222\198\230\149\216\198\252", "\207\151\136\185");
+	end
+	local path = PathfindingService:CreatePath(CONFIG.AgentSettings);
+	local ok = pcall(function()
+		path:ComputeAsync(root.Position, targetPos);
+	end);
+	if (not ok or (path.Status ~= Enum.PathStatus.Success)) then
+		if eggData then
+			eggData.failures = eggData.failures + 1;
+			if (eggData.failures >= 3) then
+				EggManager.blacklist(targetInstance, LUAOBFUSACTOR_DECRYPT_STR_0("\134\172\23\178\85\76\89", "\17\200\227\72\226\20\24"));
+			else
+				Movement.stepBack();
+			end
+		end
+		return false, LUAOBFUSACTOR_DECRYPT_STR_0("\158\110\36\231\232\197\199", "\159\208\33\123\183\169\145\143");
+	end
+	local waypoints = path:GetWaypoints();
+	local pathSafe, dangerZone = ZoneManager.isPathSafe(waypoints);
+	if not pathSafe then
+		Logger.log(LUAOBFUSACTOR_DECRYPT_STR_0("\200\117\22\19", "\86\146\58\88"), LUAOBFUSACTOR_DECRYPT_STR_0("\104\254\222\232\238\202\4\213\107\236\207\243\244\169", "\154\56\191\138\160\206\137\86") .. dangerZone .. " — SEARCHING ALT ROUTE...");
+		Movement.drawPath(waypoints, THEME.red, true);
+		local altMid = Movement.findAlternativePath(root.Position, targetPos);
+		if altMid then
+			Logger.log(LUAOBFUSACTOR_DECRYPT_STR_0("\182\120\193\175", "\172\230\57\149\231\28\90\225"), LUAOBFUSACTOR_DECRYPT_STR_0("\48\143\180\253\29\239\43\132\161\146\30\242\35\234\167\254\28\155\50\133\175\252\28\149\76\228", "\187\98\202\230\178\72"));
+			local altPath = PathfindingService:CreatePath(CONFIG.AgentSettings);
+			local altOk = pcall(function()
+				altPath:ComputeAsync(root.Position, altMid);
+			end);
+			if (altOk and (altPath.Status == Enum.PathStatus.Success)) then
+				local altWaypoints = altPath:GetWaypoints();
+				Movement.drawPath(altWaypoints, THEME.cyan, false);
+				local reachedMid = Movement.walkWaypoints(altWaypoints);
+				if reachedMid then
+					task.wait(0.2);
+					return Movement.followPath(targetInstance);
+				end
+			end
+		end
+		Logger.log(LUAOBFUSACTOR_DECRYPT_STR_0("\27\206\138\21", "\42\65\129\196\80"), "NO ALT FOUND — TEMP SKIP 30s");
+		State.Blacklist[targetInstance] = {[LUAOBFUSACTOR_DECRYPT_STR_0("\16\79\92\201\24\9", "\142\98\42\61\186\119\103\98")]=LUAOBFUSACTOR_DECRYPT_STR_0("\2\144\44\45\7\139\39\37\8", "\104\88\223\98"),[LUAOBFUSACTOR_DECRYPT_STR_0("\80\254\239\203", "\141\36\151\130\174\98")]=tick()};
+		return false, LUAOBFUSACTOR_DECRYPT_STR_0("\190\85\236\40\187\88\238\34\167\81\231\41", "\109\228\26\162");
+	end
+	Movement.drawPath(waypoints, THEME.yellow, false);
+	hum.WalkSpeed = CONFIG.SpeedModes[CONFIG.CurrentSpeedIndex].speed;
+	for i, wp in ipairs(waypoints) do
+		if (not CONFIG.Enabled or not Utils.isAlive(targetInstance) or State.IsResetting) then
+			hum:MoveTo(root.Position);
+			return false, LUAOBFUSACTOR_DECRYPT_STR_0("\125\196\211\91\197\202\114\192\217", "\134\62\133\157\24\128");
+		end
+		local wpPos = wp.Position;
+		local wpInZone, wpZoneName = ZoneManager.isInBlacklistZone(wpPos);
+		if wpInZone then
+			Logger.log(LUAOBFUSACTOR_DECRYPT_STR_0("\61\138\52\252", "\182\103\197\122\185\79\209"), LUAOBFUSACTOR_DECRYPT_STR_0("\196\183\161\94\46\8\201\168\207\82\64\108\198\181\200\89\39\8\196\166\205\92\90\8", "\40\147\231\129\23\96") .. wpZoneName);
+			hum:MoveTo(root.Position);
+			return false, LUAOBFUSACTOR_DECRYPT_STR_0("\66\200\179\108\149\147\230\90\214\169", "\188\21\152\236\37\219\204");
+		end
+		hum:MoveTo(wpPos);
+		if ((wp.Action == Enum.PathWaypointAction.Jump) and (wpPos.Y > (root.Position.Y + 0.5))) then
+			hum:ChangeState(Enum.HumanoidStateType.Jumping);
+			hum.Jump = true;
+		end
+		local reached = false;
+		local connection = hum.MoveToFinished:Connect(function()
+			reached = true;
+		end);
+		local timeout = tick() + 3;
+		local stuckTimer = tick();
+		local stuckPos = root.Position;
+		local jumpCD = tick();
+		local wpStart = tick();
+		while not reached and (tick() < timeout) and CONFIG.Enabled and not State.IsResetting do
+			local livePos = root.Position;
+			local dx, dz = livePos.X - wpPos.X, livePos.Z - wpPos.Z;
+			local hDist = math.sqrt((dx * dx) + (dz * dz));
+			local vel = root.AssemblyLinearVelocity;
+			local speed = math.sqrt((vel.X * vel.X) + (vel.Z * vel.Z));
+			if ((wpPos.Y > (livePos.Y + 1.2)) and (hDist < 3) and (hDist > 0.5) and ((tick() - jumpCD) > 0.4)) then
+				hum:ChangeState(Enum.HumanoidStateType.Jumping);
+				hum.Jump = true;
+				jumpCD = tick();
+			end
+			if (((tick() - wpStart) > 0.2) and (speed < 1) and (hDist > 1) and ((tick() - jumpCD) > 0.4)) then
+				hum:ChangeState(Enum.HumanoidStateType.Jumping);
+				hum.Jump = true;
+				hum:MoveTo(wpPos);
+				jumpCD = tick();
+			end
+			if ((tick() - stuckTimer) > 0.5) then
+				local sdx, sdz = livePos.X - stuckPos.X, livePos.Z - stuckPos.Z;
+				if (math.sqrt((sdx * sdx) + (sdz * sdz)) < 0.5) then
+					hum:ChangeState(Enum.HumanoidStateType.Jumping);
+					hum.Jump = true;
+					hum:MoveTo(wpPos);
+				end
+				stuckPos = livePos;
+				stuckTimer = tick();
+			end
+			task.wait(0.02);
+		end
+		connection:Disconnect();
+		if not reached then
+			if eggData then
+				eggData.failures = eggData.failures + 1;
+				if (eggData.failures >= 3) then
+					EggManager.blacklist(targetInstance, LUAOBFUSACTOR_DECRYPT_STR_0("\115\221\2\47\107", "\108\32\137\87"));
+					ResetManager.resetOnStuck();
+				else
+					Movement.stepBack();
+				end
+			end
+			return false, LUAOBFUSACTOR_DECRYPT_STR_0("\153\220\53\133\4", "\57\202\136\96\198\79\153\43");
+		end
+		local line = pathFolder and pathFolder:FindFirstChild(LUAOBFUSACTOR_DECRYPT_STR_0("\135\42\164\162\178", "\152\203\67\202\199\237\199") .. i);
+		local node = pathFolder and pathFolder:FindFirstChild(LUAOBFUSACTOR_DECRYPT_STR_0("\212\76\164\10\32", "\134\154\35\192\111\127\21\25") .. i);
+		if line then
+			line:Destroy();
+		end
+		if node then
+			node:Destroy();
+		end
+	end
+	return true, LUAOBFUSACTOR_DECRYPT_STR_0("\151\13", "\178\216\70\105\106\64");
+end;
+Movement.collectTarget = function(target)
+	local root = Utils.getRoot();
+	local hum = Utils.getHum();
+	if (not root or not hum) then
+		return false;
+	end
+	Logger.setState(LUAOBFUSACTOR_DECRYPT_STR_0("\24\4", "\224\95\75\26\150\169\181\180"), target.type.name);
+	local reached, reason = Movement.followPath(target.instance);
+	if not reached then
+		return false;
+	end
+	if (Utils.isAlive(target.instance) and Utils.isAlive(target.prompt)) then
+		hum:MoveTo(root.Position);
+		target.prompt.RequiresLineOfSight = false;
+		task.wait(0.1);
+		local ok = pcall(function()
+			fireproximityprompt(target.prompt);
+		end);
+		if ok then
+			Logger.log(LUAOBFUSACTOR_DECRYPT_STR_0("\36\241", "\22\107\186\184\72\36\204"), "✓ " .. target.type.name);
+			State.Collected = State.Collected + 1;
+			if CyberUI.SetCount then
+				CyberUI.SetCount(State.Collected);
+			end
+			EggManager.removeEgg(target.instance);
+			task.wait(0.3);
+			ResetManager.resetAfterCollect();
+			return true;
+		else
+			Logger.log(LUAOBFUSACTOR_DECRYPT_STR_0("\194\143\22", "\110\135\221\68\46"), "✗ COLLECT FAIL");
+			ResetManager.doReset(LUAOBFUSACTOR_DECRYPT_STR_0("\192\25\32\199\235\144\15\163\16\45\194\226\150\31", "\91\131\86\108\139\174\211"));
+			return false;
+		end
+	end
+	return false;
+end;
+local AntiAFK = {};
+AntiAFK.init = function()
+	player.Idled:Connect(function()
+		if CONFIG.AntiAFK.Enabled then
+			if (Platform.Current == LUAOBFUSACTOR_DECRYPT_STR_0("\203\8", "\61\155\75\216\119")) then
+				pcall(function()
+					VirtualUser:CaptureController();
+					VirtualUser:ClickButton2(Vector2.new());
+				end);
+				pcall(function()
+					VirtualInputManager:SendKeyEvent(true, Enum.KeyCode.Unknown, false, game);
+					task.wait(0.1);
+					VirtualInputManager:SendKeyEvent(false, Enum.KeyCode.Unknown, false, game);
+				end);
+			else
+				local hum = Utils.getHum();
+				if hum then
+					hum.Jump = true;
+				end
+			end
+			Logger.log(LUAOBFUSACTOR_DECRYPT_STR_0("\37\141\153", "\189\100\203\210\92\56\105"), LUAOBFUSACTOR_DECRYPT_STR_0("\13\104\205\9\28\98", "\72\79\49\157"));
+		end
+	end);
+	task.spawn(function()
+		while true do
+			task.wait(CONFIG.AntiAFK.Interval);
+			if (CONFIG.AntiAFK.Enabled and not CONFIG.Enabled) then
+				pcall(function()
+					local cam = Workspace.CurrentCamera;
+					if cam then
+						cam.CFrame = cam.CFrame * CFrame.Angles(0, math.rad(0.01), 0);
+						task.wait(0.05);
+						cam.CFrame = cam.CFrame * CFrame.Angles(0, math.rad(-0.01), 0);
+					end
+				end);
+			end
+		end
+	end);
+end;
+local UI = {};
+UI.build = function()
+	local old = CoreGui:FindFirstChild(LUAOBFUSACTOR_DECRYPT_STR_0("\170\177\35\181\156\191\63\185\189\190\56\170\141\162\34\189\132\133\24", "\220\232\208\81"));
+	if old then
+		old:Destroy();
+	end
+	for _, conn in ipairs(State.UIConnections) do
+		pcall(function()
+			conn:Disconnect();
+		end);
+	end
+	State.UIConnections = {};
+	local gui = Instance.new(LUAOBFUSACTOR_DECRYPT_STR_0("\198\189\247\53\41\84\134\224\183", "\193\149\222\133\80\76\58"));
+	gui.Name = LUAOBFUSACTOR_DECRYPT_STR_0("\228\92\93\219\210\82\65\215\243\83\70\196\195\79\92\211\202\104\102", "\178\166\61\47");
+	gui.ResetOnSpawn = false;
+	gui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling;
+	gui.Parent = CoreGui;
+	local S = CONFIG.UI;
+	local isMobile = Platform.Current == LUAOBFUSACTOR_DECRYPT_STR_0("\214\101\202\83\230\27", "\94\155\42\136\26\170");
+	local function make(class, props, parent)
+		local o = Instance.new(class);
+		for k, v in pairs(props or {}) do
+			o[k] = v;
+		end
+		if parent then
+			o.Parent = parent;
+		end
+		return o;
+	end
+	local function stroke(parent, color, thickness, transparency)
+		return make(LUAOBFUSACTOR_DECRYPT_STR_0("\177\22\21\161\150\48\45\176", "\213\228\95\70"), {[LUAOBFUSACTOR_DECRYPT_STR_0("\9\180\206\139\101", "\23\74\219\162\228")]=color,[LUAOBFUSACTOR_DECRYPT_STR_0("\13\238\79\172\48\55\227\85\188", "\91\89\134\38\207")]=(thickness or 1),[LUAOBFUSACTOR_DECRYPT_STR_0("\112\252\201\56\0\192\38\86\235\198\53\10", "\71\36\142\168\86\115\176")]=(transparency or 0)}, parent);
+	end
+	local function techCorners(parent, color)
+		if isMobile then
+			return;
+		end
+		local function p(s, pos)
+			make(LUAOBFUSACTOR_DECRYPT_STR_0("\249\179\115\178\6", "\41\191\193\18\223\99\222\54"), {[LUAOBFUSACTOR_DECRYPT_STR_0("\152\47\221\47", "\202\203\70\167\74")]=s,[LUAOBFUSACTOR_DECRYPT_STR_0("\28\14\207\58\101\37\14\210", "\17\76\97\188\83")]=pos,[LUAOBFUSACTOR_DECRYPT_STR_0("\167\38\218\60\55\145\68\182\139\35\250\56\60\140\89\240", "\195\229\71\185\87\80\227\43")]=color,[LUAOBFUSACTOR_DECRYPT_STR_0("\194\243\18\84\234\242\207\9\74\234\208\245\24\85\227", "\143\128\156\96\48")]=0}, parent);
+		end
+		p(UDim2.new(0, 12, 0, 2), UDim2.new(0, 0, 0, 0));
+		p(UDim2.new(0, 2, 0, 12), UDim2.new(0, 0, 0, 0));
+		p(UDim2.new(0, 12, 0, 2), UDim2.new(1, -12, 0, 0));
+		p(UDim2.new(0, 2, 0, 12), UDim2.new(1, -2, 0, 0));
+		p(UDim2.new(0, 12, 0, 2), UDim2.new(0, 0, 1, -2));
+		p(UDim2.new(0, 2, 0, 12), UDim2.new(0, 0, 1, -12));
+		p(UDim2.new(0, 12, 0, 2), UDim2.new(1, -12, 1, -2));
+		p(UDim2.new(0, 2, 0, 12), UDim2.new(1, -2, 1, -12));
+	end
+	local root = make(LUAOBFUSACTOR_DECRYPT_STR_0("\158\195\241\31\18", "\119\216\177\144\114"), {[LUAOBFUSACTOR_DECRYPT_STR_0("\231\40\244\71", "\34\169\73\153")]=LUAOBFUSACTOR_DECRYPT_STR_0("\152\227\4\159", "\235\202\140\107"),[LUAOBFUSACTOR_DECRYPT_STR_0("\63\125\46\173", "\165\108\20\84\200\137\71\151")]=S.WindowSize,[LUAOBFUSACTOR_DECRYPT_STR_0("\74\187\56\129\110\189\36\134", "\232\26\212\75")]=UDim2.new(0, 15, 0, 15),[LUAOBFUSACTOR_DECRYPT_STR_0("\21\72\113\227\240\37\70\103\230\243\20\70\126\231\229\100", "\151\87\41\18\136")]=THEME.bg,[LUAOBFUSACTOR_DECRYPT_STR_0("\121\160\216\212\251\73\156\195\202\251\107\166\210\213\242", "\158\59\207\170\176")]=0,[LUAOBFUSACTOR_DECRYPT_STR_0("\110\93\39\64\154\74", "\236\47\62\83\41")]=true,[LUAOBFUSACTOR_DECRYPT_STR_0("\222\187\33\60\173\131\248\165\37", "\226\154\201\64\91\202")]=true}, gui);
+	stroke(root, THEME.yellow, (isMobile and 1) or 1.3, 0.05);
+	techCorners(root, THEME.yellow);
+	local outerGlow1 = make(LUAOBFUSACTOR_DECRYPT_STR_0("\231\91\28\21\79", "\220\161\41\125\120\42"), {[LUAOBFUSACTOR_DECRYPT_STR_0("\143\120\186\11", "\110\220\17\192")]=UDim2.new(1, 0, 0, 2),[LUAOBFUSACTOR_DECRYPT_STR_0("\86\120\55\17\236\37\254\178\122\125\23\21\231\56\227\244", "\199\20\25\84\122\139\87\145")]=THEME.yellow,[LUAOBFUSACTOR_DECRYPT_STR_0("\101\6\207\170\30\248\116\0\199\171\43\227\95\12\209", "\138\39\105\189\206\123")]=0}, root);
+	local outerGlow2 = make(LUAOBFUSACTOR_DECRYPT_STR_0("\57\21\136\32\246", "\159\127\103\233\77\147\153\175"), {[LUAOBFUSACTOR_DECRYPT_STR_0("\52\249\254\175", "\171\103\144\132\202\32")]=UDim2.new(0.28, 0, 0, 2),[LUAOBFUSACTOR_DECRYPT_STR_0("\32\32\250\5\4\38\230\2", "\108\112\79\137")]=UDim2.new(0.04, 0, 1, -2),[LUAOBFUSACTOR_DECRYPT_STR_0("\29\195\119\35\170\19\230\32\49\198\87\39\161\14\251\102", "\85\95\162\20\72\205\97\137")]=THEME.cyan,[LUAOBFUSACTOR_DECRYPT_STR_0("\213\242\56\216\8\234\254\254\231\47\236\4\224\200\251", "\173\151\157\74\188\109\152")]=0}, root);
+	if S.ShowRightRail then
+		local rail = make(LUAOBFUSACTOR_DECRYPT_STR_0("\2\26\57\208\217", "\147\68\104\88\189\188\52\181"), {[LUAOBFUSACTOR_DECRYPT_STR_0("\41\129\145\213", "\176\122\232\235")]=UDim2.new(0, 22, 1, -86),[LUAOBFUSACTOR_DECRYPT_STR_0("\176\122\41\70\250\137\122\52", "\142\224\21\90\47")]=UDim2.new(1, -30, 0, 74),[LUAOBFUSACTOR_DECRYPT_STR_0("\86\213\36\93\163\153\138\97\218\35\117\171\135\138\102\135", "\229\20\180\71\54\196\235")]=THEME.panel,[LUAOBFUSACTOR_DECRYPT_STR_0("\11\113\211\231\240\184\179\32\100\196\211\252\178\133\37", "\224\73\30\161\131\149\202")]=0}, root);
+		stroke(rail, THEME.line, 1, 0.25);
+		techCorners(rail, THEME.cyan);
+		for i = 0, 12 do
+			local seg = make(LUAOBFUSACTOR_DECRYPT_STR_0("\215\247\240\93\244", "\48\145\133\145"), {[LUAOBFUSACTOR_DECRYPT_STR_0("\105\69\175\235", "\76\58\44\213\142\177")]=UDim2.new(0, 10, 0, 14),[LUAOBFUSACTOR_DECRYPT_STR_0("\251\43\1\36\108\194\43\28", "\24\171\68\114\77")]=UDim2.new(0.5, -5, 0, 10 + (i * 42)),[LUAOBFUSACTOR_DECRYPT_STR_0("\205\28\83\89\128\204\11\184\225\25\115\93\139\209\22\254", "\205\143\125\48\50\231\190\100")]=((((i % 2) == 0) and THEME.yellow) or THEME.cyan),[LUAOBFUSACTOR_DECRYPT_STR_0("\227\168\6\1\228\241\236\171\219\162\36\12\249\230\211", "\194\161\199\116\101\129\131\191")]=0}, rail);
+			seg.BackgroundTransparency = 0.2;
+		end
+	end
+	local headerH = (isMobile and 48) or 68;
+	local top = make(LUAOBFUSACTOR_DECRYPT_STR_0("\202\54\201\165\242", "\194\140\68\168\200\151"), {[LUAOBFUSACTOR_DECRYPT_STR_0("\113\242\207\32", "\149\34\155\181\69")]=UDim2.new(1, 0, 0, headerH),[LUAOBFUSACTOR_DECRYPT_STR_0("\33\252\214\241\4\239\218\239\13\249\246\245\15\242\199\169", "\154\99\157\181")]=THEME.panel,[LUAOBFUSACTOR_DECRYPT_STR_0("\175\0\254\164\233\159\60\229\186\233\189\6\244\165\224", "\140\237\111\140\192")]=0}, root);
+	stroke(top, THEME.line, 1, 0.2);
+	local topLine = make(LUAOBFUSACTOR_DECRYPT_STR_0("\32\11\124\21\3", "\120\102\121\29"), {[LUAOBFUSACTOR_DECRYPT_STR_0("\159\234\163\62", "\91\204\131\217")]=UDim2.new(1, 0, 0, 3),[LUAOBFUSACTOR_DECRYPT_STR_0("\236\254\86\223\180\207\241\219\241\81\247\188\209\241\220\172", "\158\174\159\53\180\211\189")]=THEME.yellow,[LUAOBFUSACTOR_DECRYPT_STR_0("\112\242\255\217\114\167\97\244\247\216\71\188\74\248\225", "\213\50\157\141\189\23")]=0}, top);
+	local topLine2 = make(LUAOBFUSACTOR_DECRYPT_STR_0("\216\52\133\173\119", "\196\158\70\228\192\18"), {[LUAOBFUSACTOR_DECRYPT_STR_0("\121\86\11\75", "\185\42\63\113\46")]=UDim2.new(0.36, 0, 0, 2),[LUAOBFUSACTOR_DECRYPT_STR_0("\228\210\50\48\15\221\210\47", "\123\180\189\65\89")]=UDim2.new(0.02, 0, 1, -2),[LUAOBFUSACTOR_DECRYPT_STR_0("\224\141\243\239\142\208\131\229\234\141\225\131\252\235\155\145", "\233\162\236\144\132")]=THEME.cyan,[LUAOBFUSACTOR_DECRYPT_STR_0("\144\203\236\30\188\228\108\187\222\251\42\176\238\90\190", "\63\210\164\158\122\217\150")]=0}, top);
+	local headerTitle = make(LUAOBFUSACTOR_DECRYPT_STR_0("\7\206\238\248\101\249\49\206\250", "\152\83\171\150\140\41"), {[LUAOBFUSACTOR_DECRYPT_STR_0("\177\236\153\54", "\104\226\133\227\83\180\123")]=UDim2.new(1, -120, 0, (isMobile and 22) or 26),[LUAOBFUSACTOR_DECRYPT_STR_0("\51\4\48\89\23\2\44\94", "\48\99\107\67")]=UDim2.new(0, 14, 0, (isMobile and 10) or 12),[LUAOBFUSACTOR_DECRYPT_STR_0("\252\167\126\219\42\105\209\179\115\212\25\105\223\168\110\192\44\105\219\168\126\201", "\27\190\198\29\176\77")]=1,[LUAOBFUSACTOR_DECRYPT_STR_0("\219\78\229\32", "\46\143\43\157\84\201")]="",[LUAOBFUSACTOR_DECRYPT_STR_0("\99\125\78\214\124\28\196\88\106\5", "\168\55\24\54\162\63\115")]=THEME.yellow,[LUAOBFUSACTOR_DECRYPT_STR_0("\49\245\46\148", "\174\119\154\64\224\178")]=Enum.Font.Arcade,[LUAOBFUSACTOR_DECRYPT_STR_0("\30\123\221\111\54\174\0\225", "\132\74\30\165\27\101\199\122")]=S.FontSize.title,[LUAOBFUSACTOR_DECRYPT_STR_0("\27\226\231\179\159\148\184\38\224\241\170\162\187\160", "\212\79\135\159\199\199\213")]=Enum.TextXAlignment.Left}, top);
+	task.spawn(function()
+		task.wait(0.3);
+		local full = LUAOBFUSACTOR_DECRYPT_STR_0("\91\129\135\110\104\248\54\92\224\133\117\115", "\120\25\192\213\39\60\183");
+		for i = 1, #full do
+			headerTitle.Text = full:sub(1, i);
+			task.wait(0.05);
+		end
+	end);
+	if not isMobile then
+		make(LUAOBFUSACTOR_DECRYPT_STR_0("\44\69\39\92\52\65\61\77\20", "\40\120\32\95"), {[LUAOBFUSACTOR_DECRYPT_STR_0("\9\162\35\127", "\127\90\203\89\26\207")]=UDim2.new(1, -130, 0, 14),[LUAOBFUSACTOR_DECRYPT_STR_0("\237\58\188\194\29\244\210\59", "\157\189\85\207\171\105")]=UDim2.new(0, 14, 0, 38),[LUAOBFUSACTOR_DECRYPT_STR_0("\228\160\219\190\4\212\174\205\187\7\242\179\217\187\16\214\160\202\176\13\197\184", "\99\166\193\184\213")]=1,[LUAOBFUSACTOR_DECRYPT_STR_0("\226\178\152\175", "\234\182\215\224\219\108")]=LUAOBFUSACTOR_DECRYPT_STR_0("\225\165\141\20\238\162\158\17\128\160\142\1\239\172\154\1\233\174\149\117\134\193\139\20\244\169\157\28\238\165\146\27\231\193\151\20\249\164\137", "\85\160\225\219"),[LUAOBFUSACTOR_DECRYPT_STR_0("\104\0\155\221\21\211\71\83\23\208", "\43\60\101\227\169\86\188")]=THEME.dim,[LUAOBFUSACTOR_DECRYPT_STR_0("\86\199\223\171", "\87\16\168\177\223\58\172\217")]=Enum.Font.Code,[LUAOBFUSACTOR_DECRYPT_STR_0("\0\200\65\201\8\61\215\92", "\91\84\173\57\189")]=10,[LUAOBFUSACTOR_DECRYPT_STR_0("\36\188\20\232\152\247\28\176\11\242\173\211\30\173", "\182\112\217\108\156\192")]=Enum.TextXAlignment.Left}, top);
+	end
+	local badgeColor = (isMobile and THEME.magenta) or THEME.green;
+	local badge = make(LUAOBFUSACTOR_DECRYPT_STR_0("\140\26\73\226\142", "\235\202\104\40\143"), {[LUAOBFUSACTOR_DECRYPT_STR_0("\62\130\1\188", "\217\109\235\123")]=UDim2.new(0, (isMobile and 70) or 100, 0, (isMobile and 20) or 24),[LUAOBFUSACTOR_DECRYPT_STR_0("\23\134\109\95\100\217\194\179", "\221\71\233\30\54\16\176\173")]=UDim2.new(1, (isMobile and -84) or -114, 0, (isMobile and 14) or 22),[LUAOBFUSACTOR_DECRYPT_STR_0("\22\253\93\180\51\238\81\170\58\248\125\176\56\243\76\236", "\223\84\156\62")]=THEME.panel3,[LUAOBFUSACTOR_DECRYPT_STR_0("\244\243\240\217\178\41\229\245\248\216\135\50\206\249\238", "\91\182\156\130\189\215")]=0}, top);
+	stroke(badge, badgeColor, 1, 0.15);
+	techCorners(badge, badgeColor);
+	make(LUAOBFUSACTOR_DECRYPT_STR_0("\74\118\180\65\82\114\174\80\114", "\53\30\19\204"), {[LUAOBFUSACTOR_DECRYPT_STR_0("\202\233\106\129", "\199\153\128\16\228")]=UDim2.new(1, 0, 1, 0),[LUAOBFUSACTOR_DECRYPT_STR_0("\243\43\230\18\160\195\37\240\23\163\229\56\228\23\180\193\43\247\28\169\210\51", "\199\177\74\133\121")]=1,[LUAOBFUSACTOR_DECRYPT_STR_0("\140\204\164\234", "\74\216\169\220\158\87\166")]=LUAOBFUSACTOR_DECRYPT_STR_0("\216\17\54\26\115\205\20", "\58\136\67\115\76"),[LUAOBFUSACTOR_DECRYPT_STR_0("\197\175\192\77\166\47\167\82\227\249", "\61\145\202\184\57\229\64\203")]=badgeColor,[LUAOBFUSACTOR_DECRYPT_STR_0("\122\93\135\83", "\39\60\50\233")]=Enum.Font.Code,[LUAOBFUSACTOR_DECRYPT_STR_0("\46\54\187\56\177\33\168\166", "\195\122\83\195\76\226\72\210")]=((isMobile and 10) or 12)}, badge);
+	local isMinimized = false;
+	local contentFrame;
+	if isMobile then
+		local minBtn = make(LUAOBFUSACTOR_DECRYPT_STR_0("\208\209\35\234\3\241\192\47\241\47", "\65\132\180\91\158"), {[LUAOBFUSACTOR_DECRYPT_STR_0("\54\117\203\43", "\78\101\28\177")]=UDim2.new(0, 26, 0, 18),[LUAOBFUSACTOR_DECRYPT_STR_0("\21\187\243\88\49\189\239\95", "\49\69\212\128")]=UDim2.new(1, -32, 0.5, -9),[LUAOBFUSACTOR_DECRYPT_STR_0("\53\13\211\249\230\5\3\197\252\229\52\3\220\253\243\68", "\129\119\108\176\146")]=THEME.panel2,[LUAOBFUSACTOR_DECRYPT_STR_0("\8\202\31\217", "\124\92\175\103\173\69\110")]="—",[LUAOBFUSACTOR_DECRYPT_STR_0("\245\61\27\35\226\55\15\56\211\107", "\87\161\88\99")]=THEME.cyan,[LUAOBFUSACTOR_DECRYPT_STR_0("\52\246\225\216", "\67\114\153\143\172\215\176")]=Enum.Font.Code,[LUAOBFUSACTOR_DECRYPT_STR_0("\138\167\246\26\141\171\244\11", "\110\222\194\142")]=12}, top);
+		stroke(minBtn, THEME.cyan);
+		minBtn.MouseButton1Click:Connect(function()
+			isMinimized = not isMinimized;
+			if contentFrame then
+				contentFrame.Visible = not isMinimized;
+			end
+			root.Size = (isMinimized and UDim2.new(0, 340, 0, 48)) or S.WindowSize;
+			minBtn.Text = (isMinimized and "+") or "—";
+		end);
+	end
+	local bodyOffW = (S.ShowRightRail and -44) or -16;
+	contentFrame = make(LUAOBFUSACTOR_DECRYPT_STR_0("\36\218\9\166\94\173\30\215\28\143\64\160\26\220", "\193\119\185\123\201\50"), {[LUAOBFUSACTOR_DECRYPT_STR_0("\68\1\227\35", "\127\23\104\153\70\111\25")]=UDim2.new(1, bodyOffW, 1, -(headerH + 8)),[LUAOBFUSACTOR_DECRYPT_STR_0("\57\8\181\166\63\37\184\189", "\211\105\103\198\207\75\76\215")]=UDim2.new(0, 8, 0, headerH + 4),[LUAOBFUSACTOR_DECRYPT_STR_0("\236\166\179\228\121\30\181\163\192\163\132\253\127\2\169\166\207\181\181\225\125\21", "\214\174\199\208\143\30\108\218")]=1,[LUAOBFUSACTOR_DECRYPT_STR_0("\34\135\25\165\169\90\250\72\3\176\3\163\166\93\214\76\2\151", "\41\113\228\107\202\197\54\184")]=4,[LUAOBFUSACTOR_DECRYPT_STR_0("\73\142\42\83\118\129\26\93\104\164\53\93\125\136\27\83\118\130\42\15", "\60\26\237\88")]=THEME.yellow,[LUAOBFUSACTOR_DECRYPT_STR_0("\251\43\122\240\175\203\25\125\252\171", "\206\184\74\20\134")]=UDim2.new(0, 0, 0, 0),[LUAOBFUSACTOR_DECRYPT_STR_0("\25\241\250\190\254\75\44\197\59\199\239\191\229\75\43\255\49\254\235", "\172\88\132\142\209\147\42\88")]=Enum.AutomaticSize.Y}, root);
+	make(LUAOBFUSACTOR_DECRYPT_STR_0("\178\163\224\4\37\225\146\134\147\195\24\34", "\222\231\234\172\109\86\149"), {[LUAOBFUSACTOR_DECRYPT_STR_0("\221\238\196\28\228\225\199", "\120\141\143\160")]=UDim.new(0, S.Padding),[LUAOBFUSACTOR_DECRYPT_STR_0("\115\163\164\70\111\190\178\87\82", "\50\32\204\214")]=Enum.SortOrder.LayoutOrder}, contentFrame);
+	make(LUAOBFUSACTOR_DECRYPT_STR_0("\179\110\5\120\183\21\143\73\50", "\113\230\39\85\25\211"), {[LUAOBFUSACTOR_DECRYPT_STR_0("\238\186\2\236\46\197\172\105\209\175\18\231\42", "\43\190\219\102\136\71\171\203")]=UDim.new(0, 12)}, contentFrame);
+	local function createSection(titleText, height, accent)
+		local card = make(LUAOBFUSACTOR_DECRYPT_STR_0("\4\108\49\84\39", "\57\66\30\80"), {[LUAOBFUSACTOR_DECRYPT_STR_0("\26\209\186\16", "\228\73\184\192\117\228\89\148")]=UDim2.new(1, 0, 0, height),[LUAOBFUSACTOR_DECRYPT_STR_0("\237\136\118\31\200\155\122\1\193\141\86\27\195\134\103\71", "\116\175\233\21")]=THEME.panel,[LUAOBFUSACTOR_DECRYPT_STR_0("\220\247\172\66\222\35\12\247\226\187\118\210\41\58\242", "\95\158\152\222\38\187\81")]=0}, contentFrame);
+		stroke(card, accent or THEME.line, 1, 0.18);
+		techCorners(card, accent or THEME.line);
+		make(LUAOBFUSACTOR_DECRYPT_STR_0("\222\175\52\191\166", "\168\152\221\85\210\195"), {[LUAOBFUSACTOR_DECRYPT_STR_0("\152\215\239\130", "\231\203\190\149")]=UDim2.new(0, 3, 1, 0),[LUAOBFUSACTOR_DECRYPT_STR_0("\239\60\224\250\187\231\20\216\51\231\210\179\249\20\223\110", "\123\173\93\131\145\220\149")]=(accent or THEME.yellow),[LUAOBFUSACTOR_DECRYPT_STR_0("\52\203\255\37\113\235\37\205\247\36\68\240\14\193\225", "\153\118\164\141\65\20")]=0}, card);
+		local topAccent = make(LUAOBFUSACTOR_DECRYPT_STR_0("\200\32\135\239\242", "\96\142\82\230\130\151"), {[LUAOBFUSACTOR_DECRYPT_STR_0("\124\185\85\71", "\142\47\208\47\34\132")]=UDim2.new(0.22, 0, 0, 2),[LUAOBFUSACTOR_DECRYPT_STR_0("\198\177\23\11\79\85\249\176", "\60\150\222\100\98\59")]=UDim2.new(0.02, 0, 0, 0),[LUAOBFUSACTOR_DECRYPT_STR_0("\103\61\84\93\220\168\62\80\50\83\117\212\182\62\87\111", "\81\37\92\55\54\187\218")]=(accent or THEME.yellow),[LUAOBFUSACTOR_DECRYPT_STR_0("\34\75\191\51\132\18\119\164\45\132\48\77\181\50\141", "\225\96\36\205\87")]=0}, card);
+		make(LUAOBFUSACTOR_DECRYPT_STR_0("\221\163\90\109\80\78\11\236\170", "\105\137\198\34\25\28\47"), {[LUAOBFUSACTOR_DECRYPT_STR_0("\34\160\91\115", "\160\113\201\33\22")]=UDim2.new(1, -16, 0, 18),[LUAOBFUSACTOR_DECRYPT_STR_0("\228\87\191\174\189\164\219\86", "\205\180\56\204\199\201")]=UDim2.new(0, 12, 0, 5),[LUAOBFUSACTOR_DECRYPT_STR_0("\161\223\63\19\132\204\51\13\141\218\8\10\130\208\47\8\130\204\57\22\128\199", "\120\227\190\92")]=1,[LUAOBFUSACTOR_DECRYPT_STR_0("\9\89\7\111", "\130\93\60\127\27\67\60\185")]=titleText,[LUAOBFUSACTOR_DECRYPT_STR_0("\124\55\32\90\195\76\113\71\32\107", "\29\40\82\88\46\128\35")]=(accent or THEME.yellow),[LUAOBFUSACTOR_DECRYPT_STR_0("\29\74\218\9", "\216\91\37\180\125\97")]=Enum.Font.Code,[LUAOBFUSACTOR_DECRYPT_STR_0("\17\115\4\215\100\44\108\25", "\55\69\22\124\163")]=S.FontSize.small,[LUAOBFUSACTOR_DECRYPT_STR_0("\76\214\68\252\231\80\92\253\127\221\81\237\209\101", "\148\24\179\60\136\191\17\48")]=Enum.TextXAlignment.Left}, card);
+		return card, topAccent;
+	end
+	local function createBox(parent, pos, size, label, value, accent)
+		local box = make(LUAOBFUSACTOR_DECRYPT_STR_0("\148\56\248\173\243", "\150\210\74\153\192"), {[LUAOBFUSACTOR_DECRYPT_STR_0("\208\193\34\143", "\212\131\168\88\234\21\26")]=size,[LUAOBFUSACTOR_DECRYPT_STR_0("\117\123\154\133\44\46\74\122", "\71\37\20\233\236\88")]=pos,[LUAOBFUSACTOR_DECRYPT_STR_0("\239\71\179\29\71\254\67\73\195\66\147\25\76\227\94\15", "\60\173\38\208\118\32\140\44")]=THEME.panel3,[LUAOBFUSACTOR_DECRYPT_STR_0("\99\61\243\215\37\221\114\59\251\214\16\198\89\55\237", "\175\33\82\129\179\64")]=0}, parent);
+		stroke(box, accent, 1, 0.28);
+		techCorners(box, accent);
+		make(LUAOBFUSACTOR_DECRYPT_STR_0("\218\234\40\219\16\179\236\234\60", "\210\142\143\80\175\92"), {[LUAOBFUSACTOR_DECRYPT_STR_0("\138\224\233\195", "\166\217\137\147")]=UDim2.new(1, -10, 0, 12),[LUAOBFUSACTOR_DECRYPT_STR_0("\211\172\97\175\229\79\236\173", "\38\131\195\18\198\145")]=UDim2.new(0, 5, 0, 4),[LUAOBFUSACTOR_DECRYPT_STR_0("\113\215\57\224\63\70\92\195\52\239\12\70\82\216\41\251\57\70\86\216\57\242", "\52\51\182\90\139\88")]=1,[LUAOBFUSACTOR_DECRYPT_STR_0("\194\188\200\243", "\35\150\217\176\135")]=label,[LUAOBFUSACTOR_DECRYPT_STR_0("\205\85\19\24\84\76\122\246\66\88", "\22\153\48\107\108\23\35")]=THEME.dim,[LUAOBFUSACTOR_DECRYPT_STR_0("\40\138\181\14", "\137\110\229\219\122\31\21\33")]=Enum.Font.Code,[LUAOBFUSACTOR_DECRYPT_STR_0("\46\184\32\111\5\66\62\123", "\30\122\221\88\27\86\43\68")]=(S.FontSize.small - 2),[LUAOBFUSACTOR_DECRYPT_STR_0("\12\45\243\146\0\9\231\143\63\38\230\131\54\60", "\230\88\72\139")]=Enum.TextXAlignment.Left}, box);
+		return make(LUAOBFUSACTOR_DECRYPT_STR_0("\70\177\14\15\47\9\90\119\184", "\56\18\212\118\123\99\104"), {[LUAOBFUSACTOR_DECRYPT_STR_0("\45\224\226\214", "\190\126\137\152\179\191")]=UDim2.new(1, -10, 0, 20),[LUAOBFUSACTOR_DECRYPT_STR_0("\24\13\97\194\190\73\39\12", "\32\72\98\18\171\202")]=UDim2.new(0, 5, 0, 17),[LUAOBFUSACTOR_DECRYPT_STR_0("\38\137\49\127\240\22\135\39\122\243\48\154\51\122\228\20\137\32\113\249\7\145", "\151\100\232\82\20")]=1,[LUAOBFUSACTOR_DECRYPT_STR_0("\75\220\238\28", "\104\31\185\150")]=value,[LUAOBFUSACTOR_DECRYPT_STR_0("\232\188\235\227\196\195\236\207\206\234", "\160\188\217\147\151\135\172\128")]=THEME.text,[LUAOBFUSACTOR_DECRYPT_STR_0("\41\210\30\228", "\169\111\189\112\144\90")]=Enum.Font.Arcade,[LUAOBFUSACTOR_DECRYPT_STR_0("\249\134\61\185\140\137\19\135", "\226\173\227\69\205\223\224\105")]=((isMobile and 12) or 15),[LUAOBFUSACTOR_DECRYPT_STR_0("\108\59\58\79\247\58\84\55\37\85\194\30\86\42", "\123\56\94\66\59\175")]=Enum.TextXAlignment.Left}, box);
+	end
+	local function createToggle(parent, posY, labelText, default, accent, callback)
+		local h = S.ToggleHeight;
+		local row = make(LUAOBFUSACTOR_DECRYPT_STR_0("\220\81\114\236\31", "\225\154\35\19\129\122\158"), {[LUAOBFUSACTOR_DECRYPT_STR_0("\105\9\241\82", "\84\58\96\139\55\149\135\176")]=UDim2.new(1, -24, 0, h),[LUAOBFUSACTOR_DECRYPT_STR_0("\35\48\176\9\90\198\49\29", "\94\115\95\195\96\46\175")]=UDim2.new(0, 12, 0, posY),[LUAOBFUSACTOR_DECRYPT_STR_0("\97\74\60\54\41\63\136\245\77\79\28\50\34\34\149\179", "\128\35\43\95\93\78\77\231")]=THEME.panel2,[LUAOBFUSACTOR_DECRYPT_STR_0("\134\18\36\48\18\108\154\173\7\51\4\30\102\172\168", "\201\196\125\86\84\119\30")]=0}, parent);
+		stroke(row, accent, 1, 0.35);
+		techCorners(row, accent);
+		make(LUAOBFUSACTOR_DECRYPT_STR_0("\229\252\5\178\198", "\223\163\142\100"), {[LUAOBFUSACTOR_DECRYPT_STR_0("\177\31\217\180", "\216\226\118\163\209")]=UDim2.new(0, 2, 1, 0),[LUAOBFUSACTOR_DECRYPT_STR_0("\156\241\24\10\80\98\48\171\254\31\34\88\124\48\172\163", "\95\222\144\123\97\55\16")]=accent,[LUAOBFUSACTOR_DECRYPT_STR_0("\59\139\168\71\230\11\183\179\89\230\41\141\162\70\239", "\131\121\228\218\35")]=0}, row);
+		local boxW = (isMobile and 32) or 44;
+		local boxH = (isMobile and 14) or 20;
+		local stateW = 30;
+		local rightGap = 8 + boxW + 6 + stateW;
+		make(LUAOBFUSACTOR_DECRYPT_STR_0("\237\213\58\21\85\26\219\213\46", "\123\185\176\66\97\25"), {[LUAOBFUSACTOR_DECRYPT_STR_0("\251\6\3\84", "\81\168\111\121\49\117\79\56")]=UDim2.new(1, -(rightGap + 14), 1, 0),[LUAOBFUSACTOR_DECRYPT_STR_0("\247\5\246\191\211\3\234\184", "\214\167\106\133")]=UDim2.new(0, 14, 0, 0),[LUAOBFUSACTOR_DECRYPT_STR_0("\11\57\79\68\51\109\214\60\54\72\123\38\126\215\58\40\77\93\49\113\218\48", "\185\73\88\44\47\84\31")]=1,[LUAOBFUSACTOR_DECRYPT_STR_0("\188\210\2\180", "\159\232\183\122\192\179")]=labelText,[LUAOBFUSACTOR_DECRYPT_STR_0("\16\55\176\53\7\61\164\46\54\97", "\65\68\82\200")]=THEME.text,[LUAOBFUSACTOR_DECRYPT_STR_0("\3\95\124\52", "\30\69\48\18\64\175\175")]=Enum.Font.Code,[LUAOBFUSACTOR_DECRYPT_STR_0("\196\41\7\248\8\249\54\26", "\91\144\76\127\140")]=S.FontSize.normal,[LUAOBFUSACTOR_DECRYPT_STR_0("\212\13\94\53\235\155\217\217\231\6\75\36\221\174", "\176\128\104\38\65\179\218\181")]=Enum.TextXAlignment.Left,[LUAOBFUSACTOR_DECRYPT_STR_0("\228\193\218\1\228\214\215\27\211\197\214\16", "\117\176\164\162")]=Enum.TextTruncate.AtEnd}, row);
+		local state = make(LUAOBFUSACTOR_DECRYPT_STR_0("\176\199\29\228\246\120\134\199\9", "\25\228\162\101\144\186"), {[LUAOBFUSACTOR_DECRYPT_STR_0("\123\63\163\11", "\132\40\86\217\110\146")]=UDim2.new(0, stateW, 1, 0),[LUAOBFUSACTOR_DECRYPT_STR_0("\78\196\52\181\179\122\243\80", "\62\30\171\71\220\199\19\156")]=UDim2.new(1, -(stateW + 8 + boxW + 4), 0, 0),[LUAOBFUSACTOR_DECRYPT_STR_0("\98\68\175\61\90\219\32\88\78\65\152\36\92\199\60\93\65\87\169\56\94\208", "\45\32\37\204\86\61\169\79")]=1,[LUAOBFUSACTOR_DECRYPT_STR_0("\97\80\29\168", "\28\53\53\101\220\213")]=((default and LUAOBFUSACTOR_DECRYPT_STR_0("\34\114", "\191\109\60\104\33\58\193\48")) or LUAOBFUSACTOR_DECRYPT_STR_0("\168\241\62", "\135\231\183\120")),[LUAOBFUSACTOR_DECRYPT_STR_0("\210\15\84\240\22\21\165\233\24\31", "\201\134\106\44\132\85\122")]=((default and accent) or THEME.dim),[LUAOBFUSACTOR_DECRYPT_STR_0("\16\3\121\43", "\67\86\108\23\95\97\108\168")]=Enum.Font.Code,[LUAOBFUSACTOR_DECRYPT_STR_0("\144\61\84\30\151\45\207\85", "\48\196\88\44\106\196\68\181")]=S.FontSize.small,[LUAOBFUSACTOR_DECRYPT_STR_0("\182\218\196\55\184\133\174\37\133\209\209\38\142\176", "\76\226\191\188\67\224\196\194")]=Enum.TextXAlignment.Right}, row);
+		local bx = make(LUAOBFUSACTOR_DECRYPT_STR_0("\255\58\6\253\248", "\157\185\72\103\144"), {[LUAOBFUSACTOR_DECRYPT_STR_0("\106\186\144\127", "\209\57\211\234\26\200")]=UDim2.new(0, boxW, 0, boxH),[LUAOBFUSACTOR_DECRYPT_STR_0("\49\193\181\136\68\219\14\192", "\178\97\174\198\225\48")]=UDim2.new(1, -(boxW + 8), 0.5, -boxH / 2),[LUAOBFUSACTOR_DECRYPT_STR_0("\237\87\7\250\127\244\0\218\88\0\210\119\234\0\221\5", "\111\175\54\100\145\24\134")]=Color3.fromRGB(14, 18, 22),[LUAOBFUSACTOR_DECRYPT_STR_0("\97\22\50\17\70\11\19\28\89\28\16\28\91\28\44", "\117\35\121\64")]=0}, row);
+		stroke(bx, accent, 1, 0.15);
+		techCorners(bx, accent);
+		local fill = make(LUAOBFUSACTOR_DECRYPT_STR_0("\251\175\239\219\38", "\47\189\221\142\182\67"), {[LUAOBFUSACTOR_DECRYPT_STR_0("\19\182\61\206", "\73\64\223\71\171\40\201\64")]=((default and UDim2.new(1, -4, 1, -4)) or UDim2.new(0, 0, 1, -4)),[LUAOBFUSACTOR_DECRYPT_STR_0("\58\130\215\80\180\116\5\131", "\29\106\237\164\57\192")]=UDim2.new(0, 2, 0, 2),[LUAOBFUSACTOR_DECRYPT_STR_0("\147\165\228\177\210\192\175\231\191\160\196\181\217\221\178\161", "\146\209\196\135\218\181\178\192")]=accent,[LUAOBFUSACTOR_DECRYPT_STR_0("\15\63\145\21\85\181\30\57\153\20\96\174\53\53\143", "\199\77\80\227\113\48")]=0}, bx);
+		local hit = make(LUAOBFUSACTOR_DECRYPT_STR_0("\30\58\70\217\8\42\74\217\37\49", "\173\74\95\62"), {[LUAOBFUSACTOR_DECRYPT_STR_0("\245\16\70\51", "\220\166\121\60\86\171\103")]=UDim2.new(1, 0, 1, 0),[LUAOBFUSACTOR_DECRYPT_STR_0("\203\3\62\187\60\216\21\252\12\57\132\41\203\20\250\18\60\162\62\196\25\240", "\122\137\98\93\208\91\170")]=1,[LUAOBFUSACTOR_DECRYPT_STR_0("\179\228\4\91", "\170\231\129\124\47\181\210\201")]=""}, row);
+		local enabled = default;
+		hit.MouseButton1Click:Connect(function()
+			enabled = not enabled;
+			TweenService:Create(fill, TweenInfo.new(0.18), {[LUAOBFUSACTOR_DECRYPT_STR_0("\184\178\32\53", "\74\235\219\90\80\106")]=((enabled and UDim2.new(1, -4, 1, -4)) or UDim2.new(0, 0, 1, -4))}):Play();
+			state.Text = (enabled and LUAOBFUSACTOR_DECRYPT_STR_0("\99\237", "\146\44\163\59\91\90\148\26")) or LUAOBFUSACTOR_DECRYPT_STR_0("\90\11\158", "\41\21\77\216\225");
+			state.TextColor3 = (enabled and accent) or THEME.dim;
+			if callback then
+				callback(enabled);
+			end
+		end);
+	end
+	local function createZoneToggle(parent, posY, zone)
+		local h = S.ZoneToggleHeight;
+		local row = make(LUAOBFUSACTOR_DECRYPT_STR_0("\50\95\115\72\17", "\37\116\45\18"), {[LUAOBFUSACTOR_DECRYPT_STR_0("\252\246\76\167", "\203\175\159\54\194")]=UDim2.new(1, -24, 0, h),[LUAOBFUSACTOR_DECRYPT_STR_0("\75\193\10\50\78\70\205\117", "\162\27\174\121\91\58\47")]=UDim2.new(0, 12, 0, posY),[LUAOBFUSACTOR_DECRYPT_STR_0("\241\196\28\254\56\203\220\208\17\241\28\214\223\202\13\166", "\185\179\165\127\149\95")]=THEME.panel2,[LUAOBFUSACTOR_DECRYPT_STR_0("\115\122\221\240\18\67\70\198\238\18\97\124\215\241\27", "\119\49\21\175\148")]=0}, parent);
+		stroke(row, THEME.orange, 1, 0.35);
+		make(LUAOBFUSACTOR_DECRYPT_STR_0("\113\167\23\80\40", "\149\55\213\118\61\77\41\234"), {[LUAOBFUSACTOR_DECRYPT_STR_0("\46\15\208\195", "\123\125\102\170\166\137\89\207")]=UDim2.new(0, 2, 1, 0),[LUAOBFUSACTOR_DECRYPT_STR_0("\108\1\91\54\9\145\166\91\14\92\30\1\143\166\92\83", "\201\46\96\56\93\110\227")]=THEME.orange,[LUAOBFUSACTOR_DECRYPT_STR_0("\153\12\252\253\16\211\136\10\244\252\37\200\163\6\226", "\161\219\99\142\153\117")]=0}, row);
+		local boxW = (isMobile and 28) or 40;
+		local boxH = (isMobile and 12) or 18;
+		local stateW = 30;
+		local rightGap = 8 + boxW + 6 + stateW;
+		make(LUAOBFUSACTOR_DECRYPT_STR_0("\72\180\190\103\225\125\179\163\127", "\173\28\209\198\19"), {[LUAOBFUSACTOR_DECRYPT_STR_0("\70\229\173\190", "\219\21\140\215")]=UDim2.new(1, -(rightGap + 14), 1, 0),[LUAOBFUSACTOR_DECRYPT_STR_0("\120\183\213\174\76\65\183\200", "\56\40\216\166\199")]=UDim2.new(0, 14, 0, 0),[LUAOBFUSACTOR_DECRYPT_STR_0("\4\181\22\36\33\166\26\58\40\176\33\61\39\186\6\63\39\166\16\33\37\173", "\79\70\212\117")]=1,[LUAOBFUSACTOR_DECRYPT_STR_0("\147\19\249\210", "\109\199\118\129\166\153")]=("⛔ " .. zone.name .. LUAOBFUSACTOR_DECRYPT_STR_0("\113\248", "\150\81\208\23") .. zone.radius .. LUAOBFUSACTOR_DECRYPT_STR_0("\244\140", "\235\153\165\128")),[LUAOBFUSACTOR_DECRYPT_STR_0("\143\76\186\59\101\41\166\241\169\26", "\158\219\41\194\79\38\70\202")]=THEME.text,[LUAOBFUSACTOR_DECRYPT_STR_0("\101\42\33\22", "\232\35\69\79\98\142\182")]=Enum.Font.Code,[LUAOBFUSACTOR_DECRYPT_STR_0("\77\5\7\233\74\9\5\248", "\157\25\96\127")]=S.FontSize.small,[LUAOBFUSACTOR_DECRYPT_STR_0("\147\134\237\17\104\16\171\138\242\11\93\52\169\151", "\81\199\227\149\101\48")]=Enum.TextXAlignment.Left,[LUAOBFUSACTOR_DECRYPT_STR_0("\73\87\227\5\194\148\41\181\126\83\239\20", "\219\29\50\155\113\150\230\92")]=Enum.TextTruncate.AtEnd}, row);
+		local state = make(LUAOBFUSACTOR_DECRYPT_STR_0("\229\37\221\111\211\73\79\212\44", "\45\177\64\165\27\159\40"), {[LUAOBFUSACTOR_DECRYPT_STR_0("\46\31\21\175", "\18\125\118\111\202")]=UDim2.new(0, stateW, 1, 0),[LUAOBFUSACTOR_DECRYPT_STR_0("\96\51\74\243\36\164\200\245", "\155\48\92\57\154\80\205\167")]=UDim2.new(1, -(stateW + 8 + boxW + 4), 0, 0),[LUAOBFUSACTOR_DECRYPT_STR_0("\155\204\184\180\255\185\74\172\195\191\139\234\170\75\170\221\186\173\253\165\70\160", "\37\217\173\219\223\152\203")]=1,[LUAOBFUSACTOR_DECRYPT_STR_0("\61\0\7\34", "\150\105\101\127\86\47\200")]=((zone.enabled and LUAOBFUSACTOR_DECRYPT_STR_0("\225\220", "\160\174\146\147\213\167")) or LUAOBFUSACTOR_DECRYPT_STR_0("\111\194\60", "\33\32\132\122\36\108")),[LUAOBFUSACTOR_DECRYPT_STR_0("\141\17\106\95\95\182\24\125\89\47", "\28\217\116\18\43")]=((zone.enabled and THEME.orange) or THEME.dim),[LUAOBFUSACTOR_DECRYPT_STR_0("\244\88\216\64", "\92\178\55\182\52\176\206")]=Enum.Font.Code,[LUAOBFUSACTOR_DECRYPT_STR_0("\46\48\105\1\41\60\107\16", "\117\122\85\17")]=S.FontSize.small,[LUAOBFUSACTOR_DECRYPT_STR_0("\188\234\50\80\158\252\132\230\45\74\171\216\134\251", "\189\232\143\74\36\198")]=Enum.TextXAlignment.Right}, row);
+		local bx = make(LUAOBFUSACTOR_DECRYPT_STR_0("\218\184\11\67\210", "\106\156\202\106\46\183"), {[LUAOBFUSACTOR_DECRYPT_STR_0("\14\16\97\54", "\74\93\121\27\83")]=UDim2.new(0, boxW, 0, boxH),[LUAOBFUSACTOR_DECRYPT_STR_0("\77\180\245\119\105\178\233\112", "\30\29\219\134")]=UDim2.new(1, -(boxW + 8), 0.5, -boxH / 2),[LUAOBFUSACTOR_DECRYPT_STR_0("\119\166\26\241\243\77\23\27\91\163\58\245\248\80\10\93", "\110\53\199\121\154\148\63\120")]=Color3.fromRGB(14, 18, 22),[LUAOBFUSACTOR_DECRYPT_STR_0("\35\21\237\59\92\238\50\19\229\58\105\245\25\31\243", "\156\97\122\159\95\57")]=0}, row);
+		stroke(bx, THEME.orange, 1, 0.15);
+		local fill = make(LUAOBFUSACTOR_DECRYPT_STR_0("\232\164\219\245\14", "\95\174\214\186\152\107\98"), {[LUAOBFUSACTOR_DECRYPT_STR_0("\186\7\107\142", "\166\233\110\17\235\115")]=((zone.enabled and UDim2.new(1, -4, 1, -4)) or UDim2.new(0, 0, 1, -4)),[LUAOBFUSACTOR_DECRYPT_STR_0("\72\1\215\200\230\183\115\118", "\28\24\110\164\161\146\222")]=UDim2.new(0, 2, 0, 2),[LUAOBFUSACTOR_DECRYPT_STR_0("\121\194\85\46\92\209\89\48\85\199\117\42\87\204\68\118", "\69\59\163\54")]=THEME.orange,[LUAOBFUSACTOR_DECRYPT_STR_0("\146\167\216\78\54\223\133\185\178\207\122\58\213\179\188", "\214\208\200\170\42\83\173")]=0}, bx);
+		local hit = make(LUAOBFUSACTOR_DECRYPT_STR_0("\237\36\106\180\87\204\53\102\175\123", "\21\185\65\18\192"), {[LUAOBFUSACTOR_DECRYPT_STR_0("\205\95\71\30", "\193\158\54\61\123")]=UDim2.new(1, 0, 1, 0),[LUAOBFUSACTOR_DECRYPT_STR_0("\23\16\35\178\50\3\47\172\59\21\20\171\52\31\51\169\52\3\37\183\54\8", "\217\85\113\64")]=1,[LUAOBFUSACTOR_DECRYPT_STR_0("\127\10\212\212", "\133\43\111\172\160\143\226")]=""}, row);
+		hit.MouseButton1Click:Connect(function()
+			zone.enabled = not zone.enabled;
+			TweenService:Create(fill, TweenInfo.new(0.15), {[LUAOBFUSACTOR_DECRYPT_STR_0("\248\170\74\212", "\160\171\195\48\177")]=((zone.enabled and UDim2.new(1, -4, 1, -4)) or UDim2.new(0, 0, 1, -4))}):Play();
+			state.Text = (zone.enabled and LUAOBFUSACTOR_DECRYPT_STR_0("\252\45", "\167\179\99\22\77\60\161\207")) or LUAOBFUSACTOR_DECRYPT_STR_0("\46\89\173", "\44\97\31\235\56");
+			state.TextColor3 = (zone.enabled and THEME.orange) or THEME.dim;
+			ZoneManager.updateZoneVisuals();
+			Logger.log(LUAOBFUSACTOR_DECRYPT_STR_0("\203\33\214\129", "\196\145\110\152"), zone.name .. LUAOBFUSACTOR_DECRYPT_STR_0("\2\110", "\146\56\78\158") .. ((zone.enabled and LUAOBFUSACTOR_DECRYPT_STR_0("\2\245", "\58\77\187\47\134")) or LUAOBFUSACTOR_DECRYPT_STR_0("\61\19\135", "\126\114\85\193\103\133\78\52")));
+		end);
+	end
+	local tH = S.ToggleHeight;
+	local ztH = S.ZoneToggleHeight;
+	local pad = 4;
+	local bH = S.BoxHeight;
+	local s1, a1 = createSection(LUAOBFUSACTOR_DECRYPT_STR_0("\158\129\114\75\240\250\6\77\247\155\20\93\225\255", "\24\164\187\82"), bH + 30, THEME.yellow);
+	local stateVal = createBox(s1, UDim2.new(0, 12, 0, 22), UDim2.new(0.5, -6, 0, bH), LUAOBFUSACTOR_DECRYPT_STR_0("\194\238\125\158\212", "\145\145\186\60\202"), LUAOBFUSACTOR_DECRYPT_STR_0("\207\244\31\33", "\100\134\176\83"), THEME.yellow);
+	local targetVal = createBox(s1, UDim2.new(0.5, 4, 0, 22), UDim2.new(0.5, -16, 0, bH), LUAOBFUSACTOR_DECRYPT_STR_0("\231\224\112\154\150\33", "\117\179\161\34\221\211"), LUAOBFUSACTOR_DECRYPT_STR_0("\99\159\212\227", "\197\45\208\154\166\100\159"), THEME.cyan);
+	local s2, a2 = createSection(LUAOBFUSACTOR_DECRYPT_STR_0("\115\174\198\159\28\27\209\198\143\10\26\192\163\145", "\83\73\148\230\220"), 22 + (tH * 3) + (pad * 2) + 10, THEME.magenta);
+	local y = 22;
+	createToggle(s2, y, LUAOBFUSACTOR_DECRYPT_STR_0("\18\234\194\207\201\168\1\242\182\208\221\166\7\240\213\207\195", "\233\83\191\150\128\143"), CONFIG.Enabled, THEME.magenta, function(v)
+		CONFIG.Enabled = v;
+		if v then
+			State.FarmStartTime = tick();
+			Logger.log(LUAOBFUSACTOR_DECRYPT_STR_0("\196\191\252", "\109\151\230\175\18"), LUAOBFUSACTOR_DECRYPT_STR_0("\144\200\110\112\175\131\213\109\30\192\143\212\109\109\174\133", "\224\192\154\33\36"));
+		else
+			Logger.setState(LUAOBFUSACTOR_DECRYPT_STR_0("\170\112\52\167", "\226\227\52\120"), LUAOBFUSACTOR_DECRYPT_STR_0("\43\196\194\129", "\217\101\139\140\196\42\223\183"));
+			Logger.log(LUAOBFUSACTOR_DECRYPT_STR_0("\41\54\156", "\36\122\111\207\122"), LUAOBFUSACTOR_DECRYPT_STR_0("\60\58\203\140\151\23\35\36\190\248\151\18\42\36\205\150\157", "\84\108\104\132\216\216"));
+			local h, r = Utils.getHum(), Utils.getRoot();
+			if (h and r) then
+				h:MoveTo(r.Position);
+			end
+			if pathFolder then
+				pathFolder:ClearAllChildren();
+			end
+		end
+	end);
+	y = y + tH + pad;
+	createToggle(s2, y, LUAOBFUSACTOR_DECRYPT_STR_0("\237\53\242\113\173\133\100\231\91\228\97\208\133\113\255", "\34\172\123\166\56\128\196"), CONFIG.AntiAFK.Enabled, THEME.cyan, function(v)
+		CONFIG.AntiAFK.Enabled = v;
+		Logger.log(LUAOBFUSACTOR_DECRYPT_STR_0("\133\143\131", "\116\196\201\200\171\42\19\181"), (v and LUAOBFUSACTOR_DECRYPT_STR_0("\89\168", "\124\22\230\155\61\117\96")) or LUAOBFUSACTOR_DECRYPT_STR_0("\234\141\192", "\149\165\203\134\139\158\141"));
+	end);
+	y = y + tH + pad;
+	createToggle(s2, y, LUAOBFUSACTOR_DECRYPT_STR_0("\18\153\116\9\115\158\101\21\22\152", "\70\83\204\32"), CONFIG.AutoReset.Enabled, THEME.green, function(v)
+		CONFIG.AutoReset.Enabled = v;
+		Logger.log(LUAOBFUSACTOR_DECRYPT_STR_0("\60\164\56\165\58", "\224\110\225\107"), (v and LUAOBFUSACTOR_DECRYPT_STR_0("\219\88", "\164\148\22\189\81\80\164")) or LUAOBFUSACTOR_DECRYPT_STR_0("\157\166\81", "\23\210\224\23\211\71\43"));
+	end);
+	local s3, a3 = createSection(LUAOBFUSACTOR_DECRYPT_STR_0("\243\220\80\132\101\14\249\212\233\165\63\153\97\25\243\220", "\144\201\230\112\215\53\75\188"), tH + 28, THEME.yellow);
+	local speedRow = make(LUAOBFUSACTOR_DECRYPT_STR_0("\115\215\24\231\243", "\197\53\165\121\138\150"), {[LUAOBFUSACTOR_DECRYPT_STR_0("\222\214\195\37", "\64\141\191\185")]=UDim2.new(1, -24, 0, tH),[LUAOBFUSACTOR_DECRYPT_STR_0("\51\229\163\211\227\192\169\13", "\198\99\138\208\186\151\169")]=UDim2.new(0, 12, 0, 22),[LUAOBFUSACTOR_DECRYPT_STR_0("\47\244\128\85\10\231\140\75\3\241\160\81\1\250\145\13", "\62\109\149\227")]=THEME.panel2,[LUAOBFUSACTOR_DECRYPT_STR_0("\209\135\155\208\5\225\187\128\206\5\195\129\145\209\12", "\96\147\232\233\180")]=0}, s3);
+	stroke(speedRow, THEME.yellow, 1, 0.35);
+	techCorners(speedRow, THEME.yellow);
+	make(LUAOBFUSACTOR_DECRYPT_STR_0("\14\42\27\70\136", "\89\72\88\122\43\237"), {[LUAOBFUSACTOR_DECRYPT_STR_0("\31\178\191\51", "\123\76\219\197\86")]=UDim2.new(0, 2, 1, 0),[LUAOBFUSACTOR_DECRYPT_STR_0("\122\217\22\7\233\45\87\205\27\8\205\48\84\215\7\95", "\95\56\184\117\108\142")]=THEME.yellow,[LUAOBFUSACTOR_DECRYPT_STR_0("\210\205\52\232\245\208\21\229\234\199\22\229\232\199\42", "\140\144\162\70")]=0}, speedRow);
+	make(LUAOBFUSACTOR_DECRYPT_STR_0("\228\45\65\102\194\209\42\92\126", "\142\176\72\57\18"), {[LUAOBFUSACTOR_DECRYPT_STR_0("\149\56\10\33", "\68\198\81\112")]=UDim2.new(0.52, 0, 1, 0),[LUAOBFUSACTOR_DECRYPT_STR_0("\135\0\163\29\88\20\184\1", "\125\215\111\208\116\44")]=UDim2.new(0, 10, 0, 0),[LUAOBFUSACTOR_DECRYPT_STR_0("\37\70\76\248\127\78\8\82\65\247\76\78\6\73\92\227\121\78\2\73\76\234", "\60\103\39\47\147\24")]=1,[LUAOBFUSACTOR_DECRYPT_STR_0("\216\15\239\148", "\46\140\106\151\224\182\147")]=LUAOBFUSACTOR_DECRYPT_STR_0("\198\2\75\103\198\8\83\118\171\2\75\103\217\31\84\102\206", "\34\139\77\29"),[LUAOBFUSACTOR_DECRYPT_STR_0("\132\245\5\64\10\191\252\18\70\122", "\73\208\144\125\52")]=THEME.text,[LUAOBFUSACTOR_DECRYPT_STR_0("\12\227\132\223", "\171\74\140\234\171\167\112\51")]=Enum.Font.Code,[LUAOBFUSACTOR_DECRYPT_STR_0("\27\11\84\75\194\164\53\11", "\205\79\110\44\63\145")]=S.FontSize.normal,[LUAOBFUSACTOR_DECRYPT_STR_0("\147\90\39\220\140\42\168\21\160\81\50\205\186\31", "\124\199\63\95\168\212\107\196")]=Enum.TextXAlignment.Left,[LUAOBFUSACTOR_DECRYPT_STR_0("\50\173\75\46\144\229\156\253\5\169\71\63", "\147\102\200\51\90\196\151\233")]=Enum.TextTruncate.AtEnd}, speedRow);
+	local speedLbl = make(LUAOBFUSACTOR_DECRYPT_STR_0("\15\245\247\217\146\225\57\62\252", "\91\91\144\143\173\222\128"), {[LUAOBFUSACTOR_DECRYPT_STR_0("\16\169\86\84", "\46\67\192\44\49\203")]=UDim2.new(0.42, 0, 1, 0),[LUAOBFUSACTOR_DECRYPT_STR_0("\52\217\61\171\48\173\10\10", "\101\100\182\78\194\68\196")]=UDim2.new(0.56, 0, 0, 0),[LUAOBFUSACTOR_DECRYPT_STR_0("\106\73\51\254\138\89\119\192\70\76\4\231\140\69\107\197\73\90\53\251\142\82", "\181\40\40\80\149\237\43\24")]=1,[LUAOBFUSACTOR_DECRYPT_STR_0("\33\183\61\38", "\114\117\210\69\82\218\42")]=CONFIG.SpeedModes[CONFIG.CurrentSpeedIndex].name,[LUAOBFUSACTOR_DECRYPT_STR_0("\112\211\64\103\143\75\218\87\97\255", "\204\36\182\56\19")]=CONFIG.SpeedModes[CONFIG.CurrentSpeedIndex].color,[LUAOBFUSACTOR_DECRYPT_STR_0("\207\68\210\151", "\114\137\43\188\227\29\88")]=Enum.Font.Code,[LUAOBFUSACTOR_DECRYPT_STR_0("\208\24\176\4\215\20\178\21", "\112\132\125\200")]=S.FontSize.small,[LUAOBFUSACTOR_DECRYPT_STR_0("\201\189\235\103\98\212\241\177\244\125\87\240\243\172", "\149\157\216\147\19\58")]=Enum.TextXAlignment.Right}, speedRow);
+	make(LUAOBFUSACTOR_DECRYPT_STR_0("\253\131\0\220\235\147\12\220\198\136", "\168\169\230\120"), {[LUAOBFUSACTOR_DECRYPT_STR_0("\207\132\158\18", "\119\156\237\228")]=UDim2.new(1, 0, 1, 0),[LUAOBFUSACTOR_DECRYPT_STR_0("\225\208\3\117\196\195\15\107\205\213\52\108\194\223\19\110\194\195\5\112\192\200", "\30\163\177\96")]=1,[LUAOBFUSACTOR_DECRYPT_STR_0("\46\37\77\157", "\180\122\64\53\233\93\75")]=""}, speedRow).MouseButton1Click:Connect(function()
+		CONFIG.CurrentSpeedIndex = (CONFIG.CurrentSpeedIndex % #CONFIG.SpeedModes) + 1;
+		local m = CONFIG.SpeedModes[CONFIG.CurrentSpeedIndex];
+		speedLbl.Text = m.name;
+		speedLbl.TextColor3 = m.color;
+		Logger.log(LUAOBFUSACTOR_DECRYPT_STR_0("\229\46\32", "\93\182\119\115"), LUAOBFUSACTOR_DECRYPT_STR_0("\177\47\246\169\147\164\194", "\158\226\127\179\236\215") .. m.name);
+	end);
+	local zoneCardH = 22 + tH + pad + (#CONFIG.DisplayZones * (ztH + pad)) + 8;
+	local s4, a4 = createSection(LUAOBFUSACTOR_DECRYPT_STR_0("\171\154\137\236\222\238\236\150\211\236\232\245\218\236\224\229\197", "\182\145\160\169"), zoneCardH, THEME.orange);
+	createToggle(s4, 22, LUAOBFUSACTOR_DECRYPT_STR_0("\10\8\31\33\231\53\22\14\21\86\145\38\10\21\17\58\148", "\111\89\64\80\118\199"), CONFIG.Visuals.ShowZones, THEME.orange, function(v)
+		CONFIG.Visuals.ShowZones = v;
+		ZoneManager.updateZoneVisuals();
+	end);
+	local zy = 22 + tH + pad;
+	for _, zone in ipairs(CONFIG.DisplayZones) do
+		createZoneToggle(s4, zy, zone);
+		zy = zy + ztH + pad;
+	end
+	local s5, a5 = createSection(LUAOBFUSACTOR_DECRYPT_STR_0("\229\237\78\112\150\132\59\103\147\247\61\127\140\131\43\107", "\38\223\215\110"), 22 + (tH * 2) + pad + 6, THEME.cyan);
+	createToggle(s5, 22, LUAOBFUSACTOR_DECRYPT_STR_0("\123\245\36\228\133\125\254\40\133\142\109\235", "\203\62\187\108\165"), CONFIG.Visuals.ShowESP, THEME.yellow, function(v)
+		CONFIG.Visuals.ShowESP = v;
+		if not v then
+			for _, d in pairs(State.EggsCache) do
+				if d.espFolder then
+					d.espFolder:Destroy();
+					d.espFolder = nil;
+				end
+			end
+		else
+			for o, d in pairs(State.EggsCache) do
+				EggManager.addESP(o, d);
+			end
+		end
+	end);
+	createToggle(s5, 22 + tH + pad, LUAOBFUSACTOR_DECRYPT_STR_0("\201\85\124\22\49\204\245\215\80\109\12", "\176\153\20\40\94\17\158"), CONFIG.Visuals.ShowPath, THEME.cyan, function(v)
+		CONFIG.Visuals.ShowPath = v;
+		if (not v and pathFolder) then
+			pathFolder:ClearAllChildren();
+		end
+	end);
+	local s6, a6 = createSection(LUAOBFUSACTOR_DECRYPT_STR_0("\242\105\251\103\224\132\22\150\118\241\154\10", "\165\200\83\219\51"), bH + 28, THEME.red);
+	local countVal = createBox(s6, UDim2.new(0, 12, 0, 22), UDim2.new(0.5, -6, 0, bH), LUAOBFUSACTOR_DECRYPT_STR_0("\226\205\83\72\145\150\147\200\235\207\87\79\244\145", "\132\167\138\20\27\177\213\220"), "0", THEME.yellow);
+	local timeVal = createBox(s6, UDim2.new(0.5, 4, 0, 22), UDim2.new(0.5, -16, 0, bH), LUAOBFUSACTOR_DECRYPT_STR_0("\212\244\209\97\124\198\252\206\105", "\92\146\181\131\44"), LUAOBFUSACTOR_DECRYPT_STR_0("\27\243\1\214\238\83", "\189\43\158\33\230\222\32\119"), THEME.green);
+	local logH = (isMobile and 80) or 110;
+	local s7, a7 = createSection(LUAOBFUSACTOR_DECRYPT_STR_0("\4\154\13\112\171\106\233\123\120\188\103\128\97\126\175", "\232\62\160\45\49"), logH, THEME.dim);
+	local logFrame = make(LUAOBFUSACTOR_DECRYPT_STR_0("\71\208\231\163\173\120\218\251\171\135\102\210\248\169", "\193\20\179\149\204"), {[LUAOBFUSACTOR_DECRYPT_STR_0("\228\8\155\199", "\162\183\97\225")]=UDim2.new(1, -24, 1, -30),[LUAOBFUSACTOR_DECRYPT_STR_0("\25\202\247\254\8\235\174\39", "\193\73\165\132\151\124\130")]=UDim2.new(0, 12, 0, 24),[LUAOBFUSACTOR_DECRYPT_STR_0("\239\195\170\80\177\164\194\215\167\95\149\185\193\205\187\8", "\214\173\162\201\59\214")]=THEME.bg2,[LUAOBFUSACTOR_DECRYPT_STR_0("\1\118\184\69\210\50\16\112\176\68\231\41\59\124\166", "\64\67\25\202\33\183")]=0,[LUAOBFUSACTOR_DECRYPT_STR_0("\218\237\99\179\34\222\97\232\252\69\180\39\209\72\231\235\98\175", "\35\137\142\17\220\78\178")]=3,[LUAOBFUSACTOR_DECRYPT_STR_0("\14\79\43\23\44\93\22\8\55\75", "\97\77\46\69")]=UDim2.new(0, 0, 0, 0)}, s7);
+	stroke(logFrame, THEME.line, 1, 0.35);
+	techCorners(logFrame, THEME.line);
+	local logText = make(LUAOBFUSACTOR_DECRYPT_STR_0("\235\218\24\177\243\222\2\160\211", "\197\191\191\96"), {[LUAOBFUSACTOR_DECRYPT_STR_0("\249\32\247\75", "\45\170\73\141\46\56\136")]=UDim2.new(1, -10, 0, 0),[LUAOBFUSACTOR_DECRYPT_STR_0("\177\0\222\236\187\142\8\143", "\103\225\111\173\133\207\231")]=UDim2.new(0, 5, 0, 4),[LUAOBFUSACTOR_DECRYPT_STR_0("\109\145\225\90\65\133\225\92\79\183\252\79\73", "\53\44\228\149")]=Enum.AutomaticSize.Y,[LUAOBFUSACTOR_DECRYPT_STR_0("\239\218\56\14\204\54\194\206\53\1\255\54\204\213\40\21\202\54\200\213\56\28", "\68\173\187\91\101\171")]=1,[LUAOBFUSACTOR_DECRYPT_STR_0("\200\10\10\211", "\185\156\111\114\167\41\226\29")]=(LUAOBFUSACTOR_DECRYPT_STR_0("\48\54\47\19\137\163\41\36\36\9\128\204\37\32\86\54\236\179\75\77", "\131\107\101\118\64\212") .. Platform.Current .. ")\n[SYS] READY"),[LUAOBFUSACTOR_DECRYPT_STR_0("\245\211\52\63\100\207\197\206\196\127", "\169\161\182\76\75\39\160")]=THEME.dim,[LUAOBFUSACTOR_DECRYPT_STR_0("\255\93\185\159", "\200\185\50\215\235\123\66")]=Enum.Font.Code,[LUAOBFUSACTOR_DECRYPT_STR_0("\198\132\193\246\185\127\0\247", "\122\146\225\185\130\234\22")]=((isMobile and 9) or 11),[LUAOBFUSACTOR_DECRYPT_STR_0("\141\231\216\219\216\169\184\242\208\202\235", "\219\217\130\160\175\143")]=true,[LUAOBFUSACTOR_DECRYPT_STR_0("\10\185\90\41\6\157\78\52\57\178\79\56\48\168", "\93\94\220\34")]=Enum.TextXAlignment.Left,[LUAOBFUSACTOR_DECRYPT_STR_0("\59\205\217\158\227\214\241\6\207\207\135\223\249\233", "\157\111\168\161\234\186\151")]=Enum.TextYAlignment.Top}, logFrame);
+	if S.ShowScanlines then
+		local scan = make(LUAOBFUSACTOR_DECRYPT_STR_0("\93\82\116\60\199", "\229\27\32\21\81\162\217\210"), {[LUAOBFUSACTOR_DECRYPT_STR_0("\31\197\225\63", "\42\76\172\155\90")]=UDim2.new(1, 0, 1, 0),[LUAOBFUSACTOR_DECRYPT_STR_0("\208\140\130\34\7\224\130\148\39\4\198\159\128\39\19\226\140\147\44\14\241\148", "\96\146\237\225\73")]=1,[LUAOBFUSACTOR_DECRYPT_STR_0("\210\87\6\236\76\98", "\194\136\30\104\136\41\26")]=20}, root);
+		for i = 0, 55 do
+			make(LUAOBFUSACTOR_DECRYPT_STR_0("\250\196\2\69\17", "\79\188\182\99\40\116\208\201"), {[LUAOBFUSACTOR_DECRYPT_STR_0("\78\202\48\68", "\95\29\163\74\33\67")]=UDim2.new(1, 0, 0, 1),[LUAOBFUSACTOR_DECRYPT_STR_0("\76\61\83\62\107\131\11\114", "\100\28\82\32\87\31\234")]=UDim2.new(0, 0, 0, i * 13),[LUAOBFUSACTOR_DECRYPT_STR_0("\19\83\227\122\252\196\231\43\63\86\195\126\247\217\250\109", "\94\81\50\128\17\155\182\136")]=Color3.new(1, 1, 1),[LUAOBFUSACTOR_DECRYPT_STR_0("\169\61\231\50\229\166\19\146\133\56\208\43\227\186\15\151\138\46\225\55\225\173", "\231\235\92\132\89\130\212\124")]=0.975,[LUAOBFUSACTOR_DECRYPT_STR_0("\196\157\250\59\212\93", "\37\158\212\148\95\177")]=20}, scan);
+		end
+	end
+	CyberUI.SetState = function(v)
+		stateVal.Text = string.upper(tostring(v)):sub(1, 12);
+	end;
+	CyberUI.SetTarget = function(v)
+		targetVal.Text = string.upper(tostring(v)):sub(1, 12);
+	end;
+	CyberUI.SetCount = function(v)
+		countVal.Text = tostring(v);
+	end;
+	CyberUI.SetTime = function(v)
+		timeVal.Text = v;
+	end;
+	CyberUI.Log = function(msg)
+		logText.Text = logText.Text .. "\n" .. msg;
+		logFrame.CanvasSize = UDim2.new(0, 0, 0, logText.TextBounds.Y + 10);
+		logFrame.CanvasPosition = Vector2.new(0, math.max(0, logText.TextBounds.Y));
+	end;
+	task.spawn(function()
+		while gui.Parent do
+			if (CONFIG.Enabled and (State.FarmStartTime > 0)) then
+				CyberUI.SetTime(Utils.formatTime(tick() - State.FarmStartTime));
+			end
+			task.wait(1);
+		end
+	end);
+	table.insert(State.UIConnections, RunService.RenderStepped:Connect(function()
+		if not isMobile then
+			outerGlow1.BackgroundTransparency = (CONFIG.Visuals.HUDGlow and 0) or 1;
+			outerGlow2.BackgroundTransparency = (CONFIG.Visuals.HUDGlow and 0) or 1;
+		end
+	end));
+	task.spawn(function()
+		local interval = (isMobile and 0.5) or 0.25;
+		while gui.Parent do
+			if CONFIG.Visuals.ShowESP then
+				EggManager.updateESP();
+			end
+			task.wait(interval);
+		end
+	end);
+	if not isMobile then
+		task.spawn(function()
+			local t = 0;
+			while gui.Parent do
+				t = t + 0.03;
+				local a = (math.sin(t) + 1) / 2;
+				topLine.BackgroundColor3 = THEME.yellow:Lerp(THEME.yellowSoft, a);
+				topLine2.BackgroundColor3 = THEME.cyan:Lerp(THEME.cyanSoft, a);
+				topLine2.Size = UDim2.new(0.24 + (a * 0.2), 0, 0, 2);
+				a1.Size = UDim2.new(0.18 + (a * 0.12), 0, 0, 2);
+				a2.Size = UDim2.new(0.2 + (a * 0.15), 0, 0, 2);
+				a3.Size = UDim2.new(0.14 + (a * 0.12), 0, 0, 2);
+				a4.Size = UDim2.new(0.12 + (a * 0.16), 0, 0, 2);
+				a5.Size = UDim2.new(0.16 + (a * 0.14), 0, 0, 2);
+				a6.Size = UDim2.new(0.2 + (a * 0.14), 0, 0, 2);
+				a7.Size = UDim2.new(0.14 + (a * 0.18), 0, 0, 2);
+				outerGlow2.Size = UDim2.new(0.22 + (a * 0.22), 0, 0, 2);
+				task.wait(0.06);
+			end
+		end);
+	end
+end;
+local function mainLoop()
+	while true do
+		while State.IsResetting do
+			task.wait(0.1);
+		end
+		if CONFIG.Enabled then
+			local target = EggManager.getBestTarget();
+			if target then
+				Movement.collectTarget(target);
+				if pathFolder then
+					pathFolder:ClearAllChildren();
+				end
+				task.wait(0.2);
+			else
+				if (State.Status ~= LUAOBFUSACTOR_DECRYPT_STR_0("\67\61\141\179", "\109\20\124\196\231")) then
+					Logger.setState(LUAOBFUSACTOR_DECRYPT_STR_0("\151\156\93\145", "\64\192\221\20\197\81"), LUAOBFUSACTOR_DECRYPT_STR_0("\138\209\197\145", "\199\207\150\130\194"));
+					local h, r = Utils.getHum(), Utils.getRoot();
+					if (h and r) then
+						h:MoveTo(r.Position);
+					end
+					if pathFolder then
+						pathFolder:ClearAllChildren();
+					end
+				end
+				task.wait(1);
+			end
+		else
+			task.wait(0.5);
+		end
+	end
+end
+local function scanLoop()
+	local interval = ((Platform.Current == LUAOBFUSACTOR_DECRYPT_STR_0("\152\101\89\193\111\144", "\35\213\42\27\136")) and 15) or 10;
+	while true do
+		for _, v in ipairs(Workspace:GetDescendants()) do
+			EggManager.registerEgg(v);
+		end
+		task.wait(interval);
+	end
+end
+local function startBaritone(platform)
+	CONFIG.applyPlatformSettings(platform);
+	ZoneManager.init();
+	EggManager.init();
+	Movement.init();
+	AntiAFK.init();
+	ZoneManager.createZoneVisuals();
+	UI.build();
+	Workspace.DescendantAdded:Connect(function(d)
+		task.wait(0.1);
+		EggManager.registerEgg(d);
+	end);
+	Workspace.DescendantRemoving:Connect(function(d)
+		EggManager.removeEgg(d);
+	end);
+	player.CharacterAdded:Connect(function()
+		task.wait(1);
+		if CONFIG.AutoReset.Enabled then
+			EggManager.clearBlacklist();
+		end
+	end);
+	task.spawn(mainLoop);
+	task.spawn(scanLoop);
+	Logger.log(LUAOBFUSACTOR_DECRYPT_STR_0("\147\190\8", "\146\192\231\91\223\184"), LUAOBFUSACTOR_DECRYPT_STR_0("\120\208\196\0\229\155\41\43\26\231\174\121\145\134\34\47\126\200\182\53\145", "\110\58\145\150\73\177\212\103") .. platform);
+end
+Platform.showSelector(startBaritone);
